@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour {
         //camera following the player
         if (LockedToPlayer)
         {
-            _target = new Vector3(_player.position.x + CameraHorizontal, _player.position.y + CameraHeight, _player.position.z + CameraVertical);
+            _target = _player.position + new Vector3(CameraHorizontal, CameraHeight, CameraVertical);
         }
         this.transform.position = Vector3.SmoothDamp(transform.position, _target, ref _camVelocity, _cameraTimetoReach);
     }
