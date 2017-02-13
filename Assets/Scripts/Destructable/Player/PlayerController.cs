@@ -21,16 +21,20 @@ public class PlayerController : MonoBehaviour {
         AngleUpdate(mousePos);
         Movement();
         ShootInput(GetAngle(transform.position, mousePos));
+        MenuControls();
 	}
+
     void AngleUpdate(Vector3 tpos)
     {
         Vector3 pos = transform.position;
         transform.rotation = Quaternion.Euler(0, -GetAngle(pos, tpos) * 180f/Mathf.PI, 0);
     }
+
     float GetAngle(Vector3 v1, Vector3 v2)
     {
-        return Mathf.Atan2(v2.z - v1.z, v2.x - v1.z);
+        return Mathf.Atan2(v2.z - v1.z, v2.x - v1.x);
     }
+
     Vector3 GetMousePos()
     {
         RaycastHit[] hits;
@@ -71,5 +75,13 @@ public class PlayerController : MonoBehaviour {
         }
         //transform.position += displacement * Time.deltaTime;
 
+    }
+
+    void MenuControls()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled = !GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled;
+        }
     }
 }
