@@ -7,20 +7,26 @@ public class PlayerController : MonoBehaviour {
     public GameObject floor;
     public float ProjectileSpeed;
     public GameObject ProjectilePrefab;
+
+    private Canvas UI;
+
     CharacterController cc;
 	// Use this for initialization
 	void Start () {
-		
-	}
+        UI = GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
         Vector3 mousePos = GetMousePos();
 
-        
-        AngleUpdate(mousePos);
-        Movement();
-        ShootInput(GetAngle(transform.position, mousePos));
+        if (!UI.enabled)
+        {
+            AngleUpdate(mousePos);
+            Movement();
+            ShootInput(GetAngle(transform.position, mousePos));
+        }
         MenuControls();
 	}
 
