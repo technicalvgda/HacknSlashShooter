@@ -1,47 +1,65 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
-public class EnemyVision : MonoBehaviour {
-    public float viewDist = 5.0f; //distance from enemy that the enemy will see the player 
-    public bool sight = false;//bool for if the enemy can see player 
+public class EnemyVision : MonoBehaviour
+{
+    public float FOVangle = 110.0f; //Edge of vision cone
+    public float alertAngle = 90.0f; //directly in sight
+    public float sightDistance = 20.0f; //edge of view
+    public float alertDistance = 5.0f; //directly in sight
+    [Range(0,2)]
+    public int alertness; //how aware of the player this enemy is, used by AI handler to determine actions. levels [0,2]
 
-    private RaycastHit _hit;//hit from raycast
-    private Vector3 _playerLocation, _raycastDirection, _startVec;
+    public Vector3 personalLastSighting; //where did we last see the player?
+
     private GameObject _player;
+    private RaycastHit _hit;
 
-	// Use this for initialization
-	void Start () {
-        _player = GameObject.FindGameObjectWithTag("Player");//find player game object
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        _startVec = this.transform.position;//enemy position
-        _playerLocation = _player.transform.position;//player current position
+    // Use this for initialization
+    void Awake()
+    {
+        _player = GameObject.FindGameObjectWithTag("Player");
+        alertness = 0;
+    }
 
-        _raycastDirection = _playerLocation - _startVec;//raycast from the enemy towards the player
-        //Debug.Log("something");
-        if(Vector3.Distance(_playerLocation, _startVec) < viewDist) //if the player is within vision range
+    // Update is called once per frame
+    void Update()
+    {
+        alertness = CanSeeTarget(_player);
+    }
+
+    int CanSeeTarget(GameObject target)
+    {
+        float heightOfPlayer = 0.5f;
+
+        Vector3 startVec = transform.position;
+        startVec.y += heightOfPlayer;
+        Vector3 startVecFwd = transform.forward;
+        startVecFwd.y += heightOfPlayer;
+
+        Vector3 rayDirection = target.transform.position - startVec;
+        // Detect entities in view
+        if ((Vector3.Angle(rayDirection, startVecFwd)) < FOVangle && Physics.Raycast(startVec, rayDirection, out _hit, sightDistance))
         {
-            //Debug.Log("player within range");
-            if (Physics.Raycast(_startVec, _raycastDirection, out _hit, viewDist) && _hit.collider.gameObject.transform.parent.tag == "Player")//send raycast and if it hits the player object
+            //Make sure it was the player
+            if (_hit.collider.gameObject == target)
             {
-               transform.LookAt(_player.transform.position); // rotate enemy to look at the player
-               sight = true;
-                GetComponent<EnemyGun>().startShooting();//start shooting at player
-               //Debug.Log("I see the player"); 
+                personalLastSighting = target.transform.position;
+                //They are very close
+                if ((Vector3.Angle(rayDirection, startVecFwd)) < alertAngle && (Vector3.Distance(startVec, target.transform.position) <= alertDistance))
+                {
+                    return 2;
+                }
+                return 1;
             }
+            //didn't hit the player
             else
             {
-                sight = false;
-            }    
+                //Debug.Log("Can not see player");
+                return 0;
+            }
         }
-        else
-        {
-            sight = false;
-        }
-	}
+        //looking at nothing
+        return 0;
+    }
 }
-
-
