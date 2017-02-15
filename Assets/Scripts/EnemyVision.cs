@@ -6,9 +6,7 @@ public class EnemyVision : MonoBehaviour {
     public float viewDist = 5.0f;
     public bool sight = false;
 
-    public float projectileWait = 1;
-    public float ProjectileSpeed = 1;
-    public GameObject ProjectilePrefab;
+    
 
     private RaycastHit _hit;
     private Vector3 _playerLocation, _raycastDirection, _startVec;
@@ -17,7 +15,7 @@ public class EnemyVision : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         _player = GameObject.FindGameObjectWithTag("Player");
-        StartCoroutine(EnemyShoot());
+        
 	}
 	
 	// Update is called once per frame
@@ -34,6 +32,7 @@ public class EnemyVision : MonoBehaviour {
             {
                transform.LookAt(_player.transform.position);
                sight = true;
+                GetComponent<EnemyGun>().startShooting();
                //Debug.Log("I see the player"); 
             }
             else
@@ -46,25 +45,6 @@ public class EnemyVision : MonoBehaviour {
             sight = false;
         }
 	}
-
-    IEnumerator EnemyShoot()
-    {
-        while (true)
-        {
-            if (sight)
-            {
-                Debug.Log("shoot");
-                Projectile.create(ProjectilePrefab, transform.gameObject, GetAngle(this.transform.position, _playerLocation), ProjectileSpeed);
-                yield return new WaitForSeconds(projectileWait);
-            }
-            yield return new WaitForSeconds(projectileWait);
-        }
-    }
-
-    float GetAngle(Vector3 v1, Vector3 v2)
-    {
-        return Mathf.Atan2(v2.z - v1.z, v2.x - v1.x);
-    }
 }
 
 
