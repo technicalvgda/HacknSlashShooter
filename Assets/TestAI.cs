@@ -9,10 +9,12 @@ using UnityEngine;
 public class TestAI : MonoBehaviour {
     private EnemyVision _vision;
     private EnemyGun _weapon;
+	private EnemyMovement _movement;
 	// Use this for initialization
 	void Start () {
         _vision = GetComponent<EnemyVision>();
         _weapon = GetComponent<EnemyGun>();
+		_movement = GetComponent<EnemyMovement> ();
 	}
 	
 	// Update is called once per frame
@@ -24,6 +26,7 @@ public class TestAI : MonoBehaviour {
         if(_vision.alertness >= 1)
         {
             transform.LookAt(_vision.personalLastSighting);
+			_movement.ChasePlayer ();
             _weapon.startShooting();
         }
 	}
