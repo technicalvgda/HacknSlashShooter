@@ -78,8 +78,10 @@ public class PlayerController : MonoBehaviour {
         if (cc != null)
         {
             cc.Move(displacement * Time.deltaTime);
+            
+            //transform.position += displacement * Time.deltaTime;
         }
-        //transform.position += displacement * Time.deltaTime;
+        
 
     }
 

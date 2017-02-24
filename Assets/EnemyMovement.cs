@@ -12,11 +12,12 @@ public class EnemyMovement : MonoBehaviour {
 	{
 		player = GameObject.FindGameObjectWithTag ("Player").transform;
 		nav = GetComponent <UnityEngine.AI.NavMeshAgent> ();
+        
 	}
 		
 	public void ChasePlayer()
 	{
-		nav.SetDestination (player.position); // Sets Enemy destination towards Player
+		nav.SetDestination (player.transform.position); // Sets Enemy destination towards Player
 	}
 
 	// Use when Enemy or Player is Dead
