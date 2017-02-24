@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour {
     public GameObject owner;
     public float angle;
     public float Speed;
+    DestructableData dd = null;
     public static GameObject create(GameObject parent, GameObject owner, float Angle, float speed)
     {
         Vector3 pos = owner.transform.position;
@@ -43,7 +44,32 @@ public class Projectile : MonoBehaviour {
         pos.z += Speed * Mathf.Sin(angle) * Time.deltaTime;
         transform.position = pos;
         GameObject hit = Shoot();
-        DestructableData dd = hit != null ? hit.transform.parent != null ? hit.transform.parent.GetComponent<DestructableData>() : null : null;
+
+        if(hit != null)
+        {
+            if (hit.transform.GetComponent<DestructableData>())
+            {
+                dd = hit.transform.GetComponent<DestructableData>();
+            }
+            else if (hit.transform.parent != null)
+            {
+                if(hit.transform.parent.GetComponent<DestructableData>())
+                {
+                    dd = hit.transform.parent.GetComponent<DestructableData>();
+                }
+                else
+                {
+                    dd = null; 
+                }
+
+            }
+            else
+            {
+                dd = null;
+            }
+        }
+
+        //dd = hit != null ? hit.transform.parent != null ? hit.transform.parent.GetComponent<DestructableData>() : null : null;
         if (dd != null)
         {
             dd.SetHealth(dd.health-1);
