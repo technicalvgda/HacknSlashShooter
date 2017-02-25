@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
         Vector3 mousePos = GetMousePos();
 
-        if (!UI.enabled)
+        if (UI.enabled)
         {
             AngleUpdate(mousePos);
             Movement();

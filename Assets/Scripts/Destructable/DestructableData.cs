@@ -4,27 +4,43 @@ using UnityEngine;
 
 public class DestructableData : MonoBehaviour {
     public float maxHealth;
-    public float health {
-        get; private set;
-    }
-    public bool SetHealth(float newHealth)
+    public Healthbar HPBar;
+    public float health { get; private set; }
+
+    void Start () {
+        health = maxHealth;	
+	} 
+
+    public void TakeDamage(float damage)
     {
-        health = newHealth;
-        if (health <= 0)
+        health -= damage;
+        HPBar.UpdateHealthBar(health / maxHealth);
+        if(health <= 0)
         {
             transform.gameObject.SetActive(false);
-            if(transform.tag == "Player")
+            if (transform.tag == "Player")
             {
                 FindObjectOfType<Canvas>().enabled = true;
             }
-            return false;
         }
-        return true;
     }
-	void Start () {
-        health = maxHealth;	
-	} 
-	void Update () {
-		
-	}
+
+    public void HealDamage(float recovery)
+    {
+        if (health < maxHealth)
+        {
+            //no overhealing
+            if (health + recovery > maxHealth)
+            {
+                health = health + (recovery - ((health + recovery) - maxHealth));
+            }
+            else
+            {
+                health += recovery;
+            }
+        }
+        HPBar.UpdateHealthBar(health / maxHealth);
+    }
+
+	
 }
