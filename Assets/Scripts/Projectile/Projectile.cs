@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour {
     public GameObject owner;
     public float angle;
     public float Speed;
+    public float damage = 5;
     DestructableData dd = null;
     public static GameObject create(GameObject parent, GameObject owner, float Angle, float speed)
     {
@@ -72,7 +73,7 @@ public class Projectile : MonoBehaviour {
         //dd = hit != null ? hit.transform.parent != null ? hit.transform.parent.GetComponent<DestructableData>() : null : null;
         if (dd != null)
         {
-            dd.SetHealth(dd.health-1);
+            dd.TakeDamage(damage);
         }
 
         if (hit)
