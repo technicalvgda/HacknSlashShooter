@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour {
         pos.x += 1f * Mathf.Cos(Angle);
         pos.z += 1f * Mathf.Sin(Angle);
         pos.y += .25f;
-        GameObject obj = (GameObject)Instantiate(parent, pos, owner.transform.rotation);
+        GameObject obj = PoolManager.Create(parent, pos, owner.transform.rotation);
         Projectile proj = obj.GetComponent<Projectile>();
         proj = proj == null ? obj.AddComponent<Projectile>() : proj;
         proj.owner = owner;
@@ -74,7 +74,10 @@ public class Projectile : MonoBehaviour {
         {
             dd.SetHealth(dd.health-1);
         }
-        
-        transform.gameObject.SetActive(hit != null ? false : true);
+
+        if (hit)
+        {
+            PoolManager.Destroy(transform.gameObject);
+        }
     }
 }
