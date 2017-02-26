@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour {
     public GameObject owner;
     public float angle;
     public float Speed;
+    public float damage = 5;
     DestructableData dd = null;
     public static GameObject create(GameObject parent, GameObject owner, float Angle, float speed)
     {
@@ -13,7 +14,7 @@ public class Projectile : MonoBehaviour {
         pos.x += 1f * Mathf.Cos(Angle);
         pos.z += 1f * Mathf.Sin(Angle);
         pos.y += .25f;
-        GameObject obj = (GameObject)Instantiate(parent, pos, owner.transform.rotation);
+        GameObject obj = PoolManager.Create(parent, pos, owner.transform.rotation);
         Projectile proj = obj.GetComponent<Projectile>();
         proj = proj == null ? obj.AddComponent<Projectile>() : proj;
         proj.owner = owner;
@@ -72,9 +73,12 @@ public class Projectile : MonoBehaviour {
         //dd = hit != null ? hit.transform.parent != null ? hit.transform.parent.GetComponent<DestructableData>() : null : null;
         if (dd != null)
         {
-            dd.SetHealth(dd.health-1);
+            dd.TakeDamage(damage);
         }
-        
-        transform.gameObject.SetActive(hit != null ? false : true);
+
+        if (hit)
+        {
+            PoolManager.Destroy(transform.gameObject);
+        }
     }
 }
