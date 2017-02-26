@@ -14,7 +14,10 @@ public class DestructableData : MonoBehaviour {
     public void TakeDamage(float damage)
     {
         health -= damage;
-        HPBar.UpdateHealthBar(health / maxHealth);
+        if (transform.tag == "Player")
+        {
+            HPBar.UpdateHealthBar(health / maxHealth);
+        }
         if(health <= 0)
         {
             transform.gameObject.SetActive(false);
