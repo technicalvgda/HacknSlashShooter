@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour {
     private Canvas UI;
 	private PlayerWeapon _playerWeapon;
 
+    private float fireRateMult = 1.0f;
+
     CharacterController cc;
 	// Use this for initialization
 	void Start () {
@@ -86,5 +88,13 @@ public class PlayerController : MonoBehaviour {
         {
             GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled = !GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled;
         }
+    }
+
+    //Rewrite this later to accept mroe upgrades.
+    public void IncreaseStats (float amount)
+    {
+        //additive, not multiplicative
+        fireRateMult += amount;
+        _playerWeapon.fireRate = fireRateMult * _playerWeapon.fireRate;
     }
 }
