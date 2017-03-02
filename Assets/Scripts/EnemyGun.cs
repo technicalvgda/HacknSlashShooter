@@ -29,7 +29,7 @@ public class EnemyGun : MonoBehaviour {
         {
             canfire = false;
             Timing.RunCoroutine(EnemyShoot()); //start shooting
-            canfire = true; //set shooting boolean to true
+            
         }
     }
 
@@ -37,5 +37,6 @@ public class EnemyGun : MonoBehaviour {
     {
         Projectile.create(ProjectilePrefab, transform.gameObject, GetAngle(this.transform.position, player.transform.position), ProjectileSpeed); //fire bullet towards player
         yield return Timing.WaitForSeconds(projectileWait);// wait projectile wait time before firing again
+        canfire = true; //set shooting boolean to true
     }
 }
