@@ -95,6 +95,6 @@ public class PlayerController : MonoBehaviour {
     {
         //additive, not multiplicative
         fireRateMult += amount;
-        _playerWeapon.fireRate = fireRateMult * _playerWeapon.fireRate;
+        _playerWeapon.RPM = fireRateMult * _playerWeapon.baseRPM;
     }
 }

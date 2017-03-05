@@ -13,10 +13,18 @@ public class RescueNPC : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+		if(upgrade1.GetComponent<BuffListHandler>().interacted || upgrade2.GetComponent<BuffListHandler>().interacted)
+        {
+            Destroy(upgrade1);
+            Destroy(upgrade2);
+        }
 
-    void OnTriggerEnter(Collider c)
+    }
+    /// <summary>
+    /// When the player enters and presses E, they will cue the NPC to say something and present two options.
+    /// </summary>
+    /// <param name="c"></param>
+    void OnTriggerStay(Collider c)
     {
         //Some UI stuff with text popup talking to the player goes here
         if(c.gameObject.tag == "Player")

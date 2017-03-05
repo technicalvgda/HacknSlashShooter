@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerWeapon : MonoBehaviour {
-	public float fireRate = 0.25f; // Seconds per projectile
+	public float RPM = 120; //rounds per minute
 	public float ProjectileSpeed = 5;
 	public GameObject ProjectilePrefab;
-
+    public float baseRPM;
 	private float _nextFire = 0f;
 
+    void Start()
+    {
+        baseRPM = RPM;
+    }
 	/// <summary>
 	/// Shoots projectile.
 	/// </summary>
@@ -18,7 +22,7 @@ public class PlayerWeapon : MonoBehaviour {
 		if (CanShoot ()) 
 		{
 			Projectile.create(ProjectilePrefab, transform.gameObject, Angle, ProjectileSpeed);
-			_nextFire = Time.time + fireRate;
+			_nextFire = Time.time + 60/ RPM;
 		}
 	}
 

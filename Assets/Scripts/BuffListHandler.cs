@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuffList : MonoBehaviour {
-    //Just to make picking switching them easier.
+public class BuffListHandler : MonoBehaviour {
+    //Just to make picking/switching them easier.
     public enum Buffs
     {
         health,
@@ -11,10 +11,13 @@ public class BuffList : MonoBehaviour {
     }
 
     public Buffs buffs;
+    public bool interacted = false;
     private GameObject _player;
     private DestructableData _playerHP;
-    //this is where the new stats will go
 
+    /// <summary>
+    /// Handles what stats increase what variables by whichever amount
+    /// </summary>
     [System.Serializable]
     public class BuffStats
     {
@@ -22,22 +25,33 @@ public class BuffList : MonoBehaviour {
         public float fireRateIncreasePercent = 0.25f; // percent our firerate increases by
     }
 
-    // Use this for initialization
     public BuffStats buffList;
+
     void Start() {
         _player = GameObject.FindGameObjectWithTag("Player").gameObject;
         _playerHP = _player.GetComponent<DestructableData>();
         
     }
-    void OnTriggerEnter(Collider c)
+    /// <summary>
+    /// Player enters and selects this buff by pressing E.
+    /// toggles interacted to true to mark that this set of buffs has already been recieved.
+    /// </summary>
+    /// <param name="c"></param>
+    void OnTriggerStay(Collider c)
     {
-        if (c.gameObject == _player && Input.GetKeyDown(KeyCode.E))
-        {
-            //playerHP.HealDamage(9999.0f); //uncomment this to heal the player to full
-            applyBuff();
+        if (c.gameObject.tag == "Player") {
+            if (Input.GetKeyDown(KeyCode.E)){
+                Debug.Log("interacting");
+                //playerHP.HealDamage(9999.0f); //uncomment this to heal the player to full
+                applyBuff();
+                interacted = true;
+            }
         }
     }
-
+    /// <summary>
+    /// Depending on the selected buff in the inspector, it will apply the changes to any relevant stat.
+    /// 
+    /// </summary>
     void applyBuff()
     {
         switch (buffs)
