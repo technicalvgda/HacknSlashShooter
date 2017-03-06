@@ -9,6 +9,8 @@ public class RegenSpeed : MonoBehaviour {
     private PlayerController Speed;
     private bool isSlowed;
     private bool isRunning;
+    public float regenDelay;
+    public float regenTimer = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +18,7 @@ public class RegenSpeed : MonoBehaviour {
         Speed = GetComponent<PlayerController>();
         isSlowed = false;
         isRunning = false;
+        regenDelay = 5;
 
     }
 	
@@ -35,6 +38,11 @@ public class RegenSpeed : MonoBehaviour {
         isRunning = true;
         while (isSlowed)
         {
+            while(regenTimer < regenDelay)
+            {
+                yield return Timing.WaitForSeconds(1.0f);
+                regenTimer++;
+            }
             if(Speed.Speed < MaxSpeed)
             {
                 yield return Timing.WaitForSeconds(2.0f);

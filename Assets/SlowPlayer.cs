@@ -10,6 +10,7 @@ public class SlowPlayer : MonoBehaviour {
         if(other.transform.tag == "Player")
         {
             other.GetComponent<PlayerController>().Speed -= 1;
+            other.GetComponent<RegenSpeed>().regenTimer = 0;
             if(other.GetComponent<PlayerController>().Speed == 0)
             {
                 other.gameObject.SetActive(false);
