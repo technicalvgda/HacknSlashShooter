@@ -9,6 +9,7 @@ public class UI : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         GetComponent<Canvas>().enabled = true;
+        
 	}
 	
 	// Update is called once per frame

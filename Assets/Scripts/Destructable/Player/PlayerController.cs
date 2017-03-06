@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     public float Speed;
+    public float maxSpeed;
     public GameObject floor;
 
     private Canvas UI;
