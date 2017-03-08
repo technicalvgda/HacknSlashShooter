@@ -15,8 +15,8 @@ public class RescueNPC : MonoBehaviour {
 	void Update () {
 		if(upgrade1.GetComponent<BuffListHandler>().interacted || upgrade2.GetComponent<BuffListHandler>().interacted)
         {
-            Destroy(upgrade1);
-            Destroy(upgrade2);
+            upgrade1.SetActive(false);
+            upgrade2.SetActive(false);
         }
 
     }
