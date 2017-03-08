@@ -6,16 +6,17 @@ public class PlayerController : MonoBehaviour {
     public float Speed;
     public float maxSpeed;
     public GameObject floor;
-    public float ProjectileSpeed;
-    public GameObject ProjectilePrefab;
 
     private Canvas UI;
+	private PlayerWeapon _playerWeapon;
+
+    private float fireRateMult = 1.0f;
 
     CharacterController cc;
 	// Use this for initialization
 	void Start () {
         UI = GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>();
-
+		_playerWeapon = GetComponent<PlayerWeapon> ();
     }
 	
 	// Update is called once per frame
@@ -26,7 +27,10 @@ public class PlayerController : MonoBehaviour {
         {
             AngleUpdate(mousePos);
             Movement();
-            ShootInput(GetAngle(transform.position, mousePos));
+			if (Input.GetButton("Fire1"))
+			{
+            	_playerWeapon.ShootInput(GetAngle(transform.position, mousePos));
+			}
         }
         MenuControls();
 	}
@@ -58,13 +62,6 @@ public class PlayerController : MonoBehaviour {
         }
         return Vector3.zero;
     }
-    void ShootInput(float Angle)
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Projectile.create(ProjectilePrefab, transform.gameObject, Angle, ProjectileSpeed);
-        }
-    }
     void Movement()
     {
         float xAxis = Input.GetAxis("Horizontal");
@@ -92,5 +89,13 @@ public class PlayerController : MonoBehaviour {
         {
             GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled = !GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled;
         }
+    }
+
+    //Rewrite this later to accept mroe upgrades.
+    public void IncreaseStats (float amount)
+    {
+        //additive, not multiplicative
+        fireRateMult += amount;
+        _playerWeapon.RPM = fireRateMult * _playerWeapon.baseRPM;
     }
 }
