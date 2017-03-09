@@ -10,9 +10,9 @@ public class Spawner : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         maxX = transform.position.x + transform.localScale.x / 2;
-        maxZ = transform.position.z + transform.localScale.x / 2;
+        maxZ = transform.position.z + transform.localScale.z / 2;
         minX = transform.position.x - transform.localScale.x / 2;
-        minZ = transform.position.z - transform.localScale.x / 2;
+        minZ = transform.position.z - transform.localScale.z / 2;
         Timing.RunCoroutine(Spawn());
     }
 	
