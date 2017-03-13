@@ -20,7 +20,7 @@ public class DestructableData : MonoBehaviour {
         }
         if(health <= 0)
         {
-            transform.gameObject.SetActive(false);
+            Destroy(transform.gameObject);
             if (transform.tag == "Player")
             {
                 FindObjectOfType<Canvas>().enabled = true;
