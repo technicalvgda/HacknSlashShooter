@@ -67,10 +67,7 @@ public class PlayerController : MonoBehaviour {
         float xAxis = Input.GetAxis("Horizontal");
         float yAxis = Input.GetAxis("Vertical");
 
-        float axisTotal = Mathf.Abs(xAxis) + Mathf.Abs(yAxis);
-        float xInfluence = xAxis != 0 ? xAxis * (xAxis / axisTotal) * Mathf.Sign(xAxis) : 0;
-        float yInfluence = yAxis != 0 ? yAxis * (yAxis / axisTotal) * Mathf.Sign(yAxis) : 0;
-        Vector3 displacement = new Vector3(Speed * xInfluence, 0, Speed * yInfluence);
+		Vector3 displacement = new Vector3(xAxis, 0, yAxis).normalized * Speed;
         displacement.y -= 100f * Time.deltaTime;
         cc = cc == null ? GetComponent<CharacterController>() : cc;
         if (cc != null)
