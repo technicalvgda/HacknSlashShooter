@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour {
 
     private float fireRateMult = 1.0f;
 
+    public float multiplier{ get { return fireRateMult; }}
+
     CharacterController cc;
 	// Use this for initialization
 	void Start () {
@@ -95,4 +97,5 @@ public class PlayerController : MonoBehaviour {
         fireRateMult += amount;
         _playerWeapon.RPM = fireRateMult * _playerWeapon.baseRPM;
     }
+
 }
