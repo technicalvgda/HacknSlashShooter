@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-	public float Speed;
-	public float maxSpeed;
-	public GameObject floor;
 
-	private Canvas UI;
-	private WeaponManager _playerWeapon;
+    public float Speed;
+    public float SpeedMultiplier;
+
+    public GameObject floor;
+
+    private Canvas UI;
+	  private WeaponManager _playerWeapon;
+    private DestructableData _playerData;
+
 
 	private float fireRateMult = 1.0f;
 
@@ -17,13 +21,18 @@ public class PlayerController : MonoBehaviour {
 	CharacterController cc;
 	// Use this for initialization
 	void Start () {
-		UI = GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>();
-		_playerWeapon = GetComponent<WeaponManager> ();
-	}
 
+        UI = GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>();
+		_playerWeapon = GetComponent<WeaponManager> ();
+        _playerData = GetComponent<DestructableData>();
+        SpeedMultiplier = 1;
+  }
+	
 	// Update is called once per frame
 	void Update () {
-		Vector3 mousePos = GetMousePos();
+        Vector3 mousePos = GetMousePos();
+        SpeedMultiplier = _playerData.health / _playerData.maxHealth;
+  }
 
 		if (UI.enabled)
 		{
@@ -68,34 +77,34 @@ public class PlayerController : MonoBehaviour {
 	{
 		float xAxis = Input.GetAxis("Horizontal");
 		float yAxis = Input.GetAxis("Vertical");
+		Vector3 displacement = new Vector3(xAxis, 0, yAxis).normalized * Speed * SpeedMultiplier;
+        displacement.y -= 100f * Time.deltaTime;
+        cc = cc == null ? GetComponent<CharacterController>() : cc;
+        if (cc != null)
+        {
+            cc.Move(displacement * Time.deltaTime);
+            
+            //transform.position += displacement * Time.deltaTime;
+        }
+        
 
-		Vector3 displacement = new Vector3(xAxis, 0, yAxis).normalized * Speed;
-		displacement.y -= 100f * Time.deltaTime;
-		cc = cc == null ? GetComponent<CharacterController>() : cc;
-		if (cc != null)
-		{
-			cc.Move(displacement * Time.deltaTime);
+    }
 
-			//transform.position += displacement * Time.deltaTime;
-		}
+    void MenuControls()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled = !GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled;
+        }
+    }
 
+    //Rewrite this later to accept mroe upgrades.
+    public void IncreaseStats (float amount)
+    {
+        //additive, not multiplicative
+        fireRateMult += amount;
+        _playerWeapon.equipped.RPM = fireRateMult * _playerWeapon.equipped.baseRPM;
+    }
 
-	}
-
-	void MenuControls()
-	{
-		if (Input.GetKeyUp(KeyCode.Escape))
-		{
-			GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled = !GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled;
-		}
-	}
-
-	//Rewrite this later to accept mroe upgrades.
-	public void IncreaseStats (float amount)
-	{
-		//additive, not multiplicative
-		fireRateMult += amount;
-		_playerWeapon.equipped.RPM = fireRateMult * _playerWeapon.equipped.baseRPM;
-	}
 
 }
