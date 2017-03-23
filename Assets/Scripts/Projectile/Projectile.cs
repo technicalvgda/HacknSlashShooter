@@ -44,7 +44,7 @@ public class Projectile : MonoBehaviour {
         pos.x += Speed * Mathf.Cos(angle) * Time.deltaTime;
         pos.z += Speed * Mathf.Sin(angle) * Time.deltaTime;
         transform.position = pos;
-        GameObject hit = Shoot();
+        /*GameObject hit = Shoot();
 
         if(hit != null)
         {
@@ -77,6 +77,23 @@ public class Projectile : MonoBehaviour {
         }
 
         if (hit)
+        {
+            PoolManager.Destroy(transform.gameObject);
+        }*/
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        DestructableData hit;
+        if (hit = col.GetComponent<DestructableData>())
+        {
+            hit.TakeDamage(damage);
+            PoolManager.Destroy(transform.gameObject);
+        }
+        else if(col.transform.name.Contains("Spawner"))
+        {
+        }
+        else
         {
             PoolManager.Destroy(transform.gameObject);
         }

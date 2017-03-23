@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     public float Speed;
-    public float maxSpeed;
+    public float SpeedMultiplier;
+
     public GameObject floor;
 
     private Canvas UI;
 	private PlayerWeapon _playerWeapon;
+    private DestructableData _playerData;
 
     private float fireRateMult = 1.0f;
 
@@ -19,11 +21,14 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
         UI = GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>();
 		_playerWeapon = GetComponent<PlayerWeapon> ();
+        _playerData = GetComponent<DestructableData>();
+        SpeedMultiplier = 1;
     }
 	
 	// Update is called once per frame
 	void Update () {
         Vector3 mousePos = GetMousePos();
+        SpeedMultiplier = _playerData.health / _playerData.maxHealth;
 
         if (UI.enabled)
         {
@@ -69,7 +74,7 @@ public class PlayerController : MonoBehaviour {
         float xAxis = Input.GetAxis("Horizontal");
         float yAxis = Input.GetAxis("Vertical");
 
-		Vector3 displacement = new Vector3(xAxis, 0, yAxis).normalized * Speed;
+		Vector3 displacement = new Vector3(xAxis, 0, yAxis).normalized * Speed * SpeedMultiplier;
         displacement.y -= 100f * Time.deltaTime;
         cc = cc == null ? GetComponent<CharacterController>() : cc;
         if (cc != null)
