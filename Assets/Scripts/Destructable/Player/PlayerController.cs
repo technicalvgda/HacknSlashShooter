@@ -3,77 +3,80 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
+
     public float Speed;
     public float SpeedMultiplier;
 
     public GameObject floor;
 
     private Canvas UI;
-	private PlayerWeapon _playerWeapon;
+	  private WeaponManager _playerWeapon;
     private DestructableData _playerData;
 
-    private float fireRateMult = 1.0f;
 
-    public float multiplier{ get { return fireRateMult; }}
+	private float fireRateMult = 1.0f;
 
-    CharacterController cc;
+	public float multiplier{ get { return fireRateMult; }}
+
+	CharacterController cc;
 	// Use this for initialization
 	void Start () {
+
         UI = GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>();
-		_playerWeapon = GetComponent<PlayerWeapon> ();
+		_playerWeapon = GetComponent<WeaponManager> ();
         _playerData = GetComponent<DestructableData>();
         SpeedMultiplier = 1;
-    }
+  }
 	
 	// Update is called once per frame
 	void Update () {
         Vector3 mousePos = GetMousePos();
         SpeedMultiplier = _playerData.health / _playerData.maxHealth;
+  }
 
-        if (UI.enabled)
-        {
-            AngleUpdate(mousePos);
-            Movement();
+		if (UI.enabled)
+		{
+			AngleUpdate(mousePos);
+			Movement();
 			if (Input.GetButton("Fire1"))
 			{
-            	_playerWeapon.ShootInput(GetAngle(transform.position, mousePos));
+				_playerWeapon.equipped.ShootInput(GetAngle(transform.position, mousePos));
 			}
-        }
-        MenuControls();
+		}
+		MenuControls();
 	}
 
-    void AngleUpdate(Vector3 tpos)
-    {
-        Vector3 pos = transform.position;
-        transform.rotation = Quaternion.Euler(0, -GetAngle(pos, tpos) * 180f/Mathf.PI, 0);
-    }
+	void AngleUpdate(Vector3 tpos)
+	{
+		Vector3 pos = transform.position;
+		transform.rotation = Quaternion.Euler(0, -GetAngle(pos, tpos) * 180f/Mathf.PI, 0);
+	}
 
-    float GetAngle(Vector3 v1, Vector3 v2)
-    {
-        return Mathf.Atan2(v2.z - v1.z, v2.x - v1.x);
-    }
+	float GetAngle(Vector3 v1, Vector3 v2)
+	{
+		return Mathf.Atan2(v2.z - v1.z, v2.x - v1.x);
+	}
 
-    Vector3 GetMousePos()
-    {
-        RaycastHit[] hits;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        hits = Physics.RaycastAll(ray);
+	Vector3 GetMousePos()
+	{
+		RaycastHit[] hits;
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		hits = Physics.RaycastAll(ray);
 
-        foreach (RaycastHit rh in hits)
-        {
-            if (rh.collider.gameObject == floor)
-            {
-                
-                return rh.point;
-            }
-        }
-        return Vector3.zero;
-    }
-    void Movement()
-    {
-        float xAxis = Input.GetAxis("Horizontal");
-        float yAxis = Input.GetAxis("Vertical");
+		foreach (RaycastHit rh in hits)
+		{
+			if (rh.collider.gameObject == floor)
+			{
 
+				return rh.point;
+			}
+		}
+		return Vector3.zero;
+	}
+	void Movement()
+	{
+		float xAxis = Input.GetAxis("Horizontal");
+		float yAxis = Input.GetAxis("Vertical");
 		Vector3 displacement = new Vector3(xAxis, 0, yAxis).normalized * Speed * SpeedMultiplier;
         displacement.y -= 100f * Time.deltaTime;
         cc = cc == null ? GetComponent<CharacterController>() : cc;
@@ -100,7 +103,8 @@ public class PlayerController : MonoBehaviour {
     {
         //additive, not multiplicative
         fireRateMult += amount;
-        _playerWeapon.RPM = fireRateMult * _playerWeapon.baseRPM;
+        _playerWeapon.equipped.RPM = fireRateMult * _playerWeapon.equipped.baseRPM;
     }
+
 
 }
