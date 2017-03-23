@@ -60,9 +60,9 @@ public class Weapon : MonoBehaviour {
 		float offset =  bulletAngle - initialAngle;		// Calculates relative offset angle for projectile
 
 		if (bulletsPerShot == 1) {
-			Projectile.create (ProjectilePrefab, transform.gameObject, angle, ProjectileSpeed);
+			Projectile.create (ProjectilePrefab, transform.parent.gameObject, angle, ProjectileSpeed);
 		} else {
-			Projectile.create (ProjectilePrefab, transform.gameObject, angle + offset, ProjectileSpeed);
+			Projectile.create (ProjectilePrefab, transform.parent.gameObject, angle + offset, ProjectileSpeed);
 		}
 	}
 }
