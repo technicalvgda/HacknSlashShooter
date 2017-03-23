@@ -3,99 +3,99 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    public float Speed;
-    public float maxSpeed;
-    public GameObject floor;
+	public float Speed;
+	public float maxSpeed;
+	public GameObject floor;
 
-    private Canvas UI;
-	private PlayerWeapon _playerWeapon;
+	private Canvas UI;
+	private WeaponManager _playerWeapon;
 
-    private float fireRateMult = 1.0f;
+	private float fireRateMult = 1.0f;
 
-    public float multiplier{ get { return fireRateMult; }}
+	public float multiplier{ get { return fireRateMult; }}
 
-    CharacterController cc;
+	CharacterController cc;
 	// Use this for initialization
 	void Start () {
-        UI = GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>();
-		_playerWeapon = GetComponent<PlayerWeapon> ();
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        Vector3 mousePos = GetMousePos();
-
-        if (UI.enabled)
-        {
-            AngleUpdate(mousePos);
-            Movement();
-			if (Input.GetButton("Fire1"))
-			{
-            	_playerWeapon.ShootInput(GetAngle(transform.position, mousePos));
-			}
-        }
-        MenuControls();
+		UI = GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>();
+		_playerWeapon = GetComponent<WeaponManager> ();
 	}
 
-    void AngleUpdate(Vector3 tpos)
-    {
-        Vector3 pos = transform.position;
-        transform.rotation = Quaternion.Euler(0, -GetAngle(pos, tpos) * 180f/Mathf.PI, 0);
-    }
+	// Update is called once per frame
+	void Update () {
+		Vector3 mousePos = GetMousePos();
 
-    float GetAngle(Vector3 v1, Vector3 v2)
-    {
-        return Mathf.Atan2(v2.z - v1.z, v2.x - v1.x);
-    }
+		if (UI.enabled)
+		{
+			AngleUpdate(mousePos);
+			Movement();
+			if (Input.GetButton("Fire1"))
+			{
+				_playerWeapon.equipped.ShootInput(GetAngle(transform.position, mousePos));
+			}
+		}
+		MenuControls();
+	}
 
-    Vector3 GetMousePos()
-    {
-        RaycastHit[] hits;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        hits = Physics.RaycastAll(ray);
+	void AngleUpdate(Vector3 tpos)
+	{
+		Vector3 pos = transform.position;
+		transform.rotation = Quaternion.Euler(0, -GetAngle(pos, tpos) * 180f/Mathf.PI, 0);
+	}
 
-        foreach (RaycastHit rh in hits)
-        {
-            if (rh.collider.gameObject == floor)
-            {
-                
-                return rh.point;
-            }
-        }
-        return Vector3.zero;
-    }
-    void Movement()
-    {
-        float xAxis = Input.GetAxis("Horizontal");
-        float yAxis = Input.GetAxis("Vertical");
+	float GetAngle(Vector3 v1, Vector3 v2)
+	{
+		return Mathf.Atan2(v2.z - v1.z, v2.x - v1.x);
+	}
+
+	Vector3 GetMousePos()
+	{
+		RaycastHit[] hits;
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		hits = Physics.RaycastAll(ray);
+
+		foreach (RaycastHit rh in hits)
+		{
+			if (rh.collider.gameObject == floor)
+			{
+
+				return rh.point;
+			}
+		}
+		return Vector3.zero;
+	}
+	void Movement()
+	{
+		float xAxis = Input.GetAxis("Horizontal");
+		float yAxis = Input.GetAxis("Vertical");
 
 		Vector3 displacement = new Vector3(xAxis, 0, yAxis).normalized * Speed;
-        displacement.y -= 100f * Time.deltaTime;
-        cc = cc == null ? GetComponent<CharacterController>() : cc;
-        if (cc != null)
-        {
-            cc.Move(displacement * Time.deltaTime);
-            
-            //transform.position += displacement * Time.deltaTime;
-        }
-        
+		displacement.y -= 100f * Time.deltaTime;
+		cc = cc == null ? GetComponent<CharacterController>() : cc;
+		if (cc != null)
+		{
+			cc.Move(displacement * Time.deltaTime);
 
-    }
+			//transform.position += displacement * Time.deltaTime;
+		}
 
-    void MenuControls()
-    {
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled = !GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled;
-        }
-    }
 
-    //Rewrite this later to accept mroe upgrades.
-    public void IncreaseStats (float amount)
-    {
-        //additive, not multiplicative
-        fireRateMult += amount;
-        _playerWeapon.RPM = fireRateMult * _playerWeapon.baseRPM;
-    }
+	}
+
+	void MenuControls()
+	{
+		if (Input.GetKeyUp(KeyCode.Escape))
+		{
+			GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled = !GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled;
+		}
+	}
+
+	//Rewrite this later to accept mroe upgrades.
+	public void IncreaseStats (float amount)
+	{
+		//additive, not multiplicative
+		fireRateMult += amount;
+		_playerWeapon.equipped.RPM = fireRateMult * _playerWeapon.equipped.baseRPM;
+	}
 
 }

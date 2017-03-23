@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWeapon : MonoBehaviour {
+public class Weapon : MonoBehaviour {	
 	public float RPM = 120; //rounds per minute
 	public float ProjectileSpeed = 5;
 	public GameObject ProjectilePrefab;
 	public int bulletsPerShot = 1; // Number of bullets per shot	
 	public float bulletSpread = 0; // Wideness of shot in degrees
-    public float baseRPM;
-	private float _nextFire = 0f;
+	public float baseRPM;
 
-    void Start()
-    {
-        baseRPM = RPM;
-    }
+	private float _nextFire = 0f;
+	private enum ProjectileType { ANTITANK, ANTIRANGE, NORMAL};
+	void Start()
+	{
+		baseRPM = RPM;
+	}
 	/// <summary>
 	/// Shoots projectile.
 	/// </summary>
@@ -23,7 +24,7 @@ public class PlayerWeapon : MonoBehaviour {
 	{
 		if (CanShoot ()) 
 		{
-			spreadShot (Angle);
+			shoot (Angle);
 			_nextFire = Time.time + 60/ RPM;
 		}
 	}
@@ -36,8 +37,8 @@ public class PlayerWeapon : MonoBehaviour {
 	{
 		return (Time.time >= _nextFire);
 	}
-		
-	void spreadShot(float angle)
+
+	void shoot(float angle)
 	{
 		for (int bulletNum = 0; bulletNum < bulletsPerShot; bulletNum++) 
 		{
