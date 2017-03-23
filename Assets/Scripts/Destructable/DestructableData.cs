@@ -12,6 +12,12 @@ public class DestructableData : MonoBehaviour {
     private Color _origColor;
     private Renderer render;
 
+
+    private bool isDamaged = false;
+    private int regenTimer = 0;
+    public int regenDelay = 5;
+
+
     void Start () {
         health = maxHealth;
         //DELETE this if statement later. Should not be finalized
@@ -33,6 +39,12 @@ public class DestructableData : MonoBehaviour {
         if (transform.tag == "Player")
         {
             HPBar.UpdateHealthBar(health / maxHealth);
+            regenTimer = 0;
+            if (!isDamaged)
+            {
+                isDamaged = true;
+                Timing.RunCoroutine(_regenHealth());
+            }
         }
         if(health <= 0)
         {
@@ -41,6 +53,31 @@ public class DestructableData : MonoBehaviour {
             {
                 FindObjectOfType<Canvas>().enabled = true;
             }
+        }
+    }
+
+    private IEnumerator<float> _regenHealth()
+    {
+        
+        while (isDamaged)
+        {
+            while (regenTimer < regenDelay)
+            {
+                yield return Timing.WaitForSeconds(1.0f);
+                regenTimer++;
+            }
+            if (health < maxHealth)
+            {
+                yield return Timing.WaitForSeconds(1.0f);
+                health += 5;
+                HPBar.UpdateHealthBar(health / maxHealth);
+            }else if (health >= maxHealth)
+            {
+                health = maxHealth;
+                HPBar.UpdateHealthBar(health / maxHealth);
+                isDamaged = false;
+            }
+            
         }
     }
 

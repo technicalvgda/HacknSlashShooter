@@ -9,12 +9,7 @@ public class SlowPlayer : MonoBehaviour {
         Debug.Log(other.name);
         if(other.transform.tag == "Player")
         {
-            other.GetComponent<PlayerController>().Speed -= 1;
-            other.GetComponent<RegenSpeed>().regenTimer = 0;
-            if(other.GetComponent<PlayerController>().Speed == 0)
-            {
-                other.gameObject.SetActive(false);
-            }
+            other.GetComponent<DestructableData>().TakeDamage(5);
             //other.GetComponent<DestructableData>().SetHealth(other.GetComponent<PlayerController>().Speed);
             this.gameObject.SetActive(false); 
         }
