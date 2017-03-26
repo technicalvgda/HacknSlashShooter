@@ -104,7 +104,10 @@ public class DestructableData : MonoBehaviour {
                 health += recovery;
             }
         }
-        HPBar.UpdateHealthBar(health / maxHealth);
+        if (HPBar != null)
+        {
+            HPBar.UpdateHealthBar(health / maxHealth);
+        }
     }
 
 	
