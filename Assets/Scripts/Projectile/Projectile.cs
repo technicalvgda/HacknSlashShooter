@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour {
+    //sound
+    public AudioClip bulletImpactWall;
+    public AudioClip bulletImpactEnemy;
+    private AudioSource source;
+    //endsound
+
     public GameObject owner;
     public float angle;
     public float Speed;
@@ -40,6 +46,9 @@ public class Projectile : MonoBehaviour {
     }
     void Update()
     {
+        //sound
+        source = GetComponent<AudioSource>();
+        //endsound
         Vector3 pos = transform.position;
         pos.x += Speed * Mathf.Cos(angle) * Time.deltaTime;
         pos.z += Speed * Mathf.Sin(angle) * Time.deltaTime;
@@ -87,6 +96,9 @@ public class Projectile : MonoBehaviour {
         DestructableData hit;
         if (hit = col.GetComponent<DestructableData>())
         {
+            //sound
+            source.PlayOneShot(bulletImpactEnemy);
+            //endsound
             hit.TakeDamage(damage);
             PoolManager.Destroy(transform.gameObject);
         }
@@ -95,6 +107,8 @@ public class Projectile : MonoBehaviour {
         }
         else
         {
+            //sound
+            source.PlayOneShot(bulletImpactWall);
             PoolManager.Destroy(transform.gameObject);
         }
     }

@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
+    //sound
+    public AudioClip footstepSound;
+
+    private AudioSource source;
+    //endsound
 
     public float Speed;
     public float SpeedMultiplier;
@@ -21,7 +26,9 @@ public class PlayerController : MonoBehaviour {
 	CharacterController cc;
 	// Use this for initialization
 	void Start () {
-
+        //sound
+        source = GetComponent<AudioSource>();
+        //endsound
         UI = GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>();
 		_playerWeapon = GetComponent<WeaponManager> ();
         _playerData = GetComponent<DestructableData>();
@@ -32,13 +39,26 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
         Vector3 mousePos = GetMousePos();
         SpeedMultiplier = _playerData.health / _playerData.maxHealth;
-  }
+  
 
 		if (UI.enabled)
 		{
 			AngleUpdate(mousePos);
 			Movement();
-			if (Input.GetButton("Fire1"))
+            //sound
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+            {
+                if (!source.isPlaying)
+                {
+                    source.Play();
+                }
+            }
+            else
+            {
+                source.Stop();
+                //endsound
+            }
+            if (Input.GetButton("Fire1"))
 			{
 				_playerWeapon.equipped.ShootInput(GetAngle(transform.position, mousePos));
 			}
@@ -75,19 +95,20 @@ public class PlayerController : MonoBehaviour {
 	}
 	void Movement()
 	{
-		float xAxis = Input.GetAxis("Horizontal");
+       
+        float xAxis = Input.GetAxis("Horizontal");
 		float yAxis = Input.GetAxis("Vertical");
-		Vector3 displacement = new Vector3(xAxis, 0, yAxis).normalized * Speed * SpeedMultiplier;
+        
+        Vector3 displacement = new Vector3(xAxis, 0, yAxis).normalized * Speed * SpeedMultiplier;
         displacement.y -= 100f * Time.deltaTime;
         cc = cc == null ? GetComponent<CharacterController>() : cc;
         if (cc != null)
         {
+
             cc.Move(displacement * Time.deltaTime);
             
             //transform.position += displacement * Time.deltaTime;
         }
-        
-
     }
 
     void MenuControls()

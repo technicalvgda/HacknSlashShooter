@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour {	
-	public float RPM = 120; //rounds per minute
+public class Weapon : MonoBehaviour {
+    //sound
+    public AudioClip shootSound;
+
+    private AudioSource source;
+    //endsound
+    public float RPM = 120; //rounds per minute
 	public float ProjectileSpeed = 5;
 	public GameObject ProjectilePrefab;
 	public int bulletsPerShot = 1; // Number of bullets per shot	
@@ -15,6 +20,9 @@ public class Weapon : MonoBehaviour {
 	void Start()
 	{
 		baseRPM = RPM;
+        //sound
+        source = GetComponent<AudioSource>();
+        //endsound
 	}
 	/// <summary>
 	/// Shoots projectile.
@@ -40,6 +48,9 @@ public class Weapon : MonoBehaviour {
 
 	void shoot(float angle)
 	{
+        //sound
+        source.PlayOneShot(shootSound);
+        //endsound
 		for (int bulletNum = 0; bulletNum < bulletsPerShot; bulletNum++) 
 		{
 			angleBullets (bulletSpread, bulletNum, bulletsPerShot, angle);
