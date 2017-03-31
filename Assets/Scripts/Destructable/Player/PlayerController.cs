@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
         Vector3 mousePos = GetMousePos();
         SpeedMultiplier = _playerData.health / _playerData.maxHealth;
-  }
 
 		if (UI.enabled)
 		{
