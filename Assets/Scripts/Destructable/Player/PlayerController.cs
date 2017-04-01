@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
         Vector3 mousePos = GetMousePos();
         SpeedMultiplier = _playerData.health / _playerData.maxHealth;
-  }
+  
 
 		if (UI.enabled)
 		{
@@ -59,8 +59,10 @@ public class PlayerController : MonoBehaviour {
 
 	Vector3 GetMousePos()
 	{
-		RaycastHit[] hits;
+        /*
+        RaycastHit[] hits;
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(ray.origin, ray.direction*100, Color.red);
 		hits = Physics.RaycastAll(ray);
 
 		foreach (RaycastHit rh in hits)
@@ -71,7 +73,15 @@ public class PlayerController : MonoBehaviour {
 				return rh.point;
 			}
 		}
-		return Vector3.zero;
+		return Vector3.zero;*/
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane hPlane = new Plane(Vector3.up, Vector3.zero);
+        float distance = 0; 
+        if(hPlane.Raycast(ray, out distance))
+        {
+            return (ray.GetPoint(distance));
+        }
+        return Vector3.zero;
 	}
 	void Movement()
 	{
