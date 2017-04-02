@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour {
 
 	Vector3 GetMousePos()
 	{
-		RaycastHit[] hits;
+        /*RaycastHit[] hits;
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		hits = Physics.RaycastAll(ray);
 
@@ -70,9 +70,18 @@ public class PlayerController : MonoBehaviour {
 				return rh.point;
 			}
 		}
-		return Vector3.zero;
-	}
-	void Movement()
+		return Vector3.zero;*///previous player direction control
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane hPlane = new Plane(Vector3.up, Vector3.zero);
+        float distance = 0;
+        if(hPlane.Raycast(ray,out distance))
+        {
+            return (ray.GetPoint(distance));
+        }
+        return Vector3.zero;
+    }
+    void Movement()
 	{
 		float xAxis = Input.GetAxis("Horizontal");
 		float yAxis = Input.GetAxis("Vertical");

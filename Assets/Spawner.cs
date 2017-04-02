@@ -13,6 +13,7 @@ public class Spawner : MonoBehaviour {
     
     public float spawnWait = 5;//time inbetween each spawn
     private float maxX, maxZ, minX, minZ;//the bound in which the enemy can spawn
+    CoroutineHandle spawn;
 
     //Wave Spawn Variables
     public bool wave = false;
@@ -52,7 +53,7 @@ public class Spawner : MonoBehaviour {
             }
             else
             {
-                Timing.RunCoroutine(Spawn(), "spawn");
+                spawn = Timing.RunCoroutine(Spawn());
             }
         }
     }
@@ -67,7 +68,7 @@ public class Spawner : MonoBehaviour {
             }
             else
             {
-                Timing.KillCoroutines("spawn");
+                Timing.KillCoroutines(spawn);
             }
         }
     }
