@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour {
     public GameObject owner;
     public float angle;
     public float Speed;
-    //public float damage = 5;
+
     public static GameObject create(GameObject parent, GameObject owner, float Angle, float speed)
     {
         Vector3 pos = owner.transform.position;
