@@ -17,9 +17,6 @@ public class TestAI : MonoBehaviour {
         _vision = GetComponent<EnemyVision>();
         _weapon = GetComponent<EnemyGun>();
 		_movement = GetComponent<EnemyMovement> ();
-        _primary = GameObject.FindGameObjectWithTag(priorityTargetTag[0]);
-        _secondary = GameObject.FindGameObjectWithTag(priorityTargetTag[1]);
-        _tertiary = GameObject.FindGameObjectWithTag(priorityTargetTag[2]);
 	}
 	
     //sets the priority target to the one specified
@@ -29,7 +26,13 @@ public class TestAI : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        if(_vision.CanSeeTarget(_primary) >= 1) {
+        //find some better way to get constant updates on who is on the field
+        //or a way to notify all enemies a new entity is on the field?
+        _primary = GameObject.FindGameObjectWithTag(priorityTargetTag[0]);
+        _secondary = GameObject.FindGameObjectWithTag(priorityTargetTag[1]);
+        _tertiary = GameObject.FindGameObjectWithTag(priorityTargetTag[2]);
+
+        if (_vision.CanSeeTarget(_primary) >= 1) {
             _current = _primary;
         }else if(_vision.CanSeeTarget(_secondary) >= 1) {
             _current = _secondary;

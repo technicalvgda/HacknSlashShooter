@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
 
 
 	private float fireRateMult = 1.0f;
-
+    private Vector3 _heightOfDecoy = new Vector3(0, 0.1f, 0);
 	public float multiplier{ get { return fireRateMult; }}
 
 	CharacterController cc;
@@ -42,13 +42,14 @@ public class PlayerController : MonoBehaviour {
 			{
 				_playerWeapon.equipped.ShootInput(GetAngle(transform.position, mousePos));
 			}
-            if (Input.GetButton("Fire2"))
+            if (Input.GetButton("Fire2") && !GameObject.Find("Decoy(Clone)"))
             {
-                //Temporary markery effect thing, fix later
+                //Temporary markery effect thing, fix/change later
+                //possible put this into a another script that handles the ability itself(not projectionpowerup.cs)
                 GameObject m = Instantiate(throwmarker, mousePos, transform.rotation);
                 Destroy(m, 0.5f);
                 GameObject d = Instantiate(decoy, transform.position, transform.rotation);
-                d.GetComponent<ProjectionPowerup>().Activate(m.transform.position);
+                d.GetComponent<ProjectionPowerup>().Activate(m.transform.position + _heightOfDecoy);
             }
 		}
 		MenuControls();
