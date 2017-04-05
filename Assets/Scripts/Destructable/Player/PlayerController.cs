@@ -51,12 +51,12 @@ public class PlayerController : MonoBehaviour {
 		transform.rotation = Quaternion.Euler(0, -GetAngle(pos, tpos) * 180f/Mathf.PI, 0);
 	}
 
-	float GetAngle(Vector3 v1, Vector3 v2)
+	public float GetAngle(Vector3 v1, Vector3 v2)
 	{
 		return Mathf.Atan2(v2.z - v1.z, v2.x - v1.x);
 	}
 
-	Vector3 GetMousePos()
+	public Vector3 GetMousePos()
 	{
         /*RaycastHit[] hits;
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
