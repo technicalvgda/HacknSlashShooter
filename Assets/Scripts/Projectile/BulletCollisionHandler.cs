@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletCollisionHandler : MonoBehaviour {
+
+    //sound
+    public AudioClip bulletImpactWall;
+    public AudioClip bulletImpactEnemy;
+    private AudioSource source;
+    //end sound
+
 	public float damage = 5.0f;					// base damage of bullet
 	public float critMultiplier = 2.0f;			// crit multiplier
 	public float resistanceMultiplier = 0.5f;	// Damage reduction multiplier, should be < 1
@@ -10,6 +17,11 @@ public class BulletCollisionHandler : MonoBehaviour {
 
 	public enum ProjectileType { ANTITANK, ANTIRANGE, ANTISWARM, NORMAL }
 	public ProjectileType projectileType;
+
+    void Start()
+    {
+        source = GetComponent<AudioSource>();
+    }
 
 	void OnTriggerEnter(Collider col)
 	{
@@ -24,6 +36,7 @@ public class BulletCollisionHandler : MonoBehaviour {
 				if (col.GetComponent<PlayerController> () == null) 
 				{
 					damageEnemy (hit, col);
+                    source.PlayOneShot(bulletImpactEnemy);
 					if (!canPierceThroughEnemies) 
 					{
 						PoolManager.Destroy (transform.gameObject);
@@ -44,6 +57,7 @@ public class BulletCollisionHandler : MonoBehaviour {
 		//NOTE: Probably find a different way to check what can't be passed through by the projectile if the condition gets too long
 		else if(col.GetComponent<Spawner>() == null && col.GetComponent<Projectile>() == null && col.GetComponent<SlidingTwoDoor>() == null)
 		{
+            source.PlayOneShot(bulletImpactWall);
 			PoolManager.Destroy(transform.gameObject);
 		}
 	}

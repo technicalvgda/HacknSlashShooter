@@ -2,7 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
+
+    //sound
+    public AudioClip footstepSound;
+    private AudioSource source;
+    //endsound
 
     public float Speed;
     public float SpeedMultiplier;
@@ -21,6 +27,10 @@ public class PlayerController : MonoBehaviour {
 	CharacterController cc;
 	// Use this for initialization
 	void Start () {
+        //sound
+        source = GetComponent<AudioSource>();
+        
+        //endsound
 
         UI = GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>();
 		_playerWeapon = GetComponent<WeaponManager> ();
@@ -37,7 +47,20 @@ public class PlayerController : MonoBehaviour {
 		{
 			AngleUpdate(mousePos);
 			Movement();
-			if (Input.GetButton("Fire1"))
+            //sound
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+            {
+                if (!source.isPlaying)
+                {
+                    source.Play();
+                }
+            }
+            else
+            {
+                source.Stop();
+                //endsound
+            }
+            if (Input.GetButton("Fire1"))
 			{
 				_playerWeapon.equipped.ShootInput(GetAngle(transform.position, mousePos));
 			}
