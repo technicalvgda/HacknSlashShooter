@@ -6,11 +6,12 @@ public class PlayerController : MonoBehaviour {
 
     public float Speed;
     public float SpeedMultiplier;
-
+    public GameObject throwmarker;
+    public GameObject decoy;
     public GameObject floor;
 
     private Canvas UI;
-	  private WeaponManager _playerWeapon;
+    private WeaponManager _playerWeapon;
     private DestructableData _playerData;
 
 
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour {
 	CharacterController cc;
 	// Use this for initialization
 	void Start () {
-
+        //_projUP = decoy.GetComponent<ProjectionPowerup>();
         UI = GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>();
 		_playerWeapon = GetComponent<WeaponManager> ();
         _playerData = GetComponent<DestructableData>();
@@ -41,6 +42,14 @@ public class PlayerController : MonoBehaviour {
 			{
 				_playerWeapon.equipped.ShootInput(GetAngle(transform.position, mousePos));
 			}
+            if (Input.GetButton("Fire2"))
+            {
+                //Temporary markery effect thing, fix later
+                GameObject m = Instantiate(throwmarker, mousePos, transform.rotation);
+                Destroy(m, 0.5f);
+                GameObject d = Instantiate(decoy, transform.position, transform.rotation);
+                d.GetComponent<ProjectionPowerup>().Activate(m.transform.position);
+            }
 		}
 		MenuControls();
 	}
