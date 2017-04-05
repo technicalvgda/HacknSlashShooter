@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour {
     public GameObject owner;
     public float angle;
     public float Speed;
+	public Vector3 vel;
 
     public static GameObject create(GameObject parent, GameObject owner, float Angle, float speed)
     {
@@ -19,83 +20,17 @@ public class Projectile : MonoBehaviour {
         proj.owner = owner;
         proj.angle = Angle;
         proj.Speed = speed;
+		//proj.GetComponent<Rigidbody>().velocity = owner.transform.TransformDirection (Vector3.right * speed) + owner.GetComponent<CharacterController>().velocity;
         return obj;
     }
-    GameObject Shoot()
-    {
-        RaycastHit[] hits = Physics.RaycastAll(transform.position, new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)));
-        foreach (RaycastHit hit in hits)
-        {
-            if (hit.collider.gameObject != owner)
-            {
-                if(hit.distance <= .25f)
-                {
-                    Debug.Log(hit.collider.gameObject);
-                    return hit.collider.gameObject;
-                }
-            }
-        }
-        return null;
-    }
+
     void Update()
     {
         Vector3 pos = transform.position;
         pos.x += Speed * Mathf.Cos(angle) * Time.deltaTime;
         pos.z += Speed * Mathf.Sin(angle) * Time.deltaTime;
         transform.position = pos;
-        /*GameObject hit = Shoot();
 
-        if(hit != null)
-        {
-            if (hit.transform.GetComponent<DestructableData>())
-            {
-                dd = hit.transform.GetComponent<DestructableData>();
-            }
-            else if (hit.transform.parent != null)
-            {
-                if(hit.transform.parent.GetComponent<DestructableData>())
-                {
-                    dd = hit.transform.parent.GetComponent<DestructableData>();
-                }
-                else
-                {
-                    dd = null; 
-                }
-
-            }
-            else
-            {
-                dd = null;
-            }
-        }
-
-        //dd = hit != null ? hit.transform.parent != null ? hit.transform.parent.GetComponent<DestructableData>() : null : null;
-        if (dd != null)
-        {
-            dd.TakeDamage(damage);
-        }
-
-        if (hit)
-        {
-            PoolManager.Destroy(transform.gameObject);
-        }*/
     }
-	/*
-    void OnTriggerEnter(Collider col)
-    {
-        DestructableData hit;
-        if (hit = col.GetComponent<DestructableData>())
-        {
-            hit.TakeDamage(damage);
-            PoolManager.Destroy(transform.gameObject);
-        }
-        else if(col.transform.name.Contains("Spawner"))
-        {
-        }
-        else
-        {
-            PoolManager.Destroy(transform.gameObject);
-        }
-    }
-    */
+
 }

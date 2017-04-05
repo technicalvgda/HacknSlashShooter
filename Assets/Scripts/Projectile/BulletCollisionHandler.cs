@@ -8,26 +8,24 @@ public class BulletCollisionHandler : MonoBehaviour {
 	public float resistanceMultiplier = 0.5f;	// Damage reduction multiplier, should be < 1
 	public bool canPierceThroughEnemies = true;
 
+	public enum ProjectileType { ANTITANK, ANTIRANGE, ANTISWARM, NORMAL }
 	public ProjectileType projectileType;
 
 	void OnTriggerEnter(Collider col)
 	{
 		DestructableData hit;
 		GameObject owner = GetComponent<Projectile> ().owner; 
-		/* TODO: Consider if enemies are the ones shooting
-		 * 			Enemies should not damage other enemies
-		 * 			They should only damage the player/friendlies
-		 * 		Player bullets should not harm themselves although player may never reach the bullet
-		*/ 
 		if (hit = col.GetComponent<DestructableData> ())
 		{
 			//When the owner is destroyed
 			if (owner != null && owner.name == "Player") 
 			{
 				// Check if player didn't hit themself
-				if (col.GetComponent<PlayerController> () == null) {
+				if (col.GetComponent<PlayerController> () == null) 
+				{
 					damageEnemy (hit, col);
-					if (!canPierceThroughEnemies) {
+					if (!canPierceThroughEnemies) 
+					{
 						PoolManager.Destroy (transform.gameObject);
 					}
 				}
@@ -35,7 +33,8 @@ public class BulletCollisionHandler : MonoBehaviour {
 			} 
 			else 
 			{
-				if (col.GetComponent<PlayerController>() != null) {
+				if (col.GetComponent<PlayerController>() != null) 
+				{
 					hit.TakeDamage (damage);
 					PoolManager.Destroy(transform.gameObject);
 				}
@@ -57,26 +56,33 @@ public class BulletCollisionHandler : MonoBehaviour {
 	void damageEnemy(DestructableData hit, Collider col){
 		switch (projectileType) {
 		case ProjectileType.ANTIRANGE:
-			if (col.GetComponent<EnemyGun> () != null) {
+			if (col.GetComponent<EnemyGun> () != null) 
+			{
 				hit.TakeDamage (damage * critMultiplier);
-			} else {
+			} else 
+			{
 				hit.TakeDamage (damage * resistanceMultiplier);
 			}
 			break;
 		case ProjectileType.ANTITANK:
 			//Placeholder for tank enemies
+			hit.TakeDamage(damage);
 			/*
-					if(col.GetComponent<TankComponent>()){
-						hit.TakeDamage(damage*critMultiplier);
-					} else {
-						hit.TakeDamage (damage*resistanceMultiplier);
-					}
-					*/
+			if(col.GetComponent<TankComponent>())
+			{
+				hit.TakeDamage(damage*critMultiplier);
+			} else 
+			{
+				hit.TakeDamage (damage*resistanceMultiplier);
+			}
+			*/
 			break;
 		case ProjectileType.ANTISWARM:
-			if (col.GetComponent<SlowPlayer> () != null) {
+			if (col.GetComponent<SlowPlayer> () != null) 
+			{
 				hit.TakeDamage (damage * critMultiplier);
-			} else {
+			} else 
+			{
 				hit.TakeDamage (damage * resistanceMultiplier);
 			}
 			break;
