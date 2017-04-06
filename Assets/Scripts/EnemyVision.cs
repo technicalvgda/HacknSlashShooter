@@ -28,7 +28,8 @@ public class EnemyVision : MonoBehaviour
         alertness = CanSeeTarget(_player);
     }
 
-    int CanSeeTarget(GameObject target)
+
+    public int CanSeeTarget(GameObject target)
     {
         float heightOfPlayer = 0.5f;
 
@@ -36,27 +37,24 @@ public class EnemyVision : MonoBehaviour
         startVec.y += heightOfPlayer;
         Vector3 startVecFwd = transform.forward;
         startVecFwd.y += heightOfPlayer;
-
-        Vector3 rayDirection = target.transform.position - startVec;
-        // Detect entities in view
-        if ((Vector3.Angle(rayDirection, startVecFwd)) < FOVangle && Physics.Raycast(startVec, rayDirection, out _hit, sightDistance))
-        {
-            //Make sure it was the player
-            if (_hit.collider.gameObject == target)
-            {
-                personalLastSighting = target.transform.position;
-                //They are very close
-                if ((Vector3.Angle(rayDirection, startVecFwd)) < alertAngle && (Vector3.Distance(startVec, target.transform.position) <= alertDistance))
-                {
-                    return 2;
+        if (target != null) {
+            Vector3 rayDirection = target.transform.position - startVec;
+            // Detect entities in view
+            if ((Vector3.Angle(rayDirection, startVecFwd)) < FOVangle && Physics.Raycast(startVec, rayDirection, out _hit, sightDistance)) {
+                //Make sure it was the player
+                if (_hit.collider.gameObject == target) {
+                    personalLastSighting = target.transform.position;
+                    //They are very close
+                    if ((Vector3.Angle(rayDirection, startVecFwd)) < alertAngle && (Vector3.Distance(startVec, target.transform.position) <= alertDistance)) {
+                        return 2;
+                    }
+                    return 1;
                 }
-                return 1;
-            }
-            //didn't hit the player
-            else
-            {
-                //Debug.Log("Can not see player");
-                return 0;
+                //didn't hit the player
+                else {
+                    //Debug.Log("Can not see player");
+                    return 0;
+                }
             }
         }
         //looking at nothing
