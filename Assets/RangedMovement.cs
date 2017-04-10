@@ -46,7 +46,7 @@ public class RangedMovement : MonoBehaviour {
             {
                 if(rh.transform.gameObject.tag == "Ground")
                 {
-                    transform.position = new Vector3(_potentialLoc.x, 0.75f, _potentialLoc.z);
+                    transform.position = new Vector3(_potentialLoc.x, 0.33f, _potentialLoc.z);
                     i = _tries + 2;
                     break;
                 }
@@ -72,7 +72,7 @@ public class RangedMovement : MonoBehaviour {
                 if (_hit.transform.gameObject.tag == "Ground")
                 {
                     //_potentialList.Add(_potentialLoc);
-                    transform.position = new Vector3(_potentialLoc.x, _hit.point.y + 0.5f, _potentialLoc.z);
+                    transform.position = new Vector3(_potentialLoc.x, _hit.point.y, _potentialLoc.z);
                     i = _tries + 2;
                     break;
                 }

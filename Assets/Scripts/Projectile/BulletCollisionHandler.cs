@@ -36,7 +36,7 @@ public class BulletCollisionHandler : MonoBehaviour {
 				if (col.GetComponent<PlayerController> () == null) 
 				{
 					damageEnemy (hit, col);
-                    source.PlayOneShot(bulletImpactEnemy);
+                    //source.PlayOneShot(bulletImpactEnemy);
 					if (!canPierceThroughEnemies) 
 					{
 						PoolManager.Destroy (transform.gameObject);
@@ -57,7 +57,8 @@ public class BulletCollisionHandler : MonoBehaviour {
 		//NOTE: Probably find a different way to check what can't be passed through by the projectile if the condition gets too long
 		else if(col.GetComponent<Spawner>() == null && col.GetComponent<Projectile>() == null && col.GetComponent<SlidingTwoDoor>() == null)
 		{
-            source.PlayOneShot(bulletImpactWall);
+            //source.PlayOneShot(bulletImpactWall);
+
 			PoolManager.Destroy(transform.gameObject);
 		}
 	}

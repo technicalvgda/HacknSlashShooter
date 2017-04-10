@@ -63,9 +63,9 @@ public class EnemyGun : MonoBehaviour {
 		float offset =  bulletAngle - initialAngle;  // Calculates relative offset angle for projectile
 
 		if (bulletsPerShot == 1) {
-			Projectile.create (ProjectilePrefab, transform.gameObject, GetAngle (this.transform.position, transform.forward), ProjectileSpeed);
+			Projectile.create (ProjectilePrefab, transform.gameObject, GetAngle(this.transform.position, this.transform.position + transform.forward), ProjectileSpeed);
 		} else {
-			Projectile.create (ProjectilePrefab, transform.gameObject, GetAngle (this.transform.position, transform.forward) + offset, ProjectileSpeed);
+			Projectile.create (ProjectilePrefab, transform.gameObject, GetAngle (this.transform.position, this.transform.position + transform.forward) + offset, ProjectileSpeed);
 		}
 	}
 

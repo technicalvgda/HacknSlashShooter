@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float Speed;
     public float SpeedMultiplier;
 
-    public GameObject floor;
+    public GameObject pause;
 
     private Canvas UI;
 	  private WeaponManager _playerWeapon;
@@ -24,14 +24,17 @@ public class PlayerController : MonoBehaviour
 
 	public float multiplier{ get { return fireRateMult; }}
 
+    public int numKilled;
+
 	CharacterController cc;
 	// Use this for initialization
 	void Start () {
         //sound
         source = GetComponent<AudioSource>();
-        
-        //endsound
 
+        //endsound
+        Time.timeScale = 1;
+        numKilled = 0;
         UI = GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>();
 		_playerWeapon = GetComponent<WeaponManager> ();
         _playerData = GetComponent<DestructableData>();
@@ -125,7 +128,15 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled = !GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled;
+            if (pause.active)
+            {
+                pause.SetActive(false);
+                Time.timeScale = 1;
+            }else
+            {
+                pause.SetActive(true);
+                Time.timeScale = 0;
+            }
         }
     }
 
