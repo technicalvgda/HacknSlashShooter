@@ -11,7 +11,9 @@ public class SlowPlayer : MonoBehaviour {
         {
             other.GetComponent<DestructableData>().TakeDamage(5);
             //other.GetComponent<DestructableData>().SetHealth(other.GetComponent<PlayerController>().Speed);
-            this.gameObject.SetActive(false); 
+            DestructableData x = this.GetComponent<DestructableData>();
+            x.TakeDamage(x.health);
+
         }
     }
 }

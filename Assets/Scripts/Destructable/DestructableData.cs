@@ -16,6 +16,7 @@ public class DestructableData : MonoBehaviour {
     private bool isDamaged = false;
     private int regenTimer = 0;
     public int regenDelay = 5;
+    private bool checkedKill = false;
 
 
     void Start () {
@@ -48,6 +49,11 @@ public class DestructableData : MonoBehaviour {
         }
         if(health <= 0)
         {
+            if (GetComponent<WaveEnemy>() && !checkedKill)
+            {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().numKilled++;
+                checkedKill = true;
+            }
             Destroy(transform.gameObject);
             if (transform.tag == "Player")
             {
