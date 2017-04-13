@@ -45,9 +45,9 @@ public class LaserBullet : MonoBehaviour {
     
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.name.Contains("Enemy") || col.gameObject.name.Contains("Range"))
+        if ((col.gameObject.name.Contains("Enemy") || col.gameObject.name.Contains("Range")) && col.gameObject.GetComponent<DestructableData>())
         {
-            Destroy(col.gameObject);
+            col.gameObject.GetComponent<DestructableData>().TakeDamage(col.gameObject.GetComponent<DestructableData>().health);
         }
     }
 }

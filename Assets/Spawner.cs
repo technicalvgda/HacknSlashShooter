@@ -14,6 +14,11 @@ public class Spawner : MonoBehaviour {
     public float spawnWait = 5;//time inbetween each spawn
     private float maxX, maxZ, minX, minZ;//the bound in which the enemy can spawn
     CoroutineHandle spawn;
+    public bool waveStart = false;
+
+    //temporary
+    public GameObject door1;
+    public GameObject door2;
 
 
 
@@ -49,7 +54,7 @@ public class Spawner : MonoBehaviour {
     {
         if (other.transform.tag == "Player")
         {
-            if (wave)
+            if (wave && !waveStart)
             {
                 Debug.Log("Wave spawner not done yet");
                 Timing.RunCoroutine(WaveSpawn(numberOfWaves));
@@ -65,7 +70,7 @@ public class Spawner : MonoBehaviour {
     {
         if (other.transform.tag == "Player")
         {
-            if (wave)
+            if (wave && !waveStart)
             {
                 
             }
@@ -113,11 +118,17 @@ public class Spawner : MonoBehaviour {
 
     IEnumerator<float> WaveSpawn(int waves)
     {
+        waveStart = true;
+        player.numKilled = 0;
         Debug.Log("WaveSpawn start");
         int numOfEnemy1 = 0;
         int numOfEnemy2 = 0;
         int numOfEnemy3 = 0;
-
+        if (door1 != null)
+        {
+            door1.GetComponentInChildren<SlidingTwoDoor>().isLocked = true;
+            door2.GetComponentInChildren<SlidingTwoDoor>().isLocked = true;
+        }
         while (currentWave <= numberOfWaves || arenaSpawn)
         {
             if(enemy1spawn > 0)
@@ -181,8 +192,11 @@ public class Spawner : MonoBehaviour {
             }
             currentWave++;
         }
-        
-
+        if (door1 != null)
+        {
+            door1.GetComponentInChildren<SlidingTwoDoor>().isLocked = false;
+            door2.GetComponentInChildren<SlidingTwoDoor>().isLocked = false;
+        }
     }
 
     private void SpawnEnemy(GameObject enemyToSpawn, bool waveEnemy)
