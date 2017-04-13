@@ -46,7 +46,10 @@ public class TestAI : MonoBehaviour {
             transform.LookAt(_current.transform.position);
             _movement.ChaseTarget(_current);
             if (_vision.CanSeeTarget(_current) >= 2) {
-                _weapon.startShooting();
+                if (_weapon != null)
+                {
+                    _weapon.startShooting();
+                }
             }
         }
         //check the priority target first
