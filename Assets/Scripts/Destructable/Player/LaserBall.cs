@@ -25,11 +25,8 @@ public class LaserBall : MonoBehaviour {
         {
             Fire();
         }
-        if (Input.GetButton("Fire2") && !GameObject.Find("Decoy(Clone)"))
+        if (Input.GetButton("Fire2") && !GameObject.Find("DEcoy(Clone)"))
         {
-            //TODO: make it so you can throw this over walls
-            //Temporary markery effect thing, fix/change later
-            //possible put this into a another script that handles the ability itself(not projectionpowerup.cs)
             mousePos = pc.GetMousePos();
 
             direction = mousePos - player.transform.position;

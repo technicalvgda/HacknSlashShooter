@@ -27,13 +27,13 @@ public class BulletCollisionHandler : MonoBehaviour {
 	{
 		DestructableData hit;
 		GameObject owner = GetComponent<Projectile> ().owner; 
-		if (hit = col.GetComponent<DestructableData> ())
+		if ((hit = col.GetComponent<DestructableData>()))
 		{
 			//When the owner is destroyed
 			if (owner != null && owner.name == "Player") 
 			{
 				// Check if player didn't hit themself
-				if (col.GetComponent<PlayerController> () == null) 
+				if (col.GetComponent<PlayerController> () && col.GetComponent<RescueNPC>() == null) 
 				{
 					damageEnemy (hit, col);
                     //source.PlayOneShot(bulletImpactEnemy);
@@ -55,7 +55,10 @@ public class BulletCollisionHandler : MonoBehaviour {
 
 		}
 		//NOTE: Probably find a different way to check what can't be passed through by the projectile if the condition gets too long
-		else if(col.GetComponent<Spawner>() == null && col.GetComponent<Projectile>() == null && col.GetComponent<SlidingTwoDoor>() == null)
+		else if(col.GetComponent<Spawner>() == null &&
+            col.GetComponent<Projectile>() == null &&
+            col.GetComponent<SlidingTwoDoor>() == null &&
+            col.GetComponent<RescueNPC>() == null)
 		{
             //source.PlayOneShot(bulletImpactWall);
 

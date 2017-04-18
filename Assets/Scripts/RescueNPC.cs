@@ -5,7 +5,7 @@ using UnityEngine;
 public class RescueNPC : MonoBehaviour {
     [SerializeField]
     private GameObject upgrade1, upgrade2;
-    private bool rescued;
+    public bool rescued;
     public GameObject objectToUnlock; //a gate, path, platform, door, whatever is blocking you from the level end, if applicable
 	// Use this for initialization
 	void Start () {
@@ -21,6 +21,7 @@ public class RescueNPC : MonoBehaviour {
             {
                 upgrade1.SetActive(false);
                 upgrade2.SetActive(false);
+                gameObject.tag = "Untagged";
             }
 
         }
@@ -36,12 +37,11 @@ public class RescueNPC : MonoBehaviour {
         if(c.gameObject.tag == "Player")
         {
             Debug.Log("entered");
-            if (Input.GetKeyDown(KeyCode.E) )
+            if (Input.GetKeyDown(KeyCode.E) && rescued )
             {
-                if (!rescued && !upgrade1.Equals(null) && !upgrade2.Equals(null))
+                if (!upgrade1.Equals(null) && !upgrade2.Equals(null))
                 {
                     //thanks for saving me, take this!
-                    rescued = true;
                     upgrade1.SetActive(true);
                     upgrade2.SetActive(true);
                 }
@@ -50,7 +50,12 @@ public class RescueNPC : MonoBehaviour {
                     //thanks for the help, goodluck!
                 }
             }
+            else
+            {
+                //help!!!!!!!!!!!!!!111!111!!11
+            }
             
         }
     }
+
 }

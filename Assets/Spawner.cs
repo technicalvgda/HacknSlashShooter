@@ -20,7 +20,8 @@ public class Spawner : MonoBehaviour {
     public GameObject door1;
     public GameObject door2;
 
-
+    public GameObject NPC;
+    private RescueNPC NPCScript;
 
     //Wave Spawn Variables
     public bool wave = false;
@@ -33,6 +34,10 @@ public class Spawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        if (NPC != null)
+        {
+            NPCScript = NPC.GetComponent<RescueNPC>();
+        }
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         maxX = transform.position.x + transform.localScale.x / 2;
         maxZ = transform.position.z + transform.localScale.z / 2;
@@ -54,6 +59,7 @@ public class Spawner : MonoBehaviour {
     {
         if (other.transform.tag == "Player")
         {
+            NPC.tag = "Objective";
             if (wave && !waveStart)
             {
                 Debug.Log("Wave spawner not done yet");
@@ -194,6 +200,10 @@ public class Spawner : MonoBehaviour {
         }
         if (door1 != null)
         {
+            if(NPC != null)
+            {
+                NPCScript.rescued = true;
+            }
             door1.GetComponentInChildren<SlidingTwoDoor>().isLocked = false;
             door2.GetComponentInChildren<SlidingTwoDoor>().isLocked = false;
         }
