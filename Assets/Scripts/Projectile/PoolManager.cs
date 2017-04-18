@@ -8,6 +8,12 @@ public class PoolManager : MonoBehaviour {
     //Key = Original Prefab, Value = Each pool
     static Dictionary<GameObject, List<GameObject>> inactivePoolDict = new Dictionary<GameObject, List<GameObject>>();
 
+    public static void ResetPoolManager()
+    {
+        childPrefabDict = new Dictionary<GameObject, GameObject>();
+        inactivePoolDict = new Dictionary<GameObject, List<GameObject>>();
+    }
+
     public static GameObject Create(GameObject obj, Vector3 position, Quaternion rotation)
     {
         GameObject newObj = Create(obj);

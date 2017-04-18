@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: b12c3f99e48ea4c47981b81a2154838a
-timeCreated: 1486699725
+timeCreated: 1490954899
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bulletImpactWall: {fileID: 8300000, guid: 01a15d91332a3da44bfce0531e739182, type: 3}
+  - bulletImpactEnemy: {fileID: 8300000, guid: 01a15d91332a3da44bfce0531e739182, type: 3}
+  - owner: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -40,12 +40,14 @@ public class RangedEnemy_AI : MonoBehaviour {
         }
         if (_vision.alertness >= 1)
         {
-            if (_canAttack)
+            /*if (_canAttack)
             {
-                Timing.RunCoroutine(AttackDelay());
+                //Timing.RunCoroutine(AttackDelay());
                 _weapon.startShooting();
             }
-            else if (_canMove)
+            else */
+            _weapon.startShooting();
+            if (_canMove)
             {
                 Timing.RunCoroutine(MoveDelay());
             }

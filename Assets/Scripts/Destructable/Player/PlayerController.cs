@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
+
+    //sound
+    public AudioClip footstepSound;
+    private AudioSource source;
+    //endsound
 
     public float Speed;
     public float SpeedMultiplier;
 
-    public GameObject floor;
+    public GameObject pause;
 
     private Canvas UI;
 	  private WeaponManager _playerWeapon;
@@ -18,10 +24,17 @@ public class PlayerController : MonoBehaviour {
 
 	public float multiplier{ get { return fireRateMult; }}
 
+    public int numKilled;
+
 	CharacterController cc;
 	// Use this for initialization
 	void Start () {
+        //sound
+        source = GetComponent<AudioSource>();
 
+        //endsound
+        Time.timeScale = 1;
+        numKilled = 0;
         UI = GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>();
 		_playerWeapon = GetComponent<WeaponManager> ();
         _playerData = GetComponent<DestructableData>();
@@ -37,7 +50,20 @@ public class PlayerController : MonoBehaviour {
 		{
 			AngleUpdate(mousePos);
 			Movement();
-			if (Input.GetButton("Fire1"))
+            //sound
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+            {
+                if (!source.isPlaying)
+                {
+                    source.Play();
+                }
+            }
+            else
+            {
+                source.Stop();
+                //endsound
+            }
+            if (Input.GetButton("Fire1"))
 			{
 				_playerWeapon.equipped.ShootInput(GetAngle(transform.position, mousePos));
 			}
@@ -51,14 +77,14 @@ public class PlayerController : MonoBehaviour {
 		transform.rotation = Quaternion.Euler(0, -GetAngle(pos, tpos) * 180f/Mathf.PI, 0);
 	}
 
-	float GetAngle(Vector3 v1, Vector3 v2)
+	public float GetAngle(Vector3 v1, Vector3 v2)
 	{
 		return Mathf.Atan2(v2.z - v1.z, v2.x - v1.x);
 	}
 
-	Vector3 GetMousePos()
+	public Vector3 GetMousePos()
 	{
-		RaycastHit[] hits;
+        /*RaycastHit[] hits;
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		hits = Physics.RaycastAll(ray);
 
@@ -70,9 +96,18 @@ public class PlayerController : MonoBehaviour {
 				return rh.point;
 			}
 		}
-		return Vector3.zero;
-	}
-	void Movement()
+		return Vector3.zero;*///previous player direction control
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane hPlane = new Plane(Vector3.up, Vector3.zero);
+        float distance = 0;
+        if(hPlane.Raycast(ray,out distance))
+        {
+            return (ray.GetPoint(distance));
+        }
+        return Vector3.zero;
+    }
+    void Movement()
 	{
 		float xAxis = Input.GetAxis("Horizontal");
 		float yAxis = Input.GetAxis("Vertical");
@@ -93,7 +128,15 @@ public class PlayerController : MonoBehaviour {
     {
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled = !GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>().enabled;
+            if (pause.active)
+            {
+                pause.SetActive(false);
+                Time.timeScale = 1;
+            }else
+            {
+                pause.SetActive(true);
+                Time.timeScale = 0;
+            }
         }
     }
 

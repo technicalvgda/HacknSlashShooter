@@ -30,7 +30,9 @@ public class RangedMovement : MonoBehaviour {
             _potentialLoc.y += 100.0f;                //make the height really tall so we can scan down
             _potentialLoc.x += r * Mathf.Cos(theta);
             _potentialLoc.z += r * Mathf.Sin(theta); //shift the y to the z, since 3d circles use y for height
-            if (Physics.Raycast(_potentialLoc, Vector3.down, out _hit))
+            RaycastHit[] hits;
+            hits = Physics.RaycastAll(_potentialLoc, Vector3.down);
+            /*if (Physics.Raycast(_potentialLoc, Vector3.down, out _hit))
             {
                 if (_hit.transform.gameObject.tag == "Ground")
                 {
@@ -39,8 +41,19 @@ public class RangedMovement : MonoBehaviour {
                     i = _tries + 2;
                     break;
                 }
+            }*/
+            foreach (RaycastHit rh in hits)//switched from a single raycast to a raycast all since the raycast will be hitting the spawners and any other collider
+            {
+                if(rh.transform.gameObject.tag == "Ground")
+                {
+                    transform.position = new Vector3(_potentialLoc.x, 0.33f, _potentialLoc.z);
+                    i = _tries + 2;
+                    break;
+                }
             }
         }
+
+        
     }
     //attacking the player, moves to the minimum distance
     public void AttackMove()
@@ -59,7 +72,7 @@ public class RangedMovement : MonoBehaviour {
                 if (_hit.transform.gameObject.tag == "Ground")
                 {
                     //_potentialList.Add(_potentialLoc);
-                    transform.position = new Vector3(_potentialLoc.x, _hit.point.y + 0.5f, _potentialLoc.z);
+                    transform.position = new Vector3(_potentialLoc.x, _hit.point.y, _potentialLoc.z);
                     i = _tries + 2;
                     break;
                 }
