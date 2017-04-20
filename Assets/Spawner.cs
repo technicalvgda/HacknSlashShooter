@@ -59,7 +59,9 @@ public class Spawner : MonoBehaviour {
     {
         if (other.transform.tag == "Player")
         {
-            NPC.tag = "Objective";
+            if (NPC != null) {
+                NPC.tag = "Objective";
+            }
             if (wave && !waveStart)
             {
                 Debug.Log("Wave spawner not done yet");

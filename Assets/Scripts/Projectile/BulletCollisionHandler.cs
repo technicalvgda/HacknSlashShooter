@@ -33,7 +33,7 @@ public class BulletCollisionHandler : MonoBehaviour {
 			if (owner != null && owner.name == "Player") 
 			{
 				// Check if player didn't hit themself
-				if (col.GetComponent<PlayerController> () && col.GetComponent<RescueNPC>() == null) 
+				if (col.GetComponent<PlayerController>() == null && col.GetComponent<RescueNPC>() == null) 
 				{
 					damageEnemy (hit, col);
                     //source.PlayOneShot(bulletImpactEnemy);
