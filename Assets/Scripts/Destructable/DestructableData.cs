@@ -37,7 +37,7 @@ public class DestructableData : MonoBehaviour {
             Timing.RunCoroutine(FlashColor());
         }
         health -= damage;
-        if (transform.tag == "Player")
+        if (transform.tag == "Player" || transform.tag == "Objective")
         {
             HPBar.UpdateHealthBar(health / maxHealth);
             regenTimer = 0;

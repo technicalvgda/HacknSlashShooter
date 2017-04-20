@@ -13,7 +13,13 @@ public class SlowPlayer : MonoBehaviour {
             //other.GetComponent<DestructableData>().SetHealth(other.GetComponent<PlayerController>().Speed);
             DestructableData x = this.GetComponent<DestructableData>();
             x.TakeDamage(x.health);
-
+        }
+        else if(other.transform.tag == "Objective")
+        {
+            other.GetComponentInChildren<DestructableData>().TakeDamage(5);
+            //other.GetComponent<DestructableData>().SetHealth(other.GetComponent<PlayerController>().Speed);
+            DestructableData x = this.GetComponent<DestructableData>();
+            x.TakeDamage(x.health);
         }
     }
 }
