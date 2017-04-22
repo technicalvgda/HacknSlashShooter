@@ -74,38 +74,47 @@ public class BulletCollisionHandler : MonoBehaviour {
 	void damageEnemy(DestructableData hit, Collider col){
 		switch (projectileType) {
 		case ProjectileType.ANTIRANGE:
-			if (col.GetComponent<EnemyGun> () != null) 
-			{
-				hit.TakeDamage (damage * critMultiplier);
-			} else 
-			{
-				hit.TakeDamage (damage * resistanceMultiplier);
-			}
+			decideToCrit (hit, col.GetComponent<EnemyGun> ());
+//			if (col.GetComponent<EnemyGun> () != null) 
+//			{
+//				hit.TakeDamage (damage * critMultiplier);
+//			} else 
+//			{
+//				hit.TakeDamage (damage * resistanceMultiplier);
+//			}
 			break;
 		case ProjectileType.ANTITANK:
-			//Placeholder for tank enemies
-			hit.TakeDamage(damage);
-			/*
-			if(col.GetComponent<TankComponent>())
-			{
-				hit.TakeDamage(damage*critMultiplier);
-			} else 
-			{
-				hit.TakeDamage (damage*resistanceMultiplier);
-			}
-			*/
+			decideToCrit (hit, col.GetComponent<bullChase> ());
+//			if(col.GetComponent<bullChase>() != null)
+//			{
+//				hit.TakeDamage(damage*critMultiplier);
+//			} else 
+//			{
+//				hit.TakeDamage (damage*resistanceMultiplier);
+//			}
 			break;
 		case ProjectileType.ANTISWARM:
-			if (col.GetComponent<SlowPlayer> () != null) 
-			{
-				hit.TakeDamage (damage * critMultiplier);
-			} else 
-			{
-				hit.TakeDamage (damage * resistanceMultiplier);
-			}
+			decideToCrit (hit, col.GetComponent<SlowPlayer> ());
+//			if (col.GetComponent<SlowPlayer> () != null) 
+//			{
+//				hit.TakeDamage (damage * critMultiplier);
+//			} else 
+//			{
+//				hit.TakeDamage (damage * resistanceMultiplier);
+//			}
 			break;
 		default:
 			break;
+		}
+	}
+	void decideToCrit (DestructableData hit, Component component)
+	{
+		if (component != null) 
+		{
+			hit.TakeDamage (damage * critMultiplier);
+		} else 
+		{
+			hit.TakeDamage (damage * resistanceMultiplier);
 		}
 	}
 }

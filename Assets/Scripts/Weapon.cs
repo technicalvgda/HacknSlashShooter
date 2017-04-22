@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour {
     //endsound
     public float RPM = 120; //rounds per minute
 	public float ProjectileSpeed = 5;
+	public float projectileTravelTime = 1;
 	public GameObject ProjectilePrefab;
 	public int bulletsPerShot = 1; // Number of bullets per shot	
 	public float bulletSpread = 0; // Wideness of shot in degrees
@@ -71,9 +72,9 @@ public class Weapon : MonoBehaviour {
 		float offset =  bulletAngle - initialAngle;		// Calculates relative offset angle for projectile
 
 		if (bulletsPerShot == 1) {
-			Projectile.create (ProjectilePrefab, transform.parent.gameObject, angle, ProjectileSpeed);
+			Projectile.create (ProjectilePrefab, transform.parent.gameObject, angle, ProjectileSpeed, projectileTravelTime);
 		} else {
-			Projectile.create (ProjectilePrefab, transform.parent.gameObject, angle + offset, ProjectileSpeed);
+			Projectile.create (ProjectilePrefab, transform.parent.gameObject, angle + offset, ProjectileSpeed, projectileTravelTime);
 		}
 	}
 }
