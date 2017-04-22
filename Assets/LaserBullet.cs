@@ -13,7 +13,7 @@ public class LaserBullet : MonoBehaviour {
     void Start () {
         time = Time.realtimeSinceStartup;
         player = FindObjectOfType<PlayerController>();
-        angle = player.GetAngle(player.transform.position, player.GetMousePos());
+        angle = PlayerController.GetAngle(player.transform.position, PlayerController.GetMousePos());
     }
 	
 	// Update is called once per frame
