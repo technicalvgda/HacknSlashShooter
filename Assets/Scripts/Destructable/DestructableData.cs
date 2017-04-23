@@ -12,6 +12,8 @@ public class DestructableData : MonoBehaviour {
     private Color _origColor;
     private Renderer render;
 
+    public GameObject gameover;
+
 
     private bool isDamaged = false;
     private int regenTimer = 0;
@@ -37,7 +39,7 @@ public class DestructableData : MonoBehaviour {
             Timing.RunCoroutine(FlashColor());
         }
         health -= damage;
-        if (transform.tag == "Player")
+        if (transform.tag == "Player" || transform.tag == "Objective")
         {
             HPBar.UpdateHealthBar(health / maxHealth);
             regenTimer = 0;
@@ -54,11 +56,13 @@ public class DestructableData : MonoBehaviour {
                 GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().numKilled++;
                 checkedKill = true;
             }
-            Destroy(transform.gameObject);
             if (transform.tag == "Player")
             {
-                FindObjectOfType<Canvas>().enabled = true;
+                //GameObject pause = GetComponent<PlayerController>().pause;
+                gameover.SetActive(true);
             }
+            Destroy(transform.gameObject);
+            
         }
     }
 
