@@ -23,6 +23,11 @@ public class EnemyMovement : MonoBehaviour {
         nav.SetDestination(g.transform.position);
     }
 
+    public void ChasePoint(Vector3 p)
+    {
+        nav.SetDestination(p);
+    }
+
 	// Use when Enemy or Player is Dead
 	public void StopChasingPlayer()
 	{

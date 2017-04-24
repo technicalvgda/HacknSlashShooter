@@ -20,7 +20,8 @@ public class Spawner : MonoBehaviour {
     public GameObject door1;
     public GameObject door2;
 
-
+    public GameObject NPC;
+    private RescueNPC NPCScript;
 
     //Wave Spawn Variables
     public bool wave = false;
@@ -33,6 +34,10 @@ public class Spawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        if (NPC != null)
+        {
+            NPCScript = NPC.GetComponent<RescueNPC>();
+        }
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         maxX = transform.position.x + transform.localScale.x / 2;
         maxZ = transform.position.z + transform.localScale.z / 2;
@@ -54,6 +59,9 @@ public class Spawner : MonoBehaviour {
     {
         if (other.transform.tag == "Player")
         {
+            if (NPC != null) {
+                NPC.tag = "Objective";
+            }
             if (wave && !waveStart)
             {
                 Debug.Log("Wave spawner not done yet");
@@ -133,17 +141,39 @@ public class Spawner : MonoBehaviour {
         {
             if(enemy1spawn > 0)
             {
-                numOfEnemy1 = 7 * currentWave;
+                if (currentWave < 5)
+                {
+                    numOfEnemy1 = 15;
+                }else
+                {
+                    numOfEnemy1 = 5 * currentWave;
+                }
                 numEnemies += numOfEnemy1;
             }
             if(enemy2spawn > 0)
             {
-                numOfEnemy2 = 2 * currentWave;
+                if (currentWave < 3)
+                {
+                    numOfEnemy2 = 3;
+                }else if( currentWave < 6)
+                {
+                    numOfEnemy2 = 4;
+                }
+                else
+                {
+                    numOfEnemy2 = 2 * currentWave;
+                }
                 numEnemies += numOfEnemy2;
             }
             if(enemy3spawn > 0)
             {
-                numOfEnemy3 = 1 * currentWave;
+                if (currentWave < 7)
+                {
+                    numOfEnemy3 = 4;
+                } else
+                {
+                    numOfEnemy3 = 1 * currentWave;
+                }
                 numEnemies += numOfEnemy3;
             }
             while(numOfEnemy1 > 0 || numOfEnemy2 > 0 || numOfEnemy3 > 0)
@@ -194,6 +224,10 @@ public class Spawner : MonoBehaviour {
         }
         if (door1 != null)
         {
+            if(NPC != null)
+            {
+                NPCScript.rescued = true;
+            }
             door1.GetComponentInChildren<SlidingTwoDoor>().isLocked = false;
             door2.GetComponentInChildren<SlidingTwoDoor>().isLocked = false;
         }
@@ -202,10 +236,21 @@ public class Spawner : MonoBehaviour {
     private void SpawnEnemy(GameObject enemyToSpawn, bool waveEnemy)
     {
         Vector3 spawnPoint = new Vector3(Random.Range(minX, maxX), 0.33f, Random.Range(minZ, maxZ));
-        while ((Vector3.Distance(player.gameObject.transform.position, spawnPoint) < 5))
+        if (enemyToSpawn == enemy2)
         {
-            spawnPoint = new Vector3(Random.Range(minX, maxX), 0.33f, Random.Range(minZ, maxZ));
+            while ((Vector3.Distance(player.gameObject.transform.position, spawnPoint) < 4) && (Vector3.Distance(player.gameObject.transform.position, spawnPoint) > 7))
+            {
+                spawnPoint = new Vector3(Random.Range(minX, maxX), 0.33f, Random.Range(minZ, maxZ));
+            }
         }
+        else
+        {
+            while ((Vector3.Distance(player.gameObject.transform.position, spawnPoint) < 5))
+            {
+                spawnPoint = new Vector3(Random.Range(minX, maxX), 0.33f, Random.Range(minZ, maxZ));
+            }
+        }
+        
         GameObject enemy = Instantiate(enemyToSpawn, spawnPoint, Quaternion.identity);
         if (waveEnemy)
         {
