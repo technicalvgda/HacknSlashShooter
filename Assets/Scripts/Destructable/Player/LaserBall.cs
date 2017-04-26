@@ -27,7 +27,7 @@ public class LaserBall : MonoBehaviour {
         }
         if (Input.GetButton("Fire2") && !GameObject.Find("DEcoy(Clone)"))
         {
-            mousePos = pc.GetMousePos();
+            mousePos = PlayerController.GetMousePos();
 
             direction = mousePos - player.transform.position;
             if (Physics.Raycast(player.transform.position, direction, out hit, throwRange))
