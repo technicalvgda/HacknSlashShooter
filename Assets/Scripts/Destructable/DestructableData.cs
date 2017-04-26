@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using MovementEffects;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DestructableData : MonoBehaviour {
+    public int pointValue;
     public float maxHealth;
     public Healthbar HPBar;
     public float health { get; private set; }
     public float hitFlashDelay = 0.1f;
     public Color color = Color.red;
+
     private Color _origColor;
     private Renderer render;
+
+    public GameObject gameover;
 
 
     private bool isDamaged = false;
@@ -52,13 +57,32 @@ public class DestructableData : MonoBehaviour {
             if (GetComponent<WaveEnemy>() && !checkedKill)
             {
                 GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().numKilled++;
+                ScoreHandler.s.AddScore(pointValue);
                 checkedKill = true;
             }
-            Destroy(transform.gameObject);
             if (transform.tag == "Player")
             {
-                FindObjectOfType<Canvas>().enabled = true;
+                if (SceneManager.GetActiveScene().name.Contains("Arena"))
+                {
+                    ScoreHandler.s.RecordScore();
+                    var scoreList = SaveHandler.s.GetScores();
+                    if (scoreList == null)
+                    {
+                        SaveHandler.s.InitializeScores();
+                        scoreList = SaveHandler.s.GetScores();
+                    }
+                    var s = "High Scores: ";
+                    for (int i = 0; i < scoreList.Count; i++)
+                    {
+                        s += scoreList[i] + " ";
+                    }
+                    Debug.Log(s);
+                }
+                //GameObject pause = GetComponent<PlayerController>().pause;
+                gameover.SetActive(true);
             }
+            Destroy(transform.gameObject);
+            
         }
     }
 
