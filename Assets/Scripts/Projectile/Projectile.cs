@@ -42,12 +42,13 @@ public class Projectile : MonoBehaviour {
 
     void Update()
     {
-		// Destroy projectile after maxTravelTime time
+		// Destroy projectile after maxTravelTime seconds
 		_currTravelTime += Time.deltaTime;
 		if (_currTravelTime >= maxTravelTime) 
 		{
 			PoolManager.Destroy (transform.gameObject);
 		}
+
         Vector3 pos = transform.position;
         pos.x += Speed * Mathf.Cos(angle) * Time.deltaTime;
         pos.z += Speed * Mathf.Sin(angle) * Time.deltaTime;

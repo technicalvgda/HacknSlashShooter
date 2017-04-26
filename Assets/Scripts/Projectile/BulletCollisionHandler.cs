@@ -12,7 +12,6 @@ public class BulletCollisionHandler : MonoBehaviour {
 
 	public float damage = 5.0f;					// base damage of bullet
 	public float critMultiplier = 2.0f;			// crit multiplier
-	public float resistanceMultiplier = 0.5f;	// Damage reduction multiplier, should be < 1
 	public bool canPierceThroughEnemies = true;
 
 	public enum ProjectileType { ANTITANK, ANTIRANGE, ANTISWARM, NORMAL }
@@ -75,38 +74,23 @@ public class BulletCollisionHandler : MonoBehaviour {
 		switch (projectileType) {
 		case ProjectileType.ANTIRANGE:
 			decideToCrit (hit, col.GetComponent<EnemyGun> ());
-//			if (col.GetComponent<EnemyGun> () != null) 
-//			{
-//				hit.TakeDamage (damage * critMultiplier);
-//			} else 
-//			{
-//				hit.TakeDamage (damage * resistanceMultiplier);
-//			}
 			break;
 		case ProjectileType.ANTITANK:
 			decideToCrit (hit, col.GetComponent<bullChase> ());
-//			if(col.GetComponent<bullChase>() != null)
-//			{
-//				hit.TakeDamage(damage*critMultiplier);
-//			} else 
-//			{
-//				hit.TakeDamage (damage*resistanceMultiplier);
-//			}
 			break;
 		case ProjectileType.ANTISWARM:
 			decideToCrit (hit, col.GetComponent<SlowPlayer> ());
-//			if (col.GetComponent<SlowPlayer> () != null) 
-//			{
-//				hit.TakeDamage (damage * critMultiplier);
-//			} else 
-//			{
-//				hit.TakeDamage (damage * resistanceMultiplier);
-//			}
 			break;
 		default:
 			break;
 		}
 	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="hit">Hit.</param>
+	/// <param name="component">Component.</param>
 	void decideToCrit (DestructableData hit, Component component)
 	{
 		if (component != null) 
@@ -114,7 +98,7 @@ public class BulletCollisionHandler : MonoBehaviour {
 			hit.TakeDamage (damage * critMultiplier);
 		} else 
 		{
-			hit.TakeDamage (damage * resistanceMultiplier);
+			hit.TakeDamage (damage);
 		}
 	}
 }
