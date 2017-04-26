@@ -31,6 +31,9 @@ public class Spawner : MonoBehaviour {
     private int numEnemies;
     public bool arenaSpawn;
 
+    public CountdownTimer cdTime;
+    public float startDelay = 10.0f;
+    private string playerTag = "Player", objectTag = "Objective";
 
 	// Use this for initialization
 	void Start () {
@@ -71,6 +74,10 @@ public class Spawner : MonoBehaviour {
             {
                 spawn = Timing.RunCoroutine(Spawn());
             }
+            if(cdTime != null)
+            {
+                cdTime.StartTimer(startDelay, this);
+            }
         }
     }
 
@@ -93,6 +100,30 @@ public class Spawner : MonoBehaviour {
 	void Update () {
         Debug.Log("player killed: " + player.numKilled + " total enemies: " + numEnemies);
 
+    }
+
+    public void SetAggro(int state)
+    {
+        string[] targetList;
+
+        if (state == 1)
+        {
+            targetList = new string[] { "Pheremone", playerTag, objectTag };
+        }
+        else
+        {
+            targetList = new string[] { "Pheremone", objectTag, playerTag };
+        }
+
+        //really gross, but it should work
+        if (enemy1 != null)
+        {
+            enemy1.GetComponent<AlwaysChaseAI>().priorityTargetTag = targetList;
+        }
+        if (enemy3 != null)
+        {
+            enemy3.GetComponent<bullChase>().priorityTargetTag = targetList;
+        }
     }
 
     IEnumerator<float> Spawn()
