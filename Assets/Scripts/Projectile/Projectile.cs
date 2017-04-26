@@ -6,12 +6,11 @@ public class Projectile : MonoBehaviour {
     public GameObject owner;
     public float angle;
     public float Speed;
-	public Vector3 vel;
+
 	public float maxTravelTime = 3; // The life time of a projectile before it deactivates in seconds
 
 
 	private float _currTravelTime = 0;
-	private Vector3 _baseSize;
 
 	public static GameObject create(GameObject parent, GameObject owner, float Angle, float speed, float maxTravelTime)
 	{
@@ -27,9 +26,7 @@ public class Projectile : MonoBehaviour {
 		proj.angle = Angle;
 		proj.Speed = speed;
 		proj._currTravelTime = 0;
-		proj._baseSize = parent.transform.localScale;
 		proj.maxTravelTime = 3;
-		//proj.GetComponent<Rigidbody>().velocity = owner.transform.TransformDirection (Vector3.right * speed) + owner.GetComponent<CharacterController>().velocity;
 		return obj;
 	}
 
@@ -55,11 +52,5 @@ public class Projectile : MonoBehaviour {
         transform.position = pos;
 
     }
-
-
-	public void setScale(float scale)
-	{
-		transform.localScale  = _baseSize * scale;
-	}
 
 }

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class KnockBackAugmentation : Augmentation
 {
-
-
 	private PlayerController _player;
 	private WeaponManager _playerWeapon;
 	// Use this for initialization
@@ -17,7 +15,8 @@ public class KnockBackAugmentation : Augmentation
 
 	public override void augmentShot()
 	{
-		Debug.Log ("Augment shot");
+		_player.SendMessage ("playerKnockBack");
+		Debug.Log ("Send Knock Back Player Message");
 	}
 
 }

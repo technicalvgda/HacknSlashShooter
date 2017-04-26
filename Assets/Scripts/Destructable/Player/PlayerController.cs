@@ -12,7 +12,10 @@ public class PlayerController : MonoBehaviour
 
     public float Speed;
     public float SpeedMultiplier;
+	public float knockBackForce = 100;
 	private float boostSpeedMultiplier = 1;
+	private Vector3 impact = Vector3.zero;
+	private float mass = 3;
 
     public GameObject pause;
 
@@ -119,12 +122,26 @@ public class PlayerController : MonoBehaviour
         if (cc != null)
         {
             cc.Move(displacement * Time.deltaTime);
-            
-            //transform.position += displacement * Time.deltaTime;
         }
-        
+		//Adds the displacement of the impact force to the Character Controller
+		if (impact.magnitude > 0.2) 
+		{
+			cc.Move(impact * Time.deltaTime);
+			impact = Vector3.Lerp(impact, Vector3.zero, 5 * Time.deltaTime);
+		}
 
     }
+
+	/// <summary>
+	/// Calculates the impact velocity on a Character Controller
+	/// </summary>
+	/// <param name="direction">Direction of the impact.</param>
+	/// <param name="force">Force of the impact.</param>
+	void AddImpact(Vector3 direction, float force)
+	{
+		impact += direction.normalized * force / mass;
+
+	}
 
     void MenuControls()
     {
@@ -160,9 +177,11 @@ public class PlayerController : MonoBehaviour
 		boostSpeedMultiplier = 1;
 	}
 
-	public void playerKnockback()
+	// knocks back a player away from the mouse position
+	public void playerKnockBack()
 	{
-		Debug.Log ("Knock Player Back");
+		AddImpact (transform.position - GetMousePos (), knockBackForce);
+		Debug.Log ("In player method knockback");
 	}
 
 }
