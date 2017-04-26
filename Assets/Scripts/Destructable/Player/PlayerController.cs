@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
 
     public float Speed;
     public float SpeedMultiplier;
-	public float knockBackForce = 100;
 	private float boostSpeedMultiplier = 1;
 	private Vector3 impact = Vector3.zero;
 	private float mass = 3;
@@ -179,7 +178,7 @@ public class PlayerController : MonoBehaviour
 	}
 
 	// knocks back a player away from the mouse position
-	public void playerKnockBack()
+	public void playerKnockBack(float knockBackForce)
 	{
 		AddImpact (transform.position - GetMousePos (), knockBackForce);
 		//Debug.Log ("In player method knockback");

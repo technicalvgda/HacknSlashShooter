@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour {
 	public float maxTravelTime = 3; // The life time of a projectile before it deactivates in seconds
 	private float _currTravelTime = 0;
 
+
 	public static GameObject create(GameObject parent, GameObject owner, float Angle, float speed, float maxTravelTime)
 	{
 
@@ -32,6 +33,12 @@ public class Projectile : MonoBehaviour {
 				obj.AddComponent<ComboBoostBullet> ();
 			}
 		}
+		if (owner.GetComponentInChildren<SurgicalPrecisionAugmentation> () != null) 
+		{
+			if (obj.GetComponent<SurgicalPrecisionBulletAugmentation> () == null) {
+				obj.AddComponent<SurgicalPrecisionBulletAugmentation> ();
+			}
+		}
 		return obj;
 	}
 
@@ -48,6 +55,12 @@ public class Projectile : MonoBehaviour {
 		_currTravelTime += Time.deltaTime;
 		if (_currTravelTime >= maxTravelTime) 
 		{
+			// Logic for the Surgical Precision Augmentation
+			if (GetComponent<SurgicalPrecisionBulletAugmentation>() != null) 
+			{
+				GetComponent<SurgicalPrecisionBulletAugmentation> ().signalBulletDespawned ();
+			}
+
 			PoolManager.Destroy (transform.gameObject);
 		}
 

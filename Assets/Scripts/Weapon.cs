@@ -33,9 +33,6 @@ public class Weapon : MonoBehaviour {
 	{
 		if (CanShoot ()) 
 		{
-			if (isAugmented()) {
-				SendMessage ("augmentShot");
-			}
 			shoot (Angle);
 			_nextFire = Time.time + 60/ RPM;
 		}
@@ -55,6 +52,10 @@ public class Weapon : MonoBehaviour {
         //sound
         source.PlayOneShot(shootSound);
         //endsound
+
+		if (isAugmented()) {
+			GetComponent<Augmentation> ().augmentShot ();
+		}
 		for (int bulletNum = 0; bulletNum < bulletsPerShot; bulletNum++) 
 		{
 			angleBullets (bulletSpread, bulletNum, bulletsPerShot, angle);
