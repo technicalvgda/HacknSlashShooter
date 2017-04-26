@@ -8,8 +8,6 @@ public class Projectile : MonoBehaviour {
     public float Speed;
 
 	public float maxTravelTime = 3; // The life time of a projectile before it deactivates in seconds
-
-
 	private float _currTravelTime = 0;
 
 	public static GameObject create(GameObject parent, GameObject owner, float Angle, float speed, float maxTravelTime)
@@ -26,7 +24,14 @@ public class Projectile : MonoBehaviour {
 		proj.angle = Angle;
 		proj.Speed = speed;
 		proj._currTravelTime = 0;
-		proj.maxTravelTime = 3;
+		proj.maxTravelTime = maxTravelTime;
+
+		if (owner.GetComponentInChildren<ComboBoostAugmentation> () != null) 
+		{
+			if (obj.GetComponent<ComboBoostBullet> () == null) {
+				obj.AddComponent<ComboBoostBullet> ();
+			}
+		}
 		return obj;
 	}
 

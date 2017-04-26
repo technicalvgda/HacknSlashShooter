@@ -169,6 +169,7 @@ public class PlayerController : MonoBehaviour
 
 	public void boostMovementSpeed(float multiplier)
 	{
+		//Debug.Log ("Speed Boost!");
 		boostSpeedMultiplier = multiplier;
 	}
 
@@ -181,7 +182,7 @@ public class PlayerController : MonoBehaviour
 	public void playerKnockBack()
 	{
 		AddImpact (transform.position - GetMousePos (), knockBackForce);
-		Debug.Log ("In player method knockback");
+		//Debug.Log ("In player method knockback");
 	}
 
 }

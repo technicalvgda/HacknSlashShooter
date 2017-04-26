@@ -87,7 +87,7 @@ public class BulletCollisionHandler : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// 
+	/// Crits enemy if they contain the passed component
 	/// </summary>
 	/// <param name="hit">Hit.</param>
 	/// <param name="component">Component.</param>

@@ -15,23 +15,6 @@ public class WeaponManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
-		//This tests a way to boost weapon fire rate from elsewhere
-		if (Input.GetButtonDown ("Fire3")) {
-			foreach (Weapon weapon in weapons) {
-				GetComponentInParent<PlayerController> ().boostMovementSpeed (2);
-				weapon.boostRPM (2);
-			}
-		}
-		if (Input.GetButtonDown ("Fire4"))
-		{
-			foreach (Weapon weapon in weapons) {
-				GetComponentInParent<PlayerController> ().resetBoostMovementSpeed ();
-				weapon.resetRPM ();
-			}
-		}
-
-
 		for (int i = 1; i <= weapons.Length; i++) {
 			if(Input.GetKeyDown("" + i)){
 				currentWeapon = i - 1;
@@ -48,6 +31,20 @@ public class WeaponManager : MonoBehaviour {
 			} else {
 				weapons [i].gameObject.SetActive (false);
 			}
+		}
+	}
+
+	public void boostRPMofAllWeapons(float multiplier)
+	{
+		foreach (Weapon weapon in weapons) {
+			weapon.boostRPM (multiplier);
+		}
+	}
+
+	public void stopBoostRPMofAllWeapons(float multiplier)
+	{
+		foreach (Weapon weapon in weapons) {
+			weapon.resetRPM (multiplier);
 		}
 	}
 }

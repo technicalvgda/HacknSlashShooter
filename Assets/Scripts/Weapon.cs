@@ -10,7 +10,7 @@ public class Weapon : MonoBehaviour {
     //endsound
     public float RPM = 120; //rounds per minute
 	public float ProjectileSpeed = 5;
-	public float projectileTravelTime = 1;
+	public float projectileTravelTime = 1; // Lifetime of projectile in seconds
 	public GameObject ProjectilePrefab;
 	public int bulletsPerShot = 1; // Number of bullets per shot	
 	public float bulletSpread = 0; // Wideness of shot in degrees
@@ -87,14 +87,14 @@ public class Weapon : MonoBehaviour {
 		}
 	}
 
-	public void boostRPM(int multiplier)
+	public void boostRPM(float multiplier)
 	{
-		RPM = baseRPM * multiplier;
+		RPM = RPM * multiplier;
 	}
 
-	public void resetRPM()
+	public void resetRPM(float multiplier)
 	{
-		RPM = baseRPM;
+		RPM = RPM / multiplier;
 	}
 
 }
