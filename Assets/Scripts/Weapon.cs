@@ -33,6 +33,9 @@ public class Weapon : MonoBehaviour {
 	{
 		if (CanShoot ()) 
 		{
+			if (isAugmented()) {
+				SendMessage ("augmentShot");
+			}
 			shoot (Angle);
 			_nextFire = Time.time + 60/ RPM;
 		}
@@ -42,7 +45,7 @@ public class Weapon : MonoBehaviour {
 	/// Determines whether this instance can shoot.
 	/// </summary>
 	/// <returns><c>true</c> if this instance can shoot; otherwise, <c>false</c>.</returns>
-	bool CanShoot()
+	public bool CanShoot()
 	{
 		return (Time.time >= _nextFire);
 	}
@@ -58,10 +61,16 @@ public class Weapon : MonoBehaviour {
 		}
 	}
 
+	//TODO: Something with this
+	bool isAugmented() 
+	{
+		return (GetComponent<Augmentation> () != null);
+	}
+
 	/// <summary>
 	/// Angles the bullets.
 	/// </summary>
-	/// <param name="bulletSpread">Bullet spread.</param>
+	/// <param name="bulletSpread">Bullet spread in radians.</param>
 	/// <param name="bulletNumber">Bullet number.</param>
 	/// <param name="bulletsPerShot">Bullets per shot.</param>
 	void angleBullets(float bulletSpread, int bulletNumber, int bulletsPerShot, float angle)
@@ -77,4 +86,15 @@ public class Weapon : MonoBehaviour {
 			Projectile.create (ProjectilePrefab, transform.parent.gameObject, angle + offset, ProjectileSpeed, projectileTravelTime);
 		}
 	}
+
+	public void boostRPM(int multiplier)
+	{
+		RPM = baseRPM * multiplier;
+	}
+
+	public void resetRPM()
+	{
+		RPM = baseRPM;
+	}
+
 }

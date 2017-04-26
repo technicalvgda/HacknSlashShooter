@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponManager : MonoBehaviour {
-
-	public GameObject[] weapons;
+	
+	public Weapon[] weapons;
 	public int currentWeapon = 0;
 
 	public Weapon equipped;
@@ -15,6 +15,23 @@ public class WeaponManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
+		//This tests a way to boost weapon fire rate from elsewhere
+		if (Input.GetButtonDown ("Fire3")) {
+			foreach (Weapon weapon in weapons) {
+				GetComponentInParent<PlayerController> ().boostMovementSpeed (2);
+				weapon.boostRPM (2);
+			}
+		}
+		if (Input.GetButtonDown ("Fire4"))
+		{
+			foreach (Weapon weapon in weapons) {
+				GetComponentInParent<PlayerController> ().resetBoostMovementSpeed ();
+				weapon.resetRPM ();
+			}
+		}
+
+
 		for (int i = 1; i <= weapons.Length; i++) {
 			if(Input.GetKeyDown("" + i)){
 				currentWeapon = i - 1;
@@ -22,8 +39,7 @@ public class WeaponManager : MonoBehaviour {
 			}
 		}
 	}
-
-
+		
 	void SwitchWeapon(int index){
 		equipped = weapons [index].GetComponent<Weapon> ();
 		for (int i = 0; i < weapons.Length; i++) {
