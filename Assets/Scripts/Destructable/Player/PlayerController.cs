@@ -12,11 +12,12 @@ public class PlayerController : MonoBehaviour
 
     public float Speed;
     public float SpeedMultiplier;
+	private float boostSpeedMultiplier = 1;
 
     public GameObject pause;
 
     private Canvas UI;
-	  private WeaponManager _playerWeapon;
+	private WeaponManager _playerWeapon;
     private DestructableData _playerData;
 
 
@@ -107,11 +108,12 @@ public class PlayerController : MonoBehaviour
         }
         return Vector3.zero;
     }
+
     void Movement()
 	{
 		float xAxis = Input.GetAxis("Horizontal");
 		float yAxis = Input.GetAxis("Vertical");
-		Vector3 displacement = new Vector3(xAxis, 0, yAxis).normalized * Speed * SpeedMultiplier;
+		Vector3 displacement = new Vector3(xAxis, 0, yAxis).normalized * Speed * SpeedMultiplier * boostSpeedMultiplier;
         displacement.y -= 100f * Time.deltaTime;
         cc = cc == null ? GetComponent<CharacterController>() : cc;
         if (cc != null)
@@ -148,5 +150,19 @@ public class PlayerController : MonoBehaviour
         _playerWeapon.equipped.RPM = fireRateMult * _playerWeapon.equipped.baseRPM;
     }
 
+	public void boostMovementSpeed(float multiplier)
+	{
+		boostSpeedMultiplier = multiplier;
+	}
+
+	public void resetBoostMovementSpeed()
+	{
+		boostSpeedMultiplier = 1;
+	}
+
+	public void playerKnockback()
+	{
+		Debug.Log ("Knock Player Back");
+	}
 
 }
