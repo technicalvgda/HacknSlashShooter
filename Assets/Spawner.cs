@@ -34,6 +34,7 @@ public class Spawner : MonoBehaviour {
     public CountdownTimer cdTime;
     public float startDelay = 10.0f;
     private string playerTag = "Player", objectTag = "Objective";
+    private bool finished = false;
 
 	// Use this for initialization
 	void Start () {
@@ -60,7 +61,7 @@ public class Spawner : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "Player")
+        if (other.transform.tag == "Player" && !finished)
         {
             if (NPC != null) {
                 NPC.tag = "Objective";
@@ -258,6 +259,7 @@ public class Spawner : MonoBehaviour {
             if(NPC != null)
             {
                 NPCScript.rescued = true;
+                finished = true;
             }
             door1.GetComponentInChildren<SlidingTwoDoor>().isLocked = false;
             door2.GetComponentInChildren<SlidingTwoDoor>().isLocked = false;

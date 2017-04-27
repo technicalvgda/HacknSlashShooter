@@ -7,7 +7,9 @@ public class BuffListHandler : MonoBehaviour {
     public enum Buffs
     {
         health,
-        firerate
+        firerate,
+        decoy,
+        laser,
     }
 
     public Buffs buffs;
@@ -62,6 +64,12 @@ public class BuffListHandler : MonoBehaviour {
                 break;
             case Buffs.firerate:
                 _player.GetComponent<PlayerController>().IncreaseStats(buffList.fireRateIncreasePercent);
+                break;
+            case Buffs.decoy:
+                _player.GetComponent<LaserBall>().powerup = LaserBall.currentpower.decoy;
+                break;
+            case Buffs.laser:
+                _player.GetComponent<LaserBall>().powerup = LaserBall.currentpower.laser;
                 break;
             default:
                 break;
