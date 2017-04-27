@@ -57,7 +57,7 @@ public class DestructableData : MonoBehaviour {
             if (GetComponent<WaveEnemy>() && !checkedKill)
             {
                 GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().numKilled++;
-                ScoreHandler.s.AddScore(pointValue);
+                //ScoreHandler.s.AddScore(pointValue);
                 checkedKill = true;
             }
             if (transform.tag == "Player")

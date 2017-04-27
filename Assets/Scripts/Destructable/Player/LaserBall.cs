@@ -13,6 +13,15 @@ public class LaserBall : MonoBehaviour {
     private Vector3 direction;
     private Vector3 mousePos;
     private PlayerController pc;
+
+    public currentpower powerup = currentpower.none;
+
+    public enum currentpower
+    {
+        none,
+        decoy,
+        laser,
+    }
     // Use this for initialization
     void Start () {
         player = FindObjectOfType<PlayerController>().gameObject;
@@ -21,11 +30,11 @@ public class LaserBall : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetButton("Fire2") && powerup == currentpower.laser)
         {
             Fire();
         }
-        if (Input.GetButton("Fire2") && !GameObject.Find("DEcoy(Clone)"))
+        if (Input.GetButton("Fire2") && !GameObject.Find("DEcoy(Clone)") && powerup == currentpower.decoy)
         {
             mousePos = PlayerController.GetMousePos();
 
