@@ -17,18 +17,24 @@ public class SurgicalPrecisionBulletAugmentation : MonoBehaviour {
 
 	void OnTriggerEnter (Collider col)
 	{
-		//Debug.Log ("Collided with " + col.name);
-		// Everytime you hit an enemy, increase the precision counter
-		if (col.CompareTag("Enemy")) {
-			_surgPrecAug.incrementPrecisionCounter ();
-		} else {
-			// List of colliders that should not reset the precision counter
-			if (col.GetComponent<Spawner> () == null &&
-			    col.GetComponent<Projectile> () == null) 
+		if (this.enabled) 
+		{
+			//Debug.Log ("Collided with " + col.name);
+			// Everytime you hit an enemy, increase the precision counter
+			if (col.CompareTag ("Enemy")) 
 			{
-				_surgPrecAug.resetPrecisionCounter ();
-			}
+				_surgPrecAug.incrementPrecisionCounter ();
+			} 
+			else 
+			{
+				// List of colliders that should not reset the precision counter
+				if (col.GetComponent<Spawner> () == null &&
+				   col.GetComponent<Projectile> () == null) 
+				{
+					_surgPrecAug.resetPrecisionCounter ();
+				}
 			
+			}
 		}
 
 	}

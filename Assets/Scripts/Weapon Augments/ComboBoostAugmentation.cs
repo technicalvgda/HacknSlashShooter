@@ -9,7 +9,7 @@ using UnityEngine;
 /// 
 /// Use by attaching this component to the weapon you want to augment
 /// </summary>
-public class ComboBoostAugmentation : Augmentation
+public class ComboBoostAugmentation : MonoBehaviour
 {
 	private PlayerController _player;
 	private WeaponManager _weaponManager;
@@ -32,20 +32,17 @@ public class ComboBoostAugmentation : Augmentation
 
 	void Update()
 	{
-		if (_isBoosting) {
+		if (_isBoosting) 
+		{
 			_currBoostTime += Time.deltaTime;
-			if (_currBoostTime >= boostTime) {
+			if (_currBoostTime >= boostTime) 
+			{
 				_player.resetBoostMovementSpeed ();
-				_weaponManager.stopBoostRPMofAllWeapons (rpmMultiplier);
+				_weaponManager.stopBoostRPMofAllWeapons ();
 				//Debug.Log ("Combo Ended");
 				_isBoosting = false;
 			}
 		}
-	}
-
-	public override void augmentShot ()
-	{
-		//Debug.Log ("In Combo Mode! (AKA ComboBoostAugmentation Class)");
 	}
 
 	public void startBoosting()
@@ -54,6 +51,6 @@ public class ComboBoostAugmentation : Augmentation
 		_weaponManager.boostRPMofAllWeapons (rpmMultiplier);
 		_currBoostTime = 0;
 		_isBoosting = true;
-		//Debug.Log ("Combo Time!");
+		Debug.Log ("Combo Time!");
 	}
 }

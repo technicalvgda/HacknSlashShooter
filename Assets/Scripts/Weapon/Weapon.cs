@@ -16,6 +16,10 @@ public class Weapon : MonoBehaviour {
 	public float bulletSpread = 0; // Wideness of shot in degrees
 	public float baseRPM;
 
+	private float rpmMultiplier = 1;
+
+	KnockBackAugmentation _kbAug;
+
 	private float _nextFire = 0f;
 	private enum ProjectileType { ANTITANK, ANTIRANGE, NORMAL};
 	void Start()
@@ -24,6 +28,8 @@ public class Weapon : MonoBehaviour {
         //sound
         source = GetComponent<AudioSource>();
         //endsound
+
+		_kbAug = GetComponent<KnockBackAugmentation> ();
 	}
 	/// <summary>
 	/// Shoots projectile.
@@ -34,7 +40,7 @@ public class Weapon : MonoBehaviour {
 		if (CanShoot ()) 
 		{
 			shoot (Angle);
-			_nextFire = Time.time + 60/ RPM;
+			_nextFire = Time.time + 60/ (RPM * rpmMultiplier);
 		}
 	}
 
@@ -53,20 +59,18 @@ public class Weapon : MonoBehaviour {
         source.PlayOneShot(shootSound);
         //endsound
 
-		if (isAugmented()) {
-			GetComponent<Augmentation> ().augmentShot ();
+		// Checks for knock back augment
+		if (_kbAug != null) {
+			_kbAug.augmentShot ();
 		}
+
 		for (int bulletNum = 0; bulletNum < bulletsPerShot; bulletNum++) 
 		{
 			angleBullets (bulletSpread, bulletNum, bulletsPerShot, angle);
 		}
 	}
 
-	//TODO: Something with this
-	bool isAugmented() 
-	{
-		return (GetComponent<Augmentation> () != null);
-	}
+
 
 	/// <summary>
 	/// Angles the bullets.
@@ -90,12 +94,12 @@ public class Weapon : MonoBehaviour {
 
 	public void boostRPM(float multiplier)
 	{
-		RPM = RPM * multiplier;
+		rpmMultiplier =  multiplier;
 	}
 
-	public void resetRPM(float multiplier)
+	public void resetRPM()
 	{
-		RPM = RPM / multiplier;
+		rpmMultiplier = 1;
 	}
 
 }

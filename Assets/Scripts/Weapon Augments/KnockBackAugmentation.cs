@@ -8,7 +8,7 @@ using UnityEngine;
 /// 
 /// Use by attaching this component to the weapon you want to augment
 /// </summary>
-public class KnockBackAugmentation : Augmentation
+public class KnockBackAugmentation : MonoBehaviour
 {
 	private PlayerController _player;
 
@@ -19,10 +19,14 @@ public class KnockBackAugmentation : Augmentation
 		_player = GetComponentInParent<PlayerController> ();
 	}
 
-	public override void augmentShot()
+	public void augmentShot()
 	{
-		_player.playerKnockBack(knockBackForce);
-		//Debug.Log ("Send Knock Back Player Message");
+		if (this.enabled) 
+		{
+			_player.playerKnockBack(knockBackForce);
+			//Debug.Log ("Send Knock Back Player Message");
+		}
+
 	}
 
 }

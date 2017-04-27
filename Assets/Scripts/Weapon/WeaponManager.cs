@@ -34,17 +34,17 @@ public class WeaponManager : MonoBehaviour {
 		}
 	}
 
-	public void boostRPMofAllWeapons(float multiplier)
+	public void boostRPMofAllWeapons(float rmpMultiplier)
 	{
 		foreach (Weapon weapon in weapons) {
-			weapon.boostRPM (multiplier);
+			weapon.boostRPM (rmpMultiplier);
 		}
 	}
 
-	public void stopBoostRPMofAllWeapons(float multiplier)
+	public void stopBoostRPMofAllWeapons()
 	{
 		foreach (Weapon weapon in weapons) {
-			weapon.resetRPM (multiplier);
+			weapon.resetRPM ();
 		}
 	}
 }

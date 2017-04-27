@@ -27,9 +27,12 @@ public class ComboBoostBullet : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col)
 	{
-		if (col.GetComponent<DestructableData> () != null) {
-			_comboCounter++;
-			//Debug.Log (comboCounter);
+		if (this.enabled)
+		{
+			if (col.CompareTag("Enemy")) {
+				_comboCounter++;
+				Debug.Log ("Combo counter: " + _comboCounter);
+			}
 		}
 	}
 

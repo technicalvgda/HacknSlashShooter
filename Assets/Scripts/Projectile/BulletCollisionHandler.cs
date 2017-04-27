@@ -41,9 +41,8 @@ public class BulletCollisionHandler : MonoBehaviour {
 						PoolManager.Destroy (transform.gameObject);
 					}
 				}
-			//Assume that the Enemy fired the projectile
 			} 
-			else 
+			else //Assume that the Enemy fired the projectile
 			{
 				if (col.GetComponent<PlayerController>() != null) 
 				{
@@ -66,28 +65,28 @@ public class BulletCollisionHandler : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// Damages the enemy.
+	/// Logic on how much to damage enemy. Dependent on projectile type and enemy type.
 	/// </summary>
 	/// <param name="hit">Reference to enemy's Destructable Data</param>
 	/// <param name="col">Reference to enemy's </param>
 	void damageEnemy(DestructableData hit, Collider col){
 		switch (projectileType) {
-		case ProjectileType.ANTIRANGE:
-			decideToCrit (hit, col.GetComponent<EnemyGun> ());
-			break;
-		case ProjectileType.ANTITANK:
-			decideToCrit (hit, col.GetComponent<bullChase> ());
-			break;
-		case ProjectileType.ANTISWARM:
-			decideToCrit (hit, col.GetComponent<SlowPlayer> ());
-			break;
-		default:
-			break;
+			case ProjectileType.ANTIRANGE:
+				decideToCrit (hit, col.GetComponent<RangedEnemy_AI> ());
+				break;
+			case ProjectileType.ANTITANK:
+				decideToCrit (hit, col.GetComponent<bullChase> ());
+				break;
+			case ProjectileType.ANTISWARM:
+				decideToCrit (hit, col.GetComponent<AlwaysChaseAI> ());
+				break;
+			default:
+				break;
 		}
 	}
 
 	/// <summary>
-	/// Crits enemy if they contain the passed component
+	/// Crits enemy if they contain the component
 	/// </summary>
 	/// <param name="hit">Hit.</param>
 	/// <param name="component">Component.</param>
@@ -95,6 +94,7 @@ public class BulletCollisionHandler : MonoBehaviour {
 	{
 		if (component != null) 
 		{
+			Debug.Log ("Crit Damage on " + hit.name);
 			hit.TakeDamage (damage * critMultiplier);
 		} else 
 		{
