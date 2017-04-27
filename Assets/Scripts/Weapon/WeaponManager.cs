@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponManager : MonoBehaviour {
-
-	public GameObject[] weapons;
+	
+	public Weapon[] weapons;
 	public int currentWeapon = 0;
 
 	public Weapon equipped;
@@ -22,8 +22,7 @@ public class WeaponManager : MonoBehaviour {
 			}
 		}
 	}
-
-
+		
 	void SwitchWeapon(int index){
 		equipped = weapons [index].GetComponent<Weapon> ();
 		for (int i = 0; i < weapons.Length; i++) {
@@ -32,6 +31,20 @@ public class WeaponManager : MonoBehaviour {
 			} else {
 				weapons [i].gameObject.SetActive (false);
 			}
+		}
+	}
+
+	public void boostRPMofAllWeapons(float rmpMultiplier)
+	{
+		foreach (Weapon weapon in weapons) {
+			weapon.boostRPM (rmpMultiplier);
+		}
+	}
+
+	public void stopBoostRPMofAllWeapons()
+	{
+		foreach (Weapon weapon in weapons) {
+			weapon.resetRPM ();
 		}
 	}
 }
