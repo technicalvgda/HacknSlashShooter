@@ -14,7 +14,6 @@ public class RegenSpeed : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        MaxSpeed = GetComponent<PlayerController>().maxSpeed;
         Speed = GetComponent<PlayerController>();
         isSlowed = false;
         isRunning = false;

@@ -8,6 +8,7 @@ public class LevelTransition : MonoBehaviour {
     public string levelToLoad;
     public Text[] loadingText;
     public Text textToDisplay;
+    private GameObject _player;
 
     //Load the scene
     private IEnumerator<float> LoadNextLevel(string levelToLoad)
@@ -36,6 +37,11 @@ public class LevelTransition : MonoBehaviour {
     {
         if (c.gameObject.tag.Equals("Player"))
         {
+            _player = c.gameObject;
+            //saving our data to use between levels, think of ways to use this later
+            PlayerPrefs.SetFloat("PlayerHP", _player.GetComponent<DestructableData>().health);
+            PlayerPrefs.SetFloat("PlayerMaxHP", _player.GetComponent<DestructableData>().maxHealth);
+            PlayerPrefs.SetFloat("PlayerFireRate", _player.GetComponent<PlayerController>().multiplier);
             Timing.RunCoroutine(LoadNextLevel(levelToLoad));
         }
     }

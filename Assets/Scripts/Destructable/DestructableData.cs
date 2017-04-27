@@ -1,31 +1,123 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using MovementEffects;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DestructableData : MonoBehaviour {
+    public int pointValue;
     public float maxHealth;
     public Healthbar HPBar;
     public float health { get; private set; }
+    public float hitFlashDelay = 0.1f;
+    public Color color = Color.red;
+
+    private Color _origColor;
+    private Renderer render;
+
+    public GameObject gameover;
+
+
+    private bool isDamaged = false;
+    private int regenTimer = 0;
+    public int regenDelay = 5;
+    private bool checkedKill = false;
+
 
     void Start () {
-        health = maxHealth;	
+        health = maxHealth;
+        //DELETE this if statement later. Should not be finalized
+        if (transform.GetComponent<Renderer>() != null)
+        {
+            render = transform.GetComponent<Renderer>();
+            _origColor = render.material.color;
+        }
 	} 
 
     public void TakeDamage(float damage)
     {
+        //DELETE this if statement later. Should not be finalized
+        if (transform.GetComponent<Renderer>() != null)
+        {
+            Timing.RunCoroutine(FlashColor());
+        }
         health -= damage;
-        if (transform.tag == "Player")
+        if (transform.tag == "Player" || transform.tag == "Objective")
         {
             HPBar.UpdateHealthBar(health / maxHealth);
+            regenTimer = 0;
+            if (!isDamaged)
+            {
+                isDamaged = true;
+                Timing.RunCoroutine(_regenHealth());
+            }
         }
         if(health <= 0)
         {
-            Destroy(transform.gameObject);
+            if (GetComponent<WaveEnemy>() && !checkedKill)
+            {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().numKilled++;
+                //ScoreHandler.s.AddScore(pointValue);
+                checkedKill = true;
+            }
             if (transform.tag == "Player")
             {
-                FindObjectOfType<Canvas>().enabled = true;
+                if (SceneManager.GetActiveScene().name.Contains("Arena"))
+                {
+                    ScoreHandler.s.RecordScore();
+                    var scoreList = SaveHandler.s.GetScores();
+                    if (scoreList == null)
+                    {
+                        SaveHandler.s.InitializeScores();
+                        scoreList = SaveHandler.s.GetScores();
+                    }
+                    var s = "High Scores: ";
+                    for (int i = 0; i < scoreList.Count; i++)
+                    {
+                        s += scoreList[i] + " ";
+                    }
+                    Debug.Log(s);
+                }
+                //GameObject pause = GetComponent<PlayerController>().pause;
+                gameover.SetActive(true);
             }
+            Destroy(transform.gameObject);
+            
         }
+    }
+
+    private IEnumerator<float> _regenHealth()
+    {
+        
+        while (isDamaged)
+        {
+            while (regenTimer < regenDelay)
+            {
+                yield return Timing.WaitForSeconds(1.0f);
+                regenTimer++;
+            }
+            if (health < maxHealth)
+            {
+                yield return Timing.WaitForSeconds(1.0f);
+                health += 5;
+                HPBar.UpdateHealthBar(health / maxHealth);
+            }else if (health >= maxHealth)
+            {
+                health = maxHealth;
+                HPBar.UpdateHealthBar(health / maxHealth);
+                isDamaged = false;
+            }
+            
+        }
+    }
+
+    private IEnumerator<float> FlashColor()
+    {
+        Debug.Log("CALLED");
+        render.material.color = color;
+        yield return Timing.WaitForSeconds(hitFlashDelay);
+        render.material.color = _origColor;
+        yield return 0.0f;
     }
 
     public void HealDamage(float recovery)
@@ -42,7 +134,10 @@ public class DestructableData : MonoBehaviour {
                 health += recovery;
             }
         }
-        HPBar.UpdateHealthBar(health / maxHealth);
+        if (HPBar != null)
+        {
+            HPBar.UpdateHealthBar(health / maxHealth);
+        }
     }
 
 	
