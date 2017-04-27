@@ -27,18 +27,67 @@ public class Projectile : MonoBehaviour {
 		proj._currTravelTime = 0;
 		proj.maxTravelTime = maxTravelTime;
 
-		if (owner.GetComponentInChildren<ComboBoostAugmentation> () != null) 
+
+		//////////////////////////////////////////////////////////////////////////////////////// 
+		/// This determines whether the projectile has a specific active augment component if the player's
+		/// weapon component is active and attached
+		ComboBoostAugmentation cbAug = owner.GetComponentInChildren<ComboBoostAugmentation> ();
+		SurgicalPrecisionAugmentation spAug = owner.GetComponentInChildren<SurgicalPrecisionAugmentation> ();
+		if ( spAug != null) 
 		{
-			if (obj.GetComponent<ComboBoostBullet> () == null) {
-				obj.AddComponent<ComboBoostBullet> ();
+			// IF the augmentation is Enabled
+			if (spAug.isActiveAndEnabled) 
+			{
+				// IF this projectile doesn't have this bullet augmentation
+				if (obj.GetComponent<SurgicalPrecisionBulletAugmentation> () == null) 
+				{
+					// Add that component to this projectile
+					obj.AddComponent<SurgicalPrecisionBulletAugmentation> ();
+				}
+				// IF this projectile does have this bullet augmentation
+				else 
+				{	// Make this true
+					obj.GetComponent<SurgicalPrecisionBulletAugmentation> ().enabled = true;
+				}
+					
 			}
+			// IF the augmentation is Disabled
+			else 
+			{
+				// IF this projectile has the augmentation
+				if (obj.GetComponent<SurgicalPrecisionBulletAugmentation> () != null) 
+				{
+					// Disables the augmentation
+					obj.GetComponent<SurgicalPrecisionBulletAugmentation> ().enabled = false;
+				}
+			}	
+
 		}
-		if (owner.GetComponentInChildren<SurgicalPrecisionAugmentation> () != null) 
+
+		if ( cbAug != null) 
 		{
-			if (obj.GetComponent<SurgicalPrecisionBulletAugmentation> () == null) {
-				obj.AddComponent<SurgicalPrecisionBulletAugmentation> ();
-			}
+			if (cbAug.isActiveAndEnabled) 
+			{
+				if (obj.GetComponent<ComboBoostBullet> () == null) 
+				{
+					obj.AddComponent<ComboBoostBullet> ();
+				}
+				else 
+				{
+					obj.GetComponent<ComboBoostBullet> ().enabled = true;
+				}
+			} 
+			else 
+			{
+				if (obj.GetComponent<ComboBoostBullet> () != null) 
+				{
+					obj.GetComponent<ComboBoostBullet> ().enabled = false;
+				}
+			}	
+				
 		}
+		/////////////////////////////////////////////////////////////////////////////////////////
+
 		return obj;
 	}
 
@@ -46,7 +95,6 @@ public class Projectile : MonoBehaviour {
 	{
 		return create(parent, owner, Angle, speed, 3);
 	}
-        
 
 
     void Update()
@@ -56,7 +104,7 @@ public class Projectile : MonoBehaviour {
 		if (_currTravelTime >= maxTravelTime) 
 		{
 			// Logic for the Surgical Precision Augmentation
-			if (GetComponent<SurgicalPrecisionBulletAugmentation>() != null) 
+			if (GetComponent<SurgicalPrecisionBulletAugmentation>() != null && GetComponent<SurgicalPrecisionBulletAugmentation>().isActiveAndEnabled) 
 			{
 				GetComponent<SurgicalPrecisionBulletAugmentation> ().signalBulletDespawned ();
 			}

@@ -8,7 +8,8 @@ using UnityEngine;
 /// 
 /// Use by attaching this component to the weapon you want to augment
 /// </summary>
-public class SurgicalPrecisionAugmentation : Augmentation {
+public class SurgicalPrecisionAugmentation : MonoBehaviour 
+{
 
 	public int maxCounter = 5;
 	public int healAmount = 10;
@@ -21,15 +22,14 @@ public class SurgicalPrecisionAugmentation : Augmentation {
 		_health = GetComponentInParent<DestructableData> ();
 	}
 
-	public override void augmentShot ()
+	void OnEnable()
 	{
-		//Debug.Log ("Surgical Precision Mode!");
+		precisionCounter = 0;
 	}
-
 
 	/// <summary>
 	/// Increments the precision counter.
-	/// Heals the owner for some amount
+	/// Heals the owner for some amount if counter is high enough
 	/// </summary>
 	public void incrementPrecisionCounter()
 	{
