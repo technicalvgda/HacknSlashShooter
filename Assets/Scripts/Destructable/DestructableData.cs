@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MovementEffects;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DestructableData : MonoBehaviour {
     public int pointValue;
@@ -56,25 +57,33 @@ public class DestructableData : MonoBehaviour {
             if (GetComponent<WaveEnemy>() && !checkedKill)
             {
                 GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().numKilled++;
-                ScoreHandler.s.AddScore(pointValue);
+                if (ScoreHandler.s != null)
+                {
+                    ScoreHandler.s.AddScore(pointValue);
+                }
                 checkedKill = true;
             }
             if (transform.tag == "Player")
             {
-                ScoreHandler.s.RecordScore();
-                var scoreList = SaveHandler.s.GetScores();
-                if (scoreList == null)
+                if (SceneManager.GetActiveScene().name.Contains("Arena"))
                 {
-                    SaveHandler.s.InitializeScores();
-                    scoreList = SaveHandler.s.GetScores();
+                    if (ScoreHandler.s != null)
+                    {
+                        ScoreHandler.s.RecordScore();
+                        var scoreList = SaveHandler.s.GetScores();
+                        if (scoreList == null)
+                        {
+                            SaveHandler.s.InitializeScores();
+                            scoreList = SaveHandler.s.GetScores();
+                        }
+                        var s = "High Scores: ";
+                        for (int i = 0; i < scoreList.Count; i++)
+                        {
+                            s += scoreList[i] + " ";
+                        }
+                        Debug.Log(s);
+                    }
                 }
-                var s = "High Scores: ";
-                for (int i = 0; i < scoreList.Count; i++)
-                {
-                    s += scoreList[i] + " ";
-                }
-                Debug.Log(s);
-
                 //GameObject pause = GetComponent<PlayerController>().pause;
                 gameover.SetActive(true);
             }
