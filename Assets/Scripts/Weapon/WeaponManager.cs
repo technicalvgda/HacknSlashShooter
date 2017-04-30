@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponManager : MonoBehaviour {
 	
 	public Weapon[] weapons;
 	public int currentWeapon = 0;
+	public WeaponIconSwitcher iconSwitcher;
 
 	public Weapon equipped;
 	// Use this for initialization
@@ -15,11 +17,24 @@ public class WeaponManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		for (int i = 1; i <= weapons.Length; i++) {
-			if(Input.GetKeyDown("" + i)){
-				currentWeapon = i - 1;
-				SwitchWeapon (currentWeapon);
-			}
+		// Switch weapon with Mouse Wheel
+		if (Input.GetAxis("SwitchWeapon") != 0 || Input.GetButtonDown("SwitchWeapon")) 
+		{
+			currentWeapon = Mod((currentWeapon + (int)Input.GetAxis ("SwitchWeapon")), weapons.Length);
+			SwitchWeapon (currentWeapon);
+		}
+		// Switch Weapons with Q and E
+		if (Input.GetButtonDown ("SwitchWeaponUp")) 
+		{
+			currentWeapon = Mod((currentWeapon - 1), weapons.Length);
+			SwitchWeapon (currentWeapon);
+			
+		}
+		if (Input.GetButtonDown ("SwitchWeaponDown")) 
+		{
+			currentWeapon = Mod((currentWeapon + 1), weapons.Length);
+			SwitchWeapon (currentWeapon);
+
 		}
 	}
 		
@@ -32,6 +47,7 @@ public class WeaponManager : MonoBehaviour {
 				weapons [i].gameObject.SetActive (false);
 			}
 		}
+		iconSwitcher.switchImage(index);
 	}
 
 	public void boostRPMofAllWeapons(float rmpMultiplier)
@@ -46,5 +62,15 @@ public class WeaponManager : MonoBehaviour {
 		foreach (Weapon weapon in weapons) {
 			weapon.resetRPM ();
 		}
+	}
+
+	/// <summary>
+	/// Find the modulus of two numbers
+	/// </summary>
+	/// <param name="a">The alpha component.</param>
+	/// <param name="b">The blue component.</param>
+	public static int Mod(float a, float b)
+	{
+		return (int)(a - b * Mathf.Floor (a / b));
 	}
 }

@@ -99,7 +99,7 @@ public class Spawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log("player killed: " + player.numKilled + " total enemies: " + numEnemies);
+        //Debug.Log("player killed: " + player.numKilled + " total enemies: " + numEnemies);
 
     }
 
