@@ -12,7 +12,6 @@ public class BulletCollisionHandler : MonoBehaviour {
 
 	public float damage = 5.0f;					// base damage of bullet
 	public float critMultiplier = 2.0f;			// crit multiplier
-	public float resistanceMultiplier = 0.5f;	// Damage reduction multiplier, should be < 1
 	public bool canPierceThroughEnemies = true;
 
 	public enum ProjectileType { ANTITANK, ANTIRANGE, ANTISWARM, NORMAL }
@@ -42,9 +41,8 @@ public class BulletCollisionHandler : MonoBehaviour {
 						PoolManager.Destroy (transform.gameObject);
 					}
 				}
-			//Assume that the Enemy fired the projectile
 			} 
-			else 
+			else //Assume that the Enemy fired the projectile
 			{
 				if (col.GetComponent<PlayerController>() != null) 
 				{
@@ -67,45 +65,40 @@ public class BulletCollisionHandler : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// Damages the enemy.
+	/// Logic on how much to damage enemy. Dependent on projectile type and enemy type.
 	/// </summary>
 	/// <param name="hit">Reference to enemy's Destructable Data</param>
 	/// <param name="col">Reference to enemy's </param>
 	void damageEnemy(DestructableData hit, Collider col){
 		switch (projectileType) {
-		case ProjectileType.ANTIRANGE:
-			if (col.GetComponent<EnemyGun> () != null) 
-			{
-				hit.TakeDamage (damage * critMultiplier);
-			} else 
-			{
-				hit.TakeDamage (damage * resistanceMultiplier);
-			}
-			break;
-		case ProjectileType.ANTITANK:
-			//Placeholder for tank enemies
-			hit.TakeDamage(damage);
-			/*
-			if(col.GetComponent<TankComponent>())
-			{
-				hit.TakeDamage(damage*critMultiplier);
-			} else 
-			{
-				hit.TakeDamage (damage*resistanceMultiplier);
-			}
-			*/
-			break;
-		case ProjectileType.ANTISWARM:
-			if (col.GetComponent<SlowPlayer> () != null) 
-			{
-				hit.TakeDamage (damage * critMultiplier);
-			} else 
-			{
-				hit.TakeDamage (damage * resistanceMultiplier);
-			}
-			break;
-		default:
-			break;
+			case ProjectileType.ANTIRANGE:
+				decideToCrit (hit, col.GetComponent<RangedEnemy_AI> ());
+				break;
+			case ProjectileType.ANTITANK:
+				decideToCrit (hit, col.GetComponent<bullChase> ());
+				break;
+			case ProjectileType.ANTISWARM:
+				decideToCrit (hit, col.GetComponent<AlwaysChaseAI> ());
+				break;
+			default:
+				break;
+		}
+	}
+
+	/// <summary>
+	/// Crits enemy if they contain the component
+	/// </summary>
+	/// <param name="hit">Hit.</param>
+	/// <param name="component">Component.</param>
+	void decideToCrit (DestructableData hit, Component component)
+	{
+		if (component != null) 
+		{
+			Debug.Log ("Crit Damage on " + hit.name);
+			hit.TakeDamage (damage * critMultiplier);
+		} else 
+		{
+			hit.TakeDamage (damage);
 		}
 	}
 }

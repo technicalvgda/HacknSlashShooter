@@ -31,6 +31,10 @@ public class Spawner : MonoBehaviour {
     private int numEnemies;
     public bool arenaSpawn;
 
+    public CountdownTimer cdTime;
+    public float startDelay = 10.0f;
+    private string playerTag = "Player", objectTag = "Objective";
+    private bool finished = false;
 
 	// Use this for initialization
 	void Start () {
@@ -57,7 +61,7 @@ public class Spawner : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "Player")
+        if (other.transform.tag == "Player" && !finished)
         {
             if (NPC != null) {
                 NPC.tag = "Objective";
@@ -70,6 +74,10 @@ public class Spawner : MonoBehaviour {
             else
             {
                 spawn = Timing.RunCoroutine(Spawn());
+            }
+            if(cdTime != null)
+            {
+                cdTime.StartTimer(startDelay, this);
             }
         }
     }
@@ -91,8 +99,32 @@ public class Spawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log("player killed: " + player.numKilled + " total enemies: " + numEnemies);
+        //Debug.Log("player killed: " + player.numKilled + " total enemies: " + numEnemies);
 
+    }
+
+    public void SetAggro(int state)
+    {
+        string[] targetList;
+
+        if (state == 1)
+        {
+            targetList = new string[] { "Pheremone", playerTag, objectTag };
+        }
+        else
+        {
+            targetList = new string[] { "Pheremone", objectTag, playerTag };
+        }
+
+        //really gross, but it should work
+        if (enemy1 != null)
+        {
+            enemy1.GetComponent<AlwaysChaseAI>().priorityTargetTag = targetList;
+        }
+        if (enemy3 != null)
+        {
+            enemy3.GetComponent<bullChase>().priorityTargetTag = targetList;
+        }
     }
 
     IEnumerator<float> Spawn()
@@ -227,6 +259,7 @@ public class Spawner : MonoBehaviour {
             if(NPC != null)
             {
                 NPCScript.rescued = true;
+                finished = true;
             }
             door1.GetComponentInChildren<SlidingTwoDoor>().isLocked = false;
             door2.GetComponentInChildren<SlidingTwoDoor>().isLocked = false;

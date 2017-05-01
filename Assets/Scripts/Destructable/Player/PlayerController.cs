@@ -12,11 +12,14 @@ public class PlayerController : MonoBehaviour
 
     public float Speed;
     public float SpeedMultiplier;
+	private float boostSpeedMultiplier = 1;
+	private Vector3 impact = Vector3.zero;
+	private float mass = 3;
 
     public GameObject pause;
 
     private Canvas UI;
-	  private WeaponManager _playerWeapon;
+	private WeaponManager _playerWeapon;
     private DestructableData _playerData;
 
 
@@ -107,22 +110,37 @@ public class PlayerController : MonoBehaviour
         }
         return Vector3.zero;
     }
+
     void Movement()
 	{
 		float xAxis = Input.GetAxis("Horizontal");
 		float yAxis = Input.GetAxis("Vertical");
-		Vector3 displacement = new Vector3(xAxis, 0, yAxis).normalized * Speed * SpeedMultiplier;
+		Vector3 displacement = new Vector3(xAxis, 0, yAxis).normalized * Speed * SpeedMultiplier * boostSpeedMultiplier;
         displacement.y -= 100f * Time.deltaTime;
         cc = cc == null ? GetComponent<CharacterController>() : cc;
         if (cc != null)
         {
             cc.Move(displacement * Time.deltaTime);
-            
-            //transform.position += displacement * Time.deltaTime;
         }
-        
+		//Adds the displacement of the impact force to the Character Controller
+		if (impact.magnitude > 0.2) 
+		{
+			cc.Move(impact * Time.deltaTime);
+			impact = Vector3.Lerp(impact, Vector3.zero, 5 * Time.deltaTime);
+		}
 
     }
+
+	/// <summary>
+	/// Calculates the impact velocity on a Character Controller
+	/// </summary>
+	/// <param name="direction">Direction of the impact.</param>
+	/// <param name="force">Force of the impact.</param>
+	void AddImpact(Vector3 direction, float force)
+	{
+		impact += direction.normalized * force / mass;
+
+	}
 
     void MenuControls()
     {
@@ -148,5 +166,22 @@ public class PlayerController : MonoBehaviour
         _playerWeapon.equipped.RPM = fireRateMult * _playerWeapon.equipped.baseRPM;
     }
 
+	public void boostMovementSpeed(float multiplier)
+	{
+		//Debug.Log ("Speed Boost!");
+		boostSpeedMultiplier = multiplier;
+	}
+
+	public void resetBoostMovementSpeed()
+	{
+		boostSpeedMultiplier = 1;
+	}
+
+	// knocks back a player away from the mouse position
+	public void playerKnockBack(float knockBackForce)
+	{
+		AddImpact (transform.position - GetMousePos (), knockBackForce);
+		//Debug.Log ("In player method knockback");
+	}
 
 }
