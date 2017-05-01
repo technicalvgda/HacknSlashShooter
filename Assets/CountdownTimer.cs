@@ -47,4 +47,11 @@ public class CountdownTimer : MonoBehaviour {
         timer = d;
         canCount = true;
     }
+
+    public void StopTimer()
+    {
+        TimerUI.text = null;
+        canCount = false;
+        finished = true;
+    }
 }

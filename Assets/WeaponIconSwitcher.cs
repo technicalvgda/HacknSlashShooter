@@ -10,6 +10,7 @@ public class WeaponIconSwitcher : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		image = GetComponent<Image> ();
+        image.sprite = weaponIcons[0];
 	}
 
 	public void switchImage(int imageIndex)

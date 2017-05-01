@@ -51,4 +51,9 @@ public class pauseMenu : MonoBehaviour {
         PoolManager.ResetPoolManager();
         SceneManager.LoadScene("Arena");
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
