@@ -66,10 +66,10 @@ public class BuffListHandler : MonoBehaviour {
                 _player.GetComponent<PlayerController>().IncreaseStats(buffList.fireRateIncreasePercent);
                 break;
             case Buffs.decoy:
-                _player.GetComponent<LaserBall>().powerup = LaserBall.currentpower.decoy;
+                _player.GetComponent<LaserBall>().acquirePower(LaserBall.powertype.decoy);
                 break;
             case Buffs.laser:
-                _player.GetComponent<LaserBall>().powerup = LaserBall.currentpower.laser;
+                _player.GetComponent<LaserBall>().acquirePower(LaserBall.powertype.laser);
                 break;
             default:
                 break;

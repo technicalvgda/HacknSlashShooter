@@ -8,20 +8,22 @@ public class LaserBall : MonoBehaviour {
     private Vector3 _heightOfDecoy = new Vector3(0, 0.1f, 0);
     public GameObject bullet;
     public float throwRange = 7.5f;
+    public GameObject LaserUI, DecoyUI;
     private GameObject player;
     private RaycastHit hit;
     private Vector3 direction;
     private Vector3 mousePos;
     private PlayerController pc;
 
-    public currentpower powerup = currentpower.none;
+    public powertype powerup = powertype.none;
 
-    public enum currentpower
+    public enum powertype
     {
         none,
         decoy,
         laser,
     }
+    public List<powertype> acquired = new List<powertype>();
     // Use this for initialization
     void Start () {
         player = FindObjectOfType<PlayerController>().gameObject;
@@ -30,11 +32,11 @@ public class LaserBall : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButton("Fire2") && powerup == currentpower.laser)
+        if (Input.GetKeyDown(KeyCode.F) && acquired.Contains(powertype.laser))
         {
             Fire();
         }
-        if (Input.GetButton("Fire2") && !GameObject.Find("DEcoy(Clone)") && powerup == currentpower.decoy)
+        if (Input.GetButton("Fire2") && !GameObject.Find("DEcoy(Clone)") && acquired.Contains(powertype.decoy))
         {
             mousePos = PlayerController.GetMousePos();
 
@@ -52,6 +54,21 @@ public class LaserBall : MonoBehaviour {
             }
         }
 
+    }
+
+    //This is where the UI will get updated when you acquire a new power
+    public void acquirePower(powertype c)
+    {
+        if(c == powertype.decoy)
+        {
+            DecoyUI.SetActive(true);
+            acquired.Add(c);
+        }
+        else if(c == powertype.laser)
+        {
+            DecoyUI.SetActive(true);
+            acquired.Add(c);
+        }
     }
 
     void Fire()

@@ -38,7 +38,7 @@ public class RangedMovement : MonoBehaviour {
                     Vector3 newloc = new Vector3(_potentialLoc.x, 0.33f, _potentialLoc.z);
                     if (!Physics.Raycast(transform.position, newloc - transform.position, Vector3.Magnitude(newloc - transform.position))) //our new position doesn't blink through a wall
                     {
-                        Debug.DrawRay(transform.position, newloc - transform.position, Color.red, 500);
+                        //Debug.DrawRay(transform.position, newloc - transform.position, Color.red, 500);
                         transform.position = newloc;
                         i = _tries + 2;
                         break;
@@ -68,7 +68,7 @@ public class RangedMovement : MonoBehaviour {
                     Vector3 newloc = new Vector3(_potentialLoc.x, 0.33f, _potentialLoc.z);
                     if (!Physics.Raycast(transform.position, newloc - transform.position, Vector3.Magnitude(newloc - transform.position)))
                     {
-                        Debug.DrawRay(transform.position, newloc - transform.position, Color.red, 500);
+                        //Debug.DrawRay(transform.position, newloc - transform.position, Color.red, 500);
                         transform.position = newloc;
                         i = _tries + 2;
                         break;
