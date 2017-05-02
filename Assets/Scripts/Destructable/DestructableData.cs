@@ -175,7 +175,6 @@ public class DestructableData : MonoBehaviour {
 
     private IEnumerator<float> FlashColor()
     {
-        Debug.Log("CALLED");
         render.material.color = color;
         yield return Timing.WaitForSeconds(hitFlashDelay);
         render.material.color = _origColor;
