@@ -25,11 +25,7 @@ public class LaserBullet : MonoBehaviour {
         }
         else
         {
-            if (paused)
-            {
-                Time.timeScale = 1;
-                paused = false;
-            }
+            transform.parent = null;
             Vector3 pos = transform.position;
             pos.x += 5 * Mathf.Cos(angle) * Time.deltaTime;
             pos.z += 5 * Mathf.Sin(angle) * Time.deltaTime;
