@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         //endsound
         Time.timeScale = 1;
         numKilled = 0;
-        UI = GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>();
+        //UI = GameObject.FindObjectOfType<Canvas>().GetComponent<Canvas>();
 		_playerWeapon = GetComponent<WeaponManager> ();
         _playerData = GetComponent<DestructableData>();
         SpeedMultiplier = 1;
@@ -49,8 +49,7 @@ public class PlayerController : MonoBehaviour
         Vector3 mousePos = GetMousePos();
         SpeedMultiplier = _playerData.health / _playerData.maxHealth;
 
-		if (UI.enabled)
-		{
+		
 			AngleUpdate(mousePos);
 			Movement();
             //sound
@@ -70,7 +69,7 @@ public class PlayerController : MonoBehaviour
 			{
 				_playerWeapon.equipped.ShootInput(GetAngle(transform.position, mousePos));
 			}
-		}
+		
 		MenuControls();
 	}
 

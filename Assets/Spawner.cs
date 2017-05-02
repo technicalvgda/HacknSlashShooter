@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using MovementEffects;
 
 public class Spawner : MonoBehaviour {
@@ -22,6 +23,7 @@ public class Spawner : MonoBehaviour {
 
     public GameObject NPC;
     private RescueNPC NPCScript;
+    public GameObject WinScreen;
 
     //Wave Spawn Variables
     public bool wave = false;
@@ -38,6 +40,7 @@ public class Spawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        SetAggro(1);
         if (NPC != null)
         {
             NPCScript = NPC.GetComponent<RescueNPC>();
@@ -263,6 +266,14 @@ public class Spawner : MonoBehaviour {
             }
             door1.GetComponentInChildren<SlidingTwoDoor>().isLocked = false;
             door2.GetComponentInChildren<SlidingTwoDoor>().isLocked = false;
+        }
+        if (cdTime != null)
+        {
+            cdTime.StopTimer();
+        }
+        if(SceneManager.GetActiveScene().name.Contains("Arena"))
+        {
+            WinScreen.SetActive(true);
         }
     }
 
