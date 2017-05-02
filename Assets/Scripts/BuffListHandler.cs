@@ -16,7 +16,7 @@ public class BuffListHandler : MonoBehaviour {
     public bool interacted = false;
     private GameObject _player;
     private DestructableData _playerHP;
-
+    public GameObject nameplate;
     /// <summary>
     /// Handles what stats increase what variables by whichever amount
     /// </summary>
@@ -33,6 +33,21 @@ public class BuffListHandler : MonoBehaviour {
         _player = GameObject.FindGameObjectWithTag("Player").gameObject;
         _playerHP = _player.GetComponent<DestructableData>();
         
+    }
+
+    //Handles the item nameplate when the player steps into its interactable area
+    void OnTriggerEnter(Collider c)
+    {
+        if (c.gameObject.tag == "Player")
+        {
+            nameplate.SetActive(true);
+        }
+    }
+    void OnTriggerExit(Collider c){
+        if (c.gameObject.tag == "Player")
+        {
+            nameplate.SetActive(false);
+        }
     }
     /// <summary>
     /// Player enters and selects this buff by pressing E.
