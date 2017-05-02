@@ -56,6 +56,7 @@ public class LaserBall : MonoBehaviour {
 
     void Fire()
     {
+        Time.timeScale = 0;
         Instantiate(bullet, player.transform.position, player.transform.rotation);
     }
 }
