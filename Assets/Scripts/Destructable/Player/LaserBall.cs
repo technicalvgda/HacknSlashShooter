@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MovementEffects;
 
 public class LaserBall : MonoBehaviour {
     public GameObject throwmarker;
@@ -14,6 +15,11 @@ public class LaserBall : MonoBehaviour {
     private Vector3 direction;
     private Vector3 mousePos;
     private PlayerController pc;
+
+    private bool decoyCool = false;
+    private bool laserCool = false;
+    public float decoyCoolTime = 5;
+    public float laserCoolTime = 5;
 
     public powertype powerup = powertype.none;
 
@@ -32,11 +38,13 @@ public class LaserBall : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.F) && acquired.Contains(powertype.laser))
+        if (Input.GetKeyDown(KeyCode.F) && acquired.Contains(powertype.laser) && !laserCool)
         {
             Fire();
+            laserCool = true;
+            Timing.RunCoroutine(CoolDown(laserCoolTime, powertype.laser));
         }
-        if (Input.GetButton("Fire2") && !GameObject.Find("DEcoy(Clone)") && acquired.Contains(powertype.decoy))
+        if (Input.GetButton("Fire2") && !GameObject.Find("DEcoy(Clone)") && acquired.Contains(powertype.decoy) && !decoyCool)
         {
             mousePos = PlayerController.GetMousePos();
 
@@ -52,6 +60,8 @@ public class LaserBall : MonoBehaviour {
                     d.GetComponent<ProjectionPowerup>().Activate(m.transform.position + _heightOfDecoy);
                 }
             }
+            decoyCool = true;
+            Timing.RunCoroutine(CoolDown(decoyCoolTime, powertype.decoy));
         }
 
     }
@@ -73,6 +83,19 @@ public class LaserBall : MonoBehaviour {
 
     void Fire()
     {
-        Instantiate(bullet, player.transform.position, player.transform.rotation);
+        Instantiate(bullet, player.transform.position, player.transform.rotation, this.transform);
+    }
+
+    IEnumerator<float> CoolDown(float time, powertype c)
+    {
+        yield return Timing.WaitForSeconds(time);
+        if(c == powertype.laser)
+        {
+            laserCool = false;
+        }
+        if(c == powertype.decoy)
+        {
+            decoyCool = false;
+        }
     }
 }
