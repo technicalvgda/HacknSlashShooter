@@ -87,7 +87,15 @@ public class DestructableData : MonoBehaviour {
                 //GameObject pause = GetComponent<PlayerController>().pause;
                 gameover.SetActive(true);
             }
-            Destroy(transform.gameObject);
+            //Death animation handlers
+            if (GetComponent<bullChase>())
+            {
+                GetComponentInChildren<BullAnimationController>().Die();
+            }else
+            {
+                Destroy(this.gameObject);
+            }
+            
             
         }
     }
