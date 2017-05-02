@@ -57,7 +57,10 @@ public class bullChase : MonoBehaviour
 			_movement.ChasePlayer ();
             _weapon.startShooting();
         }*/
-
+        if (GetComponentInChildren<BullAnimationController>().dead)
+        {
+            GetComponent<NavMeshAgent>().speed = 0;
+        }
         if (!charging && !GetComponentInChildren<BullAnimationController>().dead)
         {
             Vector3 Target = player.transform.position - transform.position;

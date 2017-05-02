@@ -144,7 +144,14 @@ public class DestructableData : MonoBehaviour {
                 }
                 //GameObject pause = GetComponent<PlayerController>().pause;
             }
-            Destroy(transform.gameObject);
+            if (GetComponent<bullChase>())
+            {
+                GetComponentInChildren<BullAnimationController>().Die();
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 
