@@ -16,7 +16,7 @@ public class DestructableData : MonoBehaviour {
     private Renderer render;
 
     public GameObject gameover;
-
+    public Animator gameOverF;
 
     private bool isDamaged = false;
     private int regenTimer = 0;
@@ -66,7 +66,8 @@ public class DestructableData : MonoBehaviour {
             }
             if (transform.tag == "Player")
             {
-                gameover.SetActive(true);
+                //gameover.SetActive(true);
+                gameOverF.SetTrigger("Enter");
                 if (SceneManager.GetActiveScene().name.Contains("Arena"))
                 {
                     if (ScoreHandler.s != null)
@@ -122,7 +123,8 @@ public class DestructableData : MonoBehaviour {
             }
             if (transform.tag == "Player")
             {
-                gameover.SetActive(true);
+                //gameover.SetActive(true);
+                gameOverF.SetTrigger("Enter");
                 if (SceneManager.GetActiveScene().name.Contains("Arena"))
                 {
                     if (ScoreHandler.s != null)

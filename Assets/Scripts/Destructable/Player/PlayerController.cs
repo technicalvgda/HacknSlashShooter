@@ -143,6 +143,7 @@ public class PlayerController : MonoBehaviour
 
     void MenuControls()
     {
+        return;
         if (Input.GetKeyUp(KeyCode.Escape))
         {
             if (pause.active)
