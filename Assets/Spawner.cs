@@ -28,9 +28,9 @@ public class Spawner : MonoBehaviour {
     //Wave Spawn Variables
     public bool wave = false;
     public int numberOfWaves = 1;
-    private int currentWave = 1;
+    public int currentWave = 1;
     private PlayerController player;
-    private int numEnemies;
+    public int numEnemies;
     public bool arenaSpawn;
 
     public CountdownTimer cdTime;
@@ -74,6 +74,14 @@ public class Spawner : MonoBehaviour {
                 Debug.Log("Wave spawner not done yet");
                 Timing.RunCoroutine(WaveSpawn(numberOfWaves));
             }
+            if (wave)
+            {
+                if (door1 != null)
+                {
+                    door1.GetComponentInChildren<SlidingTwoDoor>().isLocked = true;
+                    door2.GetComponentInChildren<SlidingTwoDoor>().isLocked = true;
+                }
+            }
             else
             {
                 spawn = Timing.RunCoroutine(Spawn());
@@ -89,9 +97,13 @@ public class Spawner : MonoBehaviour {
     {
         if (other.transform.tag == "Player")
         {
-            if (wave && !waveStart)
+            if (wave)
             {
-                
+                if (door1 != null)
+                {
+                    door1.GetComponentInChildren<SlidingTwoDoor>().isLocked = false;
+                    door2.GetComponentInChildren<SlidingTwoDoor>().isLocked = false;
+                }
             }
             else
             {
@@ -172,7 +184,7 @@ public class Spawner : MonoBehaviour {
             door1.GetComponentInChildren<SlidingTwoDoor>().isLocked = true;
             door2.GetComponentInChildren<SlidingTwoDoor>().isLocked = true;
         }
-        while (currentWave <= numberOfWaves || arenaSpawn)
+        while (currentWave <= numberOfWaves)
         {
             if(enemy1spawn > 0)
             {

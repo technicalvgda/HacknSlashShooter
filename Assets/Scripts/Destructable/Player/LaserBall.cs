@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MovementEffects;
+using UnityEngine.SceneManagement;
 
 public class LaserBall : MonoBehaviour {
     public GameObject throwmarker;
@@ -22,6 +23,32 @@ public class LaserBall : MonoBehaviour {
     public float laserCoolTime = 5;
 
     public powertype powerup = powertype.none;
+
+    /*void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+        SceneManager.activeSceneChanged += setArena;
+    }
+
+    void setArena(Scene previousScene, Scene newScene)
+    {
+        Debug.Log(newScene.name);
+        
+        
+        if(newScene.name == "Arena")
+        {
+            this.gameObject.transform.position = new Vector3(0, 0, 0);
+            this.gameObject.GetComponent<PlayerController>().pause = GameObject.FindGameObjectWithTag("Pause");
+            this.gameObject.GetComponent<DestructableData>().HPBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Healthbar>();
+            this.gameObject.GetComponent<DestructableData>().gameover = GameObject.FindGameObjectWithTag("GameOver");
+            this.gameObject.GetComponent<WeaponManager>().iconSwitcher = GameObject.FindGameObjectWithTag("BulletIcon").GetComponent<WeaponIconSwitcher>();
+            LaserUI = GameObject.FindGameObjectWithTag("LaserUI");
+            DecoyUI = GameObject.FindGameObjectWithTag("DecoyUI");
+        }
+
+        
+    }*/
+    
 
     public enum powertype
     {
@@ -76,7 +103,7 @@ public class LaserBall : MonoBehaviour {
         }
         else if(c == powertype.laser)
         {
-            DecoyUI.SetActive(true);
+            LaserUI.SetActive(true);
             acquired.Add(c);
         }
     }

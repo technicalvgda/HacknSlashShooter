@@ -44,6 +44,7 @@ public class DestructableData : MonoBehaviour {
         health -= damage;
         if (transform.tag == "Player" || transform.tag == "Objective")
         {
+            GetComponentInChildren<animationController>().animate("hit_reaction");
             HPBar.UpdateHealthBar(health / maxHealth);
             regenTimer = 0;
             if (!isDamaged)
@@ -105,6 +106,10 @@ public class DestructableData : MonoBehaviour {
         health -= damage;
         if (transform.tag == "Player" || transform.tag == "Objective")
         {
+            if (transform.tag == "Player")
+            {
+                GetComponentInChildren<animationController>().animate("hit_reaction");
+            }
             HPBar.UpdateHealthBar(health / maxHealth);
             regenTimer = 0;
             if (!isDamaged)
@@ -120,34 +125,15 @@ public class DestructableData : MonoBehaviour {
                 checkedKill = true;
                 GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().numKilled++;
             }
-            if (transform.tag == "Player")
-            {
-                gameover.SetActive(true);
-                if (SceneManager.GetActiveScene().name.Contains("Arena"))
-                {
-                    if (ScoreHandler.s != null)
-                    {
-                        ScoreHandler.s.RecordScore();
-                        var scoreList = SaveHandler.s.GetScores();
-                        if (scoreList == null)
-                        {
-                            SaveHandler.s.InitializeScores();
-                            ScoreHandler.s.RecordScore();
-                            scoreList = SaveHandler.s.GetScores();
-                        }
-                        var s = "High Scores: ";
-                        for (int i = 0; i < scoreList.Count; i++)
-                        {
-                            s += scoreList[i] + " ";
-                        }
-                        Debug.Log(s);
-                    }
-                }
-                //GameObject pause = GetComponent<PlayerController>().pause;
-            }
+            
             if (GetComponent<bullChase>())
             {
                 GetComponentInChildren<BullAnimationController>().Die();
+            }
+            else if (GetComponent<PlayerController>())
+            {
+                GetComponentInChildren<animationController>().animate("dying");
+                playerDeath();
             }
             else
             {
@@ -209,5 +195,34 @@ public class DestructableData : MonoBehaviour {
         }
     }
 
-	
+	public void playerDeath()
+    {
+        if (transform.tag == "Player")
+        {
+            
+            gameover.SetActive(true);
+            if (SceneManager.GetActiveScene().name.Contains("Arena"))
+            {
+                if (ScoreHandler.s != null)
+                {
+                    ScoreHandler.s.RecordScore();
+                    var scoreList = SaveHandler.s.GetScores();
+                    if (scoreList == null)
+                    {
+                        SaveHandler.s.InitializeScores();
+                        ScoreHandler.s.RecordScore();
+                        scoreList = SaveHandler.s.GetScores();
+                    }
+                    var s = "High Scores: ";
+                    for (int i = 0; i < scoreList.Count; i++)
+                    {
+                        s += scoreList[i] + " ";
+                    }
+                    Debug.Log(s);
+                }
+                
+            }
+            //GameObject pause = GetComponent<PlayerController>().pause;
+        }
+    }
 }
