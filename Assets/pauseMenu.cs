@@ -27,7 +27,7 @@ public class pauseMenu : MonoBehaviour {
 
     public void Exit()
     {
-        
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
         SceneManager.LoadScene("Main Menu");
         
 
@@ -37,6 +37,7 @@ public class pauseMenu : MonoBehaviour {
     {
         Timing.KillAllCoroutines();
         PoolManager.ResetPoolManager();
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
         SceneManager.LoadScene("MainLevel");
     }
 
@@ -49,7 +50,8 @@ public class pauseMenu : MonoBehaviour {
     {
         Timing.KillAllCoroutines();
         PoolManager.ResetPoolManager();
-        SceneManager.LoadScene("Arena");
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
+        SceneManager.LoadScene("ArenaPrep");
     }
 
     public void ExitGame()
