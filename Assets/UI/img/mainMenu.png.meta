@@ -1,0 +1,566 @@
+fileFormatVersion: 2
+guid: c09210e484d2e1f46bddb464df42e484
+timeCreated: 1493771366
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: aboutNiweiDescriptionA
+    21300002: aboutNiweiDescriptionB
+    21300004: aboutNiweiHuman
+    21300006: aboutNiweiImage
+    21300008: aboutNiweiLight
+    21300010: aboutNiweiStars
+    21300012: aboutNiweiText
+    21300014: binary1
+    21300016: binary2
+    21300018: binary3
+    21300020: buttonAboutNiwei
+    21300022: buttonArenaMode
+    21300024: buttonCredits
+    21300026: buttonNo
+    21300028: buttonQuitGame
+    21300030: buttonStartGame
+    21300032: buttonYes
+    21300034: introBodyGlow
+    21300036: introBodyScan
+    21300038: introHeadCorona
+    21300040: introHeadGlow0
+    21300042: introHeadGlow1
+    21300044: introHeadGlow2
+    21300046: introLight
+    21300048: introNiweiImage
+    21300050: introNiweiText
+    21300052: introOutline
+    21300054: introVgdaScroll
+    21300056: logoHead
+    21300058: logoOutbreak
+    21300060: logoStation
+    21300062: logoStripe
+    21300064: logoTriangle
+    21300066: logoVignette
+    21300068: promptQuit
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: aboutNiweiDescriptionA
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 631
+        width: 899
+        height: 671
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: aboutNiweiDescriptionB
+      rect:
+        serializedVersion: 2
+        x: 1265
+        y: 1336
+        width: 473
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: aboutNiweiHuman
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 215
+        width: 301
+        height: 414
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: aboutNiweiImage
+      rect:
+        serializedVersion: 2
+        x: 1434
+        y: 827
+        width: 438
+        height: 507
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: aboutNiweiLight
+      rect:
+        serializedVersion: 2
+        x: 902
+        y: 773
+        width: 530
+        height: 529
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: aboutNiweiStars
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1304
+        width: 1262
+        height: 743
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: aboutNiweiText
+      rect:
+        serializedVersion: 2
+        x: 1265
+        y: 1483
+        width: 637
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: binary1
+      rect:
+        serializedVersion: 2
+        x: 2009
+        y: 1634
+        width: 1
+        height: 1
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: binary2
+      rect:
+        serializedVersion: 2
+        x: 2005
+        y: 1633
+        width: 2
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: binary3
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 1632
+        width: 3
+        height: 3
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 1, z: 1, w: 1}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: buttonAboutNiwei
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 553
+        width: 89
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: buttonArenaMode
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 475
+        width: 89
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: buttonCredits
+      rect:
+        serializedVersion: 2
+        x: 1740
+        y: 1357
+        width: 109
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: buttonNo
+      rect:
+        serializedVersion: 2
+        x: 1962
+        y: 1601
+        width: 36
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: buttonQuitGame
+      rect:
+        serializedVersion: 2
+        x: 1929
+        y: 233
+        width: 75
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: buttonStartGame
+      rect:
+        serializedVersion: 2
+        x: 1517
+        y: 323
+        width: 84
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: buttonYes
+      rect:
+        serializedVersion: 2
+        x: 1962
+        y: 1637
+        width: 49
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: introBodyGlow
+      rect:
+        serializedVersion: 2
+        x: 1815
+        y: 1673
+        width: 188
+        height: 374
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: introBodyScan
+      rect:
+        serializedVersion: 2
+        x: 1815
+        y: 1601
+        width: 145
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: introHeadCorona
+      rect:
+        serializedVersion: 2
+        x: 1904
+        y: 1487
+        width: 112
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: introHeadGlow0
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 53
+        width: 177
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: introHeadGlow1
+      rect:
+        serializedVersion: 2
+        x: 973
+        y: 102
+        width: 190
+        height: 211
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: introHeadGlow2
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 315
+        width: 460
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: introLight
+      rect:
+        serializedVersion: 2
+        x: 1206
+        y: 90
+        width: 309
+        height: 309
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: introNiweiImage
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 122
+        width: 438
+        height: 507
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: introNiweiText
+      rect:
+        serializedVersion: 2
+        x: 1265
+        y: 1393
+        width: 638
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: introOutline
+      rect:
+        serializedVersion: 2
+        x: 1644
+        y: 311
+        width: 314
+        height: 478
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: introVgdaScroll
+      rect:
+        serializedVersion: 2
+        x: 902
+        y: 401
+        width: 740
+        height: 370
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: logoHead
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 28
+        width: 227
+        height: 285
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: logoOutbreak
+      rect:
+        serializedVersion: 2
+        x: 1517
+        y: 177
+        width: 412
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: logoStation
+      rect:
+        serializedVersion: 2
+        x: 1517
+        y: 221
+        width: 410
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: logoStripe
+      rect:
+        serializedVersion: 2
+        x: 1960
+        y: 765
+        width: 82
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 0, z: 1, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: logoTriangle
+      rect:
+        serializedVersion: 2
+        x: 1265
+        y: 1574
+        width: 548
+        height: 473
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: logoVignette
+      rect:
+        serializedVersion: 2
+        x: 2005
+        y: 1739
+        width: 3
+        height: 308
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 0, z: 1, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: promptQuit
+      rect:
+        serializedVersion: 2
+        x: 1434
+        y: 791
+        width: 466
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
