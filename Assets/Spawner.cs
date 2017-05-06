@@ -49,7 +49,7 @@ public class Spawner : MonoBehaviour {
         maxX = (transform.position.x + transform.localScale.x / 2) - 0.5f;
         maxZ = (transform.position.z + transform.localScale.z / 2) - 0.5f;
         minX = (transform.position.x - transform.localScale.x / 2) + 0.5f;
-        minZ = (transform.position.z - transform.localScale.z / 2) + 0.5f;
+        minZ = (transform.position.z - transform.localScale.z / 2) + 2.5f;
         numEnemies = 0;
         if(enemy2 == null)
         {
