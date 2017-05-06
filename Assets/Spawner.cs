@@ -46,10 +46,10 @@ public class Spawner : MonoBehaviour {
             NPCScript = NPC.GetComponent<RescueNPC>();
         }
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        maxX = transform.position.x + transform.localScale.x / 2;
-        maxZ = transform.position.z + transform.localScale.z / 2;
-        minX = transform.position.x - transform.localScale.x / 2;
-        minZ = transform.position.z - transform.localScale.z / 2;
+        maxX = (transform.position.x + transform.localScale.x / 2) - 0.5f;
+        maxZ = (transform.position.z + transform.localScale.z / 2) - 0.5f;
+        minX = (transform.position.x - transform.localScale.x / 2) + 0.5f;
+        minZ = (transform.position.z - transform.localScale.z / 2) + 0.5f;
         numEnemies = 0;
         if(enemy2 == null)
         {

@@ -147,6 +147,10 @@ public class DestructableData : MonoBehaviour {
                 }
                 //GameObject pause = GetComponent<PlayerController>().pause;
             }
+            if (GetComponent<SlowPlayer>())
+            {
+                GetComponent<SlowPlayer>().enabled = false;
+            }
             if (GetComponent<bullChase>())
             {
                 GetComponentInChildren<BullAnimationController>().Die();
