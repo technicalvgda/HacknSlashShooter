@@ -62,4 +62,46 @@ public class ToggleAugmentations : MonoBehaviour
 		}
 		
 	}
+
+    public void TogglePistol()
+    {
+        shotgun.GetComponent<KnockBackAugmentation>().enabled = false;
+        sniper.GetComponent<ComboBoostAugmentation>().enabled = false;
+        if (pistol.GetComponent<SurgicalPrecisionAugmentation>() == null)
+        {
+            pistol.AddComponent<SurgicalPrecisionAugmentation>();
+        }
+        else
+        {
+            pistol.GetComponent<SurgicalPrecisionAugmentation>().enabled = true;
+        }
+    }
+
+    public void ToggleShotgun()
+    {
+        pistol.GetComponent<SurgicalPrecisionAugmentation>().enabled = false;
+        sniper.GetComponent<ComboBoostAugmentation>().enabled = false;
+        if (shotgun.GetComponent<KnockBackAugmentation>() == null)
+        {
+            shotgun.AddComponent<KnockBackAugmentation>();
+        }
+        else
+        {
+            shotgun.GetComponent<KnockBackAugmentation>().enabled = true;
+        }
+    }
+
+    public void ToggleSniper()
+    {
+        pistol.GetComponent<SurgicalPrecisionAugmentation>().enabled = false;
+        shotgun.GetComponent<KnockBackAugmentation>().enabled = false;
+        if (sniper.GetComponent<ComboBoostAugmentation>() == null)
+        {
+            sniper.AddComponent<ComboBoostAugmentation>();
+        }
+        else
+        {
+            sniper.GetComponent<ComboBoostAugmentation>().enabled = true;
+        }
+    }
 }
