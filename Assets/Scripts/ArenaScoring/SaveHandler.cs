@@ -52,6 +52,9 @@ public class SaveHandler : MonoBehaviour
     /// <returns>If the input is a new high score</returns>
     public bool IsNewHighScore(int score, IList scoreList)
     {
+        if (scoreList == null)
+            return false;
+
         var result = false;
 
         for(int i = 0; i < scoreList.Count; i++)

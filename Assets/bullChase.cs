@@ -57,8 +57,11 @@ public class bullChase : MonoBehaviour
 			_movement.ChasePlayer ();
             _weapon.startShooting();
         }*/
-
-        if (!charging)
+        if (GetComponentInChildren<BullAnimationController>().dead)
+        {
+            GetComponent<NavMeshAgent>().speed = 0;
+        }
+        if (!charging && !GetComponentInChildren<BullAnimationController>().dead)
         {
             Vector3 Target = player.transform.position - transform.position;
             float step = Time.deltaTime;
@@ -79,14 +82,16 @@ public class bullChase : MonoBehaviour
                 }
             }
         }
-
+        
 
 
     }
 
     IEnumerator<float> Chase()
     {
+        GetComponentInChildren<BullAnimationController>().Run();
         yield return Timing.WaitForSeconds(runWait);
+        GetComponentInChildren<BullAnimationController>().StopRun();
         GetComponent<NavMeshAgent>().speed = 0;
         charging = false;
         hasCharged = true;

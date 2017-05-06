@@ -29,9 +29,13 @@ public class ScoreHandler : MonoBehaviour {
         var scoreList = SaveHandler.s.GetScores();
         var isNewHighScore = SaveHandler.s.IsNewHighScore(currentScore, scoreList);
 
+        if (scoreList == null)
+        {
+            return false;
+        }
+
         scoreList.Add(currentScore);
         SaveHandler.s.RecordScores(scoreList);
-        currentScore = 0;
 
         return isNewHighScore;
     }
@@ -43,5 +47,6 @@ public class ScoreHandler : MonoBehaviour {
     public void AddScore(int score)
     {
         currentScore += score;
+        Debug.Log("Current Score: " + currentScore);
     }
 }

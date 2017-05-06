@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class DestructableData : MonoBehaviour {
-    public int pointValue;
+    public int pointValue = 0;
     public float maxHealth;
     public Healthbar HPBar;
     public float health { get; private set; }
@@ -16,7 +16,7 @@ public class DestructableData : MonoBehaviour {
     private Renderer render;
 
     public GameObject gameover;
-
+    public Animator gameOverF;
 
     private bool isDamaged = false;
     private int regenTimer = 0;
@@ -32,7 +32,69 @@ public class DestructableData : MonoBehaviour {
             render = transform.GetComponent<Renderer>();
             _origColor = render.material.color;
         }
-	} 
+	}
+
+    public void TakeDamage(float damage, bool isPlayerDamage)
+    {
+        //DELETE this if statement later. Should not be finalized
+        if (transform.GetComponent<Renderer>() != null)
+        {
+            Timing.RunCoroutine(FlashColor());
+        }
+        health -= damage;
+        if (transform.tag == "Player" || transform.tag == "Objective")
+        {
+            HPBar.UpdateHealthBar(health / maxHealth);
+            regenTimer = 0;
+            if (!isDamaged)
+            {
+                isDamaged = true;
+                Timing.RunCoroutine(_regenHealth());
+            }
+        }
+        if (health <= 0)
+        {
+            if (GetComponent<WaveEnemy>() && !checkedKill)
+            {
+                checkedKill = true;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().numKilled++;
+                if (ScoreHandler.s != null && isPlayerDamage)
+                {
+                    Debug.Log("Adding Score");
+                    ScoreHandler.s.AddScore(pointValue);
+                }
+            }
+            if (transform.tag == "Player")
+            {
+                //gameover.SetActive(true);
+                gameOverF.SetTrigger("Enter");
+                if (SceneManager.GetActiveScene().name.Contains("Arena"))
+                {
+                    if (ScoreHandler.s != null)
+                    {
+                        ScoreHandler.s.RecordScore();
+                        var scoreList = SaveHandler.s.GetScores();
+                        if (scoreList == null)
+                        {
+                            Debug.Log("ScoreList == null");
+                            SaveHandler.s.InitializeScores();
+                            ScoreHandler.s.RecordScore();
+                            scoreList = SaveHandler.s.GetScores();
+                        }
+                        Debug.Log("scorelist: " + scoreList);
+                        var s = "High Scores: ";
+                        for (int i = 0; i < scoreList.Count; i++)
+                        {
+                            s += scoreList[i] + " ";
+                        }
+                        Debug.Log(s);
+                    }
+                }
+                //GameObject pause = GetComponent<PlayerController>().pause;
+            }
+            Destroy(transform.gameObject);
+        }
+    }
 
     public void TakeDamage(float damage)
     {
@@ -56,15 +118,13 @@ public class DestructableData : MonoBehaviour {
         {
             if (GetComponent<WaveEnemy>() && !checkedKill)
             {
-                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().numKilled++;
-                if (ScoreHandler.s != null)
-                {
-                    ScoreHandler.s.AddScore(pointValue);
-                }
                 checkedKill = true;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().numKilled++;
             }
             if (transform.tag == "Player")
             {
+                //gameover.SetActive(true);
+                gameOverF.SetTrigger("Enter");
                 if (SceneManager.GetActiveScene().name.Contains("Arena"))
                 {
                     if (ScoreHandler.s != null)
@@ -74,6 +134,7 @@ public class DestructableData : MonoBehaviour {
                         if (scoreList == null)
                         {
                             SaveHandler.s.InitializeScores();
+                            ScoreHandler.s.RecordScore();
                             scoreList = SaveHandler.s.GetScores();
                         }
                         var s = "High Scores: ";
@@ -85,10 +146,15 @@ public class DestructableData : MonoBehaviour {
                     }
                 }
                 //GameObject pause = GetComponent<PlayerController>().pause;
-                gameover.SetActive(true);
             }
-            Destroy(transform.gameObject);
-            
+            if (GetComponent<bullChase>())
+            {
+                GetComponentInChildren<BullAnimationController>().Die();
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 
