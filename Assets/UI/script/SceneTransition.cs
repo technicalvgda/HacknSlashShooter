@@ -25,6 +25,7 @@ public class SceneTransition : MonoBehaviour
 
     public void LoadSceneInstant(string scene)
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(scene);
     }
 

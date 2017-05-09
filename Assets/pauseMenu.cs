@@ -10,7 +10,7 @@ public class pauseMenu : MonoBehaviour {
 	void Start () {
         if (SceneManager.GetActiveScene().name.Contains("Arena") || SceneManager.GetActiveScene().name.Contains("Level") || SceneManager.GetActiveScene().name.Contains("Animation"))
         {
-            this.gameObject.SetActive(false);
+            //this.gameObject.SetActive(false);
         }
 	}
 	
@@ -27,11 +27,9 @@ public class pauseMenu : MonoBehaviour {
 
     public void Exit()
     {
-        Destroy(GameObject.FindGameObjectWithTag("Player"));
-        SceneManager.LoadScene("Main Menu");
-        
-
-    }
+        //Destroy(GameObject.FindGameObjectWithTag("Player"));
+        SceneManager.LoadScene("MainMenu");
+        }
 
     public void StartGame()
     {
