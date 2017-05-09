@@ -123,7 +123,7 @@ public class DestructableData : MonoBehaviour {
             }
             if (transform.tag == "Player")
             {
-                //gameover.SetActive(true);
+                gameover.SetActive(false);
                 gameOverF.SetTrigger("Enter");
                 if (SceneManager.GetActiveScene().name.Contains("Arena"))
                 {
