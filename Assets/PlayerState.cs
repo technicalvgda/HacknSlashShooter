@@ -5,15 +5,16 @@ using UnityEngine;
 public class PlayerState : MonoBehaviour {
 
 	private PlayerData localPlayerData = new PlayerData();
-
-
+		
 	void Start()
 	{
-		setPlayerData ();
+		setPlayerData (); // When player is instantiated, sets the player data from the global save 
 	}
 		
 	/// <summary>
 	/// Saves the player data to the global variable.
+	/// 
+	/// Call this before every scene change to retain player data
 	/// </summary>
 	public void saveToGlobalData()
 	{
@@ -23,6 +24,7 @@ public class PlayerState : MonoBehaviour {
 
 	/// <summary>
 	/// Sets the player data from the saved player data from the global variable.
+	/// 
 	/// </summary>
 	public void setPlayerData()
 	{

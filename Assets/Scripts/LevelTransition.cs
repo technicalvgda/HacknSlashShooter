@@ -42,7 +42,10 @@ public class LevelTransition : MonoBehaviour {
             PlayerPrefs.SetFloat("PlayerHP", _player.GetComponent<DestructableData>().health);
             PlayerPrefs.SetFloat("PlayerMaxHP", _player.GetComponent<DestructableData>().maxHealth);
             PlayerPrefs.SetFloat("PlayerFireRate", _player.GetComponent<PlayerController>().multiplier);
-			_player.GetComponent<PlayerState> ().saveToGlobalData ();
+
+			// Save player data to be transferred to next scene
+			_player.GetComponent<PlayerState> ().saveToGlobalData (); 
+
             Timing.RunCoroutine(LoadNextLevel(levelToLoad));
         }
     }

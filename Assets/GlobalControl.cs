@@ -5,10 +5,8 @@ using UnityEngine;
 public class GlobalControl : MonoBehaviour {
 
 	public static GlobalControl Instance;
-
-	private GameObject player;
-
 	public PlayerData savedPlayerData = new PlayerData();
+
 	void Awake ()   
 	{
 		// Makes sure there is only one instance of this class
@@ -25,13 +23,11 @@ public class GlobalControl : MonoBehaviour {
 		Debug.Log ("Should only happen once");
 	}
 
-	void Start(){
-		if ((player = GameObject.FindWithTag ("Player")) != null) {
-			Debug.Log ("Found player");
-
-		}
-	}
-		
+	/// <summary>
+	/// Initializes the player data.
+	/// 
+	/// Call this to reset saved player data. Like when a player starts a new game.
+	/// </summary>
 	void initializePlayerData()
 	{
 		savedPlayerData.speed = 5;
