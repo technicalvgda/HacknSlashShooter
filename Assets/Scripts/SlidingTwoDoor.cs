@@ -6,6 +6,7 @@ public class SlidingTwoDoor : MonoBehaviour, Door {
     public Transform left, right;
     public bool isLocked = false;
     public bool oneWay = false;
+    public bool open = false;
     public float openingWidth;
     private float _leftX, _rightX;
 	// Use this for initialization
@@ -18,11 +19,16 @@ public class SlidingTwoDoor : MonoBehaviour, Door {
         if (c.gameObject.tag == "Player" && !isLocked)
         {
             Open();
+            open = true;
         }
     }
 
     void OnTriggerExit(Collider c)
     {
+        if(open && isLocked)
+        {
+            Close();
+        }
         if (c.gameObject.tag == "Player" && !isLocked)
         {
             Close();
@@ -41,6 +47,7 @@ public class SlidingTwoDoor : MonoBehaviour, Door {
     //slides it back to where it used to be
     public void Close()
     {
+        open = false;
         left.DOLocalMoveX(_leftX, 2.0f, false);
         right.DOLocalMoveX(_rightX, 2.0f, false);
     }

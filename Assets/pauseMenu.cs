@@ -27,16 +27,15 @@ public class pauseMenu : MonoBehaviour {
 
     public void Exit()
     {
-        
-        SceneManager.LoadScene("Main Menu");
-        
-
-    }
+        //Destroy(GameObject.FindGameObjectWithTag("Player"));
+        SceneManager.LoadScene("MainMenu");
+        }
 
     public void StartGame()
     {
         Timing.KillAllCoroutines();
         PoolManager.ResetPoolManager();
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
         SceneManager.LoadScene("MainLevel");
     }
 
@@ -49,7 +48,8 @@ public class pauseMenu : MonoBehaviour {
     {
         Timing.KillAllCoroutines();
         PoolManager.ResetPoolManager();
-        SceneManager.LoadScene("Arena");
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
+        SceneManager.LoadScene("ArenaPrep");
     }
 
     public void ExitGame()

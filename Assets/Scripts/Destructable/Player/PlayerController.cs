@@ -48,7 +48,10 @@ public class PlayerController : MonoBehaviour
 	void Update () {
         Vector3 mousePos = GetMousePos();
         SpeedMultiplier = _playerData.health / _playerData.maxHealth;
-
+        if (Input.GetKey(KeyCode.P))
+        {
+            GetComponentInChildren<animationController>().animate("gunplay");
+        }
 		
 			AngleUpdate(mousePos);
 			Movement();
@@ -68,6 +71,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButton("Fire1"))
 			{
 				_playerWeapon.equipped.ShootInput(GetAngle(transform.position, mousePos));
+                GetComponentInChildren<animationController>().shoot();
 			}
 		
 		MenuControls();

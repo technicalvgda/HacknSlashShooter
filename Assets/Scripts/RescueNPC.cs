@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RescueNPC : MonoBehaviour {
     [SerializeField]
@@ -10,6 +11,10 @@ public class RescueNPC : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rescued = false;
+        if(SceneManager.GetActiveScene().name == "ArenaPrep")
+        {
+            rescued = true;
+        }
 	}
 	
 	// Update is called once per frame
@@ -36,7 +41,7 @@ public class RescueNPC : MonoBehaviour {
         //Some UI stuff with text popup talking to the player goes here
         if(c.gameObject.tag == "Player")
         {
-            if (Input.GetKeyDown(KeyCode.E) && rescued )
+            if (Input.GetKeyDown(KeyCode.Space) && rescued )
             {
                 if (!upgrade1.Equals(null) && !upgrade2.Equals(null))
                 {

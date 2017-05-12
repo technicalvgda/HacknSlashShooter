@@ -123,7 +123,7 @@ public class DestructableData : MonoBehaviour {
             }
             if (transform.tag == "Player")
             {
-                //gameover.SetActive(true);
+                gameover.SetActive(false);
                 gameOverF.SetTrigger("Enter");
                 if (SceneManager.GetActiveScene().name.Contains("Arena"))
                 {
@@ -146,6 +146,10 @@ public class DestructableData : MonoBehaviour {
                     }
                 }
                 //GameObject pause = GetComponent<PlayerController>().pause;
+            }
+            if (GetComponent<SlowPlayer>())
+            {
+                GetComponent<SlowPlayer>().enabled = false;
             }
             if (GetComponent<bullChase>())
             {
