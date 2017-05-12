@@ -71,7 +71,7 @@ public class LaserBall : MonoBehaviour {
             laserCool = true;
             Timing.RunCoroutine(CoolDown(laserCoolTime, powertype.laser));
         }
-        if (Input.GetKeyDown(KeyCode.Space) && !GameObject.Find("DEcoy(Clone)") && acquired.Contains(powertype.decoy) && !decoyCool)
+        if (Input.GetButton("Fire2") && !GameObject.Find("DEcoy(Clone)") && acquired.Contains(powertype.decoy) && !decoyCool)
         {
             mousePos = PlayerController.GetMousePos();
 
