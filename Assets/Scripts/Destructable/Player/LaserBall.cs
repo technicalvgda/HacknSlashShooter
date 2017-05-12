@@ -65,13 +65,13 @@ public class LaserBall : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.F) && acquired.Contains(powertype.laser) && !laserCool)
+        if (Input.GetButton("Fire2") && acquired.Contains(powertype.laser) && !laserCool)
         {
             Fire();
             laserCool = true;
             Timing.RunCoroutine(CoolDown(laserCoolTime, powertype.laser));
         }
-        if (Input.GetButton("Fire2") && !GameObject.Find("DEcoy(Clone)") && acquired.Contains(powertype.decoy) && !decoyCool)
+        if (Input.GetKeyDown(KeyCode.Space) && !GameObject.Find("DEcoy(Clone)") && acquired.Contains(powertype.decoy) && !decoyCool)
         {
             mousePos = PlayerController.GetMousePos();
 

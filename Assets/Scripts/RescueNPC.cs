@@ -41,7 +41,7 @@ public class RescueNPC : MonoBehaviour {
         //Some UI stuff with text popup talking to the player goes here
         if(c.gameObject.tag == "Player")
         {
-            if (Input.GetKeyDown(KeyCode.Space) && rescued )
+            if (Input.GetKeyDown(KeyCode.E) && rescued )
             {
                 if (!upgrade1.Equals(null) && !upgrade2.Equals(null))
                 {
