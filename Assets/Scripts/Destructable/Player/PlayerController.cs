@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public int numKilled;
 
 	CharacterController cc;
+
 	// Use this for initialization
 	void Start () {
         //sound
@@ -186,6 +187,10 @@ public class PlayerController : MonoBehaviour
 	{
 		AddImpact (transform.position - GetMousePos (), knockBackForce);
 		//Debug.Log ("In player method knockback");
+	}
+
+
+	void loadPlayer(){
 	}
 
 }
