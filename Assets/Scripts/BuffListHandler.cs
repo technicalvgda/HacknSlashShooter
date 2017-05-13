@@ -67,7 +67,7 @@ public class BuffListHandler : MonoBehaviour {
     void OnTriggerStay(Collider c)
     {
         if (c.gameObject.tag == "Player") {
-            if (Input.GetKeyDown(KeyCode.Space)){
+            if (Input.GetKeyDown(KeyCode.E)){
                 Debug.Log("interacting");
                 //playerHP.HealDamage(9999.0f); //uncomment this to heal the player to full
                 applyBuff();
