@@ -24,7 +24,7 @@ public class WeaponManager : MonoBehaviour {
 			SwitchWeapon (currentWeapon);
 		}
 		// Switch Weapons with Q and E
-		if (Input.GetButtonDown ("SwitchWeaponUp")) 
+		/*if (Input.GetButtonDown ("SwitchWeaponUp")) 
 		{
 			currentWeapon = Mod((currentWeapon - 1), weapons.Length);
 			SwitchWeapon (currentWeapon);
@@ -35,7 +35,7 @@ public class WeaponManager : MonoBehaviour {
 			currentWeapon = Mod((currentWeapon + 1), weapons.Length);
 			SwitchWeapon (currentWeapon);
 
-		}
+		}*/
 	}
 		
 	void SwitchWeapon(int index){

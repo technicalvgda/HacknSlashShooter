@@ -10,6 +10,9 @@ public class BuffListHandler : MonoBehaviour {
         firerate,
         decoy,
         laser,
+        comboaug,
+        kbaug,
+        precisionaug,
     }
 
     public Buffs buffs;
@@ -17,17 +20,9 @@ public class BuffListHandler : MonoBehaviour {
     private GameObject _player;
     private DestructableData _playerHP;
     public GameObject nameplate;
-    /// <summary>
-    /// Handles what stats increase what variables by whichever amount
-    /// </summary>
-    [System.Serializable]
-    public class BuffStats
-    {
-        public float healthIncrease = 15.0f; //Flat health increase
-        public float fireRateIncreasePercent = 0.25f; // percent our firerate increases by
-    }
-
-    public BuffStats buffList;
+    public GameObject augtext;
+    public GameObject pwrtext;
+    public GameObject descripttext;
 
     void Start() {
         _player = GameObject.FindGameObjectWithTag("Player").gameObject;
@@ -41,12 +36,27 @@ public class BuffListHandler : MonoBehaviour {
         if (c.gameObject.tag == "Player")
         {
             nameplate.SetActive(true);
+            descripttext.GetComponent<TextSetting>().SetText(buffs);
+            descripttext.SetActive(true);
+            if (buffs == Buffs.comboaug || buffs == Buffs.kbaug || buffs == Buffs.precisionaug)
+            {
+                augtext.SetActive(true);
+            }
+            else if(buffs == Buffs.laser || buffs == Buffs.decoy)
+            {
+                pwrtext.SetActive(true);
+
+            }
+
         }
     }
     void OnTriggerExit(Collider c){
         if (c.gameObject.tag == "Player")
         {
             nameplate.SetActive(false);
+            augtext.SetActive(false);
+            pwrtext.SetActive(false);
+            descripttext.SetActive(false);
         }
     }
     /// <summary>
@@ -57,7 +67,7 @@ public class BuffListHandler : MonoBehaviour {
     void OnTriggerStay(Collider c)
     {
         if (c.gameObject.tag == "Player") {
-            if (Input.GetKeyDown(KeyCode.Space)){
+            if (Input.GetKeyDown(KeyCode.E)){
                 Debug.Log("interacting");
                 //playerHP.HealDamage(9999.0f); //uncomment this to heal the player to full
                 applyBuff();
@@ -71,20 +81,25 @@ public class BuffListHandler : MonoBehaviour {
     /// </summary>
     void applyBuff()
     {
+        augtext.SetActive(false);
+        pwrtext.SetActive(false);
+        descripttext.SetActive(false);
         switch (buffs)
         {
-            case Buffs.health:
-                _playerHP.maxHealth += buffList.healthIncrease;
-                _playerHP.HealDamage(buffList.healthIncrease);
-                break;
-            case Buffs.firerate:
-                _player.GetComponent<PlayerController>().IncreaseStats(buffList.fireRateIncreasePercent);
-                break;
             case Buffs.decoy:
                 _player.GetComponent<LaserBall>().acquirePower(LaserBall.powertype.decoy);
                 break;
             case Buffs.laser:
                 _player.GetComponent<LaserBall>().acquirePower(LaserBall.powertype.laser);
+                break;
+            case Buffs.comboaug:
+                _player.GetComponent<ToggleAugmentations>().ToggleSniper();
+                break;
+            case Buffs.kbaug:
+                _player.GetComponent<ToggleAugmentations>().ToggleShotgun();
+                break;
+            case Buffs.precisionaug:
+                _player.GetComponent<ToggleAugmentations>().TogglePistol();
                 break;
             default:
                 break;

@@ -23,4 +23,10 @@ public class _Pause : MonoBehaviour {
             pauseButtons.SetTrigger("Enter");
         }
 	}
+
+    public void unPause()
+    {
+        Time.timeScale = 1;
+        pauseMenu.SetActive(false);
+    }
 }

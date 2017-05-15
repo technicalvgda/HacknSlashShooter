@@ -65,7 +65,7 @@ public class LaserBall : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.F) && acquired.Contains(powertype.laser) && !laserCool)
+        if (Input.GetButton("Fire2") && acquired.Contains(powertype.laser) && !laserCool)
         {
             Fire();
             laserCool = true;
