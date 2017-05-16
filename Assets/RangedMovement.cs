@@ -33,6 +33,7 @@ public class RangedMovement : MonoBehaviour {
 
             if (Physics.SphereCast(_potentialLoc, 1f, Vector3.down, out _hit))//spherecasting to make sure we don't clip into walls
             {
+                //Debug.Log(_hit.transform.gameObject.name);
                 if (_hit.transform.gameObject.tag == "Ground") //we will land on the ground
                 {
                     Vector3 newloc = new Vector3(_potentialLoc.x, 0.33f, _potentialLoc.z);

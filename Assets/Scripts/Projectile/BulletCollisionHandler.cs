@@ -56,7 +56,8 @@ public class BulletCollisionHandler : MonoBehaviour {
 		else if(col.GetComponent<Spawner>() == null &&
             col.GetComponent<Projectile>() == null &&
             col.GetComponent<SlidingTwoDoor>() == null &&
-            col.GetComponent<RescueNPC>() == null)
+            col.GetComponent<RescueNPC>() == null &&
+            !col.name.Contains("colliderI"))
 		{
             //source.PlayOneShot(bulletImpactWall);
 
