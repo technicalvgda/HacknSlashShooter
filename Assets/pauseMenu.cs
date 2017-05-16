@@ -5,20 +5,20 @@ using UnityEngine.SceneManagement;
 using MovementEffects;
 
 public class pauseMenu : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+    private AudioSource buttonClick;
+    // Use this for initialization
+    void Start () {
         if (SceneManager.GetActiveScene().name.Contains("Arena") || SceneManager.GetActiveScene().name.Contains("Level") || SceneManager.GetActiveScene().name.Contains("Animation"))
         {
             this.gameObject.SetActive(false);
         }
+        buttonClick = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
-
     public void Resume()
     {
         Time.timeScale = 1;

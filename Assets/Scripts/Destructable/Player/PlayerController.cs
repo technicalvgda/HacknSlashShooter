@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 
     //sound
     public AudioClip footstepSound;
-    private AudioSource source;
+    private AudioSource walkF, walkL, walkR, walkB;
     //endsound
 
     public float Speed;
@@ -34,7 +34,10 @@ public class PlayerController : MonoBehaviour
 	// Use this for initialization
 	void Start () {
         //sound
-        source = GetComponent<AudioSource>();
+        walkF = GetComponent<AudioSource>();
+        walkL = GetComponent<AudioSource>();
+        walkR = GetComponent<AudioSource>();
+        walkB = GetComponent<AudioSource>();
 
         //endsound
         Time.timeScale = 1;
@@ -54,26 +57,50 @@ public class PlayerController : MonoBehaviour
             GetComponentInChildren<animationController>().animate("gunplay");
         }
 		
-			AngleUpdate(mousePos);
-			Movement();
-            //sound
-            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+	    AngleUpdate(mousePos);
+		Movement();
+        //sound
+        if (Input.GetKey(KeyCode.W))
+        {
+            if (!walkF.isPlaying)
             {
-                if (!source.isPlaying)
-                {
-                    source.Play();
-                }
+                walkF.Play();
             }
-            else
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            if (!walkR.isPlaying)
             {
-                source.Stop();
-                //endsound
+                walkR.Play();
             }
-            if (Input.GetButton("Fire1"))
-			{
-				_playerWeapon.equipped.ShootInput(GetAngle(transform.position, mousePos));
-                GetComponentInChildren<animationController>().shoot();
-			}
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            if (!walkL.isPlaying)
+            {
+                walkL.Play();
+            }
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            if (!walkB.isPlaying)
+            {
+                walkB.Play();
+            }
+        }
+        else
+        {
+            walkF.Stop();
+            walkR.Stop();
+            walkB.Stop();
+            walkL.Stop();
+            //endsound
+        }
+        if (Input.GetButton("Fire1"))
+        {
+            _playerWeapon.equipped.ShootInput(GetAngle(transform.position, mousePos));
+            GetComponentInChildren<animationController>().shoot();
+        }
 		
 		MenuControls();
 	}
