@@ -64,7 +64,7 @@ public class bullChase : MonoBehaviour
         if (!charging && !GetComponentInChildren<BullAnimationController>().dead)
         {
             Vector3 Target = player.transform.position - transform.position;
-            float step = Time.deltaTime;
+            float step = Time.deltaTime * 2.5f;
             Vector3 newDir = Vector3.RotateTowards(transform.forward, Target, step, 0);
             transform.rotation = Quaternion.LookRotation(newDir);
             //Physics.Raycast(transform.position - new Vector3(0,0.5f,0), transform.forward, out hit, 100);
