@@ -11,7 +11,10 @@ public class DestructableData : MonoBehaviour {
     public float health { get; private set; }
     public float hitFlashDelay = 0.1f;
     public Color color = Color.red;
+    public AudioClip hurt;
+    public AudioClip killed;
 
+    private AudioSource hurtSound;
     private Color _origColor;
     private Renderer render;
 
@@ -32,6 +35,10 @@ public class DestructableData : MonoBehaviour {
             render = transform.GetComponent<Renderer>();
             _origColor = render.material.color;
         }
+        if (GetComponent<AudioSource>() != null)
+        {
+            hurtSound = gameObject.GetComponent<AudioSource>();
+        }
 	}
 
     public void TakeDamage(float damage, bool isPlayerDamage)
@@ -42,6 +49,11 @@ public class DestructableData : MonoBehaviour {
             Timing.RunCoroutine(FlashColor());
         }
         health -= damage;
+        if (hurt != null)
+        {
+            hurtSound.clip = hurt;
+            hurtSound.Play();
+        }
         if (transform.tag == "Player" || transform.tag == "Objective")
         {
             HPBar.UpdateHealthBar(health / maxHealth);
@@ -54,6 +66,7 @@ public class DestructableData : MonoBehaviour {
         }
         if (health <= 0)
         {
+            hurtSound.PlayOneShot(killed, 0.9f);
             if (GetComponent<WaveEnemy>() && !checkedKill)
             {
                 checkedKill = true;
@@ -104,6 +117,10 @@ public class DestructableData : MonoBehaviour {
             Timing.RunCoroutine(FlashColor());
         }
         health -= damage;
+        if (hurt != null && health > 0)
+        {
+            hurtSound.PlayOneShot(hurt);
+        }
         if (transform.tag == "Player" || transform.tag == "Objective")
         {
             HPBar.UpdateHealthBar(health / maxHealth);
@@ -116,8 +133,10 @@ public class DestructableData : MonoBehaviour {
         }
         if(health <= 0)
         {
+            hurtSound.PlayOneShot(killed);
             if (GetComponent<WaveEnemy>() && !checkedKill)
             {
+
                 checkedKill = true;
                 GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().numKilled++;
             }
