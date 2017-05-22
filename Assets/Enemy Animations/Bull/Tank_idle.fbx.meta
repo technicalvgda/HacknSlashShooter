@@ -1,0 +1,310 @@
+fileFormatVersion: 2
+guid: f3056ccfb1cdfb44d81f00601d68cd5a
+timeCreated: 1495269418
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Back_end
+    100002: Back_spine
+    100004: Butt_ctrl
+    100006: Chair
+    100008: Eyes
+    100010: Front_spine
+    100012: Head
+    100014: Head_ctrl
+    100016: Head_end
+    100018: L_back_ankle
+    100020: L_back_ball
+    100022: L_back_foot_ctrl
+    100024: L_back_knee
+    100026: L_back_knee2
+    100028: L_back_toe
+    100030: L_backleg
+    100032: L_feet_ctrl
+    100034: L_foot_ankle_ctrl
+    100036: L_front_elbow
+    100038: L_front_finger1
+    100040: L_front_finger2
+    100042: L_front_foot_ctrl
+    100044: L_front_palm
+    100046: L_front_wrist
+    100048: L_frontleg
+    100050: Mug
+    100052: Neck
+    100054: Neck_ctrl
+    100056: Placement_ctrl
+    100058: R_back_ankle
+    100060: R_back_ball
+    100062: R_back_foot_ctrl
+    100064: R_back_knee
+    100066: R_back_knee2
+    100068: R_back_toe
+    100070: R_backleg
+    100072: R_feet_ctrl
+    100074: R_foot_ankle_ctrl
+    100076: R_front_elbow
+    100078: R_front_finger1
+    100080: R_front_finger2
+    100082: R_front_foot_ctrl
+    100084: R_front_palm
+    100086: R_front_wrist
+    100088: R_frontleg
+    100090: Root
+    100092: Root_ctrl
+    100094: Spine1_ctrl
+    100096: //RootNode
+    400000: Back_end
+    400002: Back_spine
+    400004: Butt_ctrl
+    400006: Chair
+    400008: Eyes
+    400010: Front_spine
+    400012: Head
+    400014: Head_ctrl
+    400016: Head_end
+    400018: L_back_ankle
+    400020: L_back_ball
+    400022: L_back_foot_ctrl
+    400024: L_back_knee
+    400026: L_back_knee2
+    400028: L_back_toe
+    400030: L_backleg
+    400032: L_feet_ctrl
+    400034: L_foot_ankle_ctrl
+    400036: L_front_elbow
+    400038: L_front_finger1
+    400040: L_front_finger2
+    400042: L_front_foot_ctrl
+    400044: L_front_palm
+    400046: L_front_wrist
+    400048: L_frontleg
+    400050: Mug
+    400052: Neck
+    400054: Neck_ctrl
+    400056: Placement_ctrl
+    400058: R_back_ankle
+    400060: R_back_ball
+    400062: R_back_foot_ctrl
+    400064: R_back_knee
+    400066: R_back_knee2
+    400068: R_back_toe
+    400070: R_backleg
+    400072: R_feet_ctrl
+    400074: R_foot_ankle_ctrl
+    400076: R_front_elbow
+    400078: R_front_finger1
+    400080: R_front_finger2
+    400082: R_front_foot_ctrl
+    400084: R_front_palm
+    400086: R_front_wrist
+    400088: R_frontleg
+    400090: Root
+    400092: Root_ctrl
+    400094: Spine1_ctrl
+    400096: //RootNode
+    2300000: Chair
+    2300002: Eyes
+    2300004: Mug
+    3300000: Chair
+    3300002: Eyes
+    3300004: Mug
+    4300000: Eyes
+    4300002: Mug
+    4300004: Chair
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 29
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Placement_ctrl
+        weight: 1
+      - path: Placement_ctrl/L_feet_ctrl
+        weight: 1
+      - path: Placement_ctrl/L_feet_ctrl/L_front_foot_ctrl
+        weight: 1
+      - path: Placement_ctrl/L_foot_ankle_ctrl
+        weight: 1
+      - path: Placement_ctrl/L_foot_ankle_ctrl/L_back_foot_ctrl
+        weight: 1
+      - path: Placement_ctrl/R_feet_ctrl
+        weight: 1
+      - path: Placement_ctrl/R_feet_ctrl/R_front_foot_ctrl
+        weight: 1
+      - path: Placement_ctrl/R_foot_ankle_ctrl
+        weight: 1
+      - path: Placement_ctrl/R_foot_ankle_ctrl/R_back_foot_ctrl
+        weight: 1
+      - path: Placement_ctrl/Root_ctrl
+        weight: 1
+      - path: Placement_ctrl/Root_ctrl/Butt_ctrl
+        weight: 1
+      - path: Placement_ctrl/Root_ctrl/Spine1_ctrl
+        weight: 1
+      - path: Placement_ctrl/Root_ctrl/Spine1_ctrl/Neck_ctrl
+        weight: 1
+      - path: Placement_ctrl/Root_ctrl/Spine1_ctrl/Neck_ctrl/Head_ctrl
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Back_spine
+        weight: 1
+      - path: Root/Back_spine/Back_end
+        weight: 1
+      - path: Root/Back_spine/Chair
+        weight: 1
+      - path: Root/Back_spine/L_backleg
+        weight: 1
+      - path: Root/Back_spine/L_backleg/L_back_knee
+        weight: 1
+      - path: Root/Back_spine/L_backleg/L_back_knee/L_back_knee2
+        weight: 1
+      - path: Root/Back_spine/L_backleg/L_back_knee/L_back_knee2/L_back_ankle
+        weight: 1
+      - path: Root/Back_spine/L_backleg/L_back_knee/L_back_knee2/L_back_ankle/L_back_ball
+        weight: 1
+      - path: Root/Back_spine/L_backleg/L_back_knee/L_back_knee2/L_back_ankle/L_back_ball/L_back_toe
+        weight: 1
+      - path: Root/Back_spine/R_backleg
+        weight: 1
+      - path: Root/Back_spine/R_backleg/R_back_knee
+        weight: 1
+      - path: Root/Back_spine/R_backleg/R_back_knee/R_back_knee2
+        weight: 1
+      - path: Root/Back_spine/R_backleg/R_back_knee/R_back_knee2/R_back_ankle
+        weight: 1
+      - path: Root/Back_spine/R_backleg/R_back_knee/R_back_knee2/R_back_ankle/R_back_ball
+        weight: 1
+      - path: Root/Back_spine/R_backleg/R_back_knee/R_back_knee2/R_back_ankle/R_back_ball/R_back_toe
+        weight: 1
+      - path: Root/Front_spine
+        weight: 1
+      - path: Root/Front_spine/L_frontleg
+        weight: 1
+      - path: Root/Front_spine/L_frontleg/L_front_elbow
+        weight: 1
+      - path: Root/Front_spine/L_frontleg/L_front_elbow/L_front_wrist
+        weight: 1
+      - path: Root/Front_spine/L_frontleg/L_front_elbow/L_front_wrist/L_front_palm
+        weight: 1
+      - path: Root/Front_spine/L_frontleg/L_front_elbow/L_front_wrist/L_front_palm/L_front_finger1
+        weight: 1
+      - path: Root/Front_spine/L_frontleg/L_front_elbow/L_front_wrist/L_front_palm/L_front_finger2
+        weight: 1
+      - path: Root/Front_spine/Neck
+        weight: 1
+      - path: Root/Front_spine/Neck/Head
+        weight: 1
+      - path: Root/Front_spine/Neck/Head/Head_end
+        weight: 1
+      - path: Root/Front_spine/Neck/Head/Head_end/Eyes
+        weight: 1
+      - path: Root/Front_spine/Neck/Mug
+        weight: 1
+      - path: Root/Front_spine/R_frontleg
+        weight: 1
+      - path: Root/Front_spine/R_frontleg/R_front_elbow
+        weight: 1
+      - path: Root/Front_spine/R_frontleg/R_front_elbow/R_front_wrist
+        weight: 1
+      - path: Root/Front_spine/R_frontleg/R_front_elbow/R_front_wrist/R_front_palm
+        weight: 1
+      - path: Root/Front_spine/R_frontleg/R_front_elbow/R_front_wrist/R_front_palm/R_front_finger1
+        weight: 1
+      - path: Root/Front_spine/R_frontleg/R_front_elbow/R_front_wrist/R_front_palm/R_front_finger2
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
