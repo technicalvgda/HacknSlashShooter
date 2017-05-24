@@ -119,7 +119,7 @@ public class DestructableData : MonoBehaviour {
         health -= damage;
         if (hurt != null && health > 0)
         {
-            hurtSound.PlayOneShot(hurt);
+            //hurtSound.PlayOneShot(hurt);
         }
         if (transform.tag == "Player" || transform.tag == "Objective")
         {
@@ -133,7 +133,7 @@ public class DestructableData : MonoBehaviour {
         }
         if(health <= 0)
         {
-            hurtSound.PlayOneShot(killed);
+            //hurtSound.PlayOneShot(killed);
             if (GetComponent<WaveEnemy>() && !checkedKill)
             {
 
