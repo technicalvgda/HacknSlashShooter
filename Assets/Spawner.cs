@@ -273,7 +273,7 @@ public class Spawner : MonoBehaviour {
         {
             if(NPC != null)
             {
-                NPCScript.rescued = true;
+                NPCScript.SetRescue(true);
                 finished = true;
             }
             door1.GetComponentInChildren<SlidingTwoDoor>().isLocked = false;
