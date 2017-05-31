@@ -7,6 +7,7 @@ public class RescueNPC : MonoBehaviour {
     [SerializeField]
     private GameObject upgrade1, upgrade2;
     public bool rescued;
+    public BounceUpDown marker;
     public GameObject objectToUnlock; //a gate, path, platform, door, whatever is blocking you from the level end, if applicable
 	// Use this for initialization
 	void Start () {
@@ -32,6 +33,17 @@ public class RescueNPC : MonoBehaviour {
         }
 
     }
+
+    public void SetRescue(bool r)
+    {
+        rescued = r;
+        if (rescued)
+        {
+            marker.gameObject.SetActive(true);
+            marker.SetOn();
+        }
+    }
+
     /// <summary>
     /// When the player enters and presses E, they will cue the NPC to say something and present two options.
     /// </summary>
@@ -46,6 +58,7 @@ public class RescueNPC : MonoBehaviour {
                 if (!upgrade1.Equals(null) && !upgrade2.Equals(null))
                 {
                     //thanks for saving me, take this!
+                    marker.gameObject.SetActive(false);
                     upgrade1.SetActive(true);
                     upgrade2.SetActive(true);
                 }
