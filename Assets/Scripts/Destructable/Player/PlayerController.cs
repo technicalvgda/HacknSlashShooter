@@ -144,8 +144,8 @@ public class PlayerController : MonoBehaviour
 
     void Movement()
 	{
-		float xAxis = Input.GetAxis("Horizontal");
-		float yAxis = Input.GetAxis("Vertical");
+		float xAxis = Input.GetAxisRaw("Horizontal");
+		float yAxis = Input.GetAxisRaw("Vertical");
 		Vector3 displacement = new Vector3(xAxis, 0, yAxis).normalized * Speed * SpeedMultiplier * boostSpeedMultiplier;
         displacement.y -= 100f * Time.deltaTime;
         cc = cc == null ? GetComponent<CharacterController>() : cc;
@@ -214,10 +214,6 @@ public class PlayerController : MonoBehaviour
 	{
 		AddImpact (transform.position - GetMousePos (), knockBackForce);
 		//Debug.Log ("In player method knockback");
-	}
-
-
-	void loadPlayer(){
 	}
 
 }
