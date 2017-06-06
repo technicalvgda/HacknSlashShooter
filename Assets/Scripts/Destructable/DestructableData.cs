@@ -76,6 +76,7 @@ public class DestructableData : MonoBehaviour {
                     Debug.Log("Adding Score");
                     ScoreHandler.s.AddScore(pointValue);
                 }
+                Destroy(transform.gameObject);
             }
             if (transform.tag == "Player")
             {
@@ -104,8 +105,9 @@ public class DestructableData : MonoBehaviour {
                     }
                 }
                 //GameObject pause = GetComponent<PlayerController>().pause;
+                Destroy(transform.gameObject);
             }
-            Destroy(transform.gameObject);
+            
         }
     }
 
@@ -131,6 +133,7 @@ public class DestructableData : MonoBehaviour {
                 Timing.RunCoroutine(_regenHealth());
             }
         }
+
         if(health <= 0)
         {
             //hurtSound.PlayOneShot(killed);
@@ -139,6 +142,12 @@ public class DestructableData : MonoBehaviour {
 
                 checkedKill = true;
                 GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().numKilled++;
+                Destroy(this.gameObject);
+            }
+            if (transform.tag == "Objective")
+            {
+                gameOverF.SetTrigger("isDying");
+                Destroy(transform.gameObject, 5.0f);
             }
             if (transform.tag == "Player")
             {
@@ -165,17 +174,16 @@ public class DestructableData : MonoBehaviour {
                     }
                 }
                 //GameObject pause = GetComponent<PlayerController>().pause;
+                Destroy(this.gameObject);
             }
             if (GetComponent<SlowPlayer>())
             {
                 GetComponent<SlowPlayer>().enabled = false;
+                Destroy(this.gameObject);
             }
             if (GetComponent<bullChase>())
             {
                 GetComponentInChildren<BullAnimationController>().Die();
-            }
-            else
-            {
                 Destroy(this.gameObject);
             }
         }
